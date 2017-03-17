@@ -1,0 +1,85 @@
+<div class="mengban"></div>
+<div class="dh_tc">
+    <div class="dh_tc_search mg2"><input name="" type="search" class="dh_tc_search_bd1 xi21 f" placeholder="搜素运动"></div>
+    <a href="/userInfo.html">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="45" height="45" /></div>
+            <div class="dh_tc_navr f xi25 bai">个人主页</div>
+        </div>
+    </a>
+    <a href="/index.html">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_07.png" /></div>
+            <div class="dh_tc_navr f xi25 bai">运动广场</div>
+        </div>
+    </a>
+    <a href="/createactivity.html">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_10.png" /></div>
+            <div class="dh_tc_navr f xi25 bai">发起运动</div>
+        </div>
+    </a>
+    <a href="/activity-profile.html">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_12.png" /></div>
+            <div class="dh_tc_navr f xi25 bai">我的运动</div>
+        </div>
+    </a>
+    <a href="club-list.html">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_14.png" /></div>
+            <div class="dh_tc_navr f xi25 bai">体育俱乐部</div>
+        </div>
+    </a>
+    <a href="club-profile.html">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_16.png" /></div>
+            <div class="dh_tc_navr f xi25 bai">我的体育俱乐部</div>
+        </div>
+    </a>
+    <a href="#">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_18.png" /></div>
+            <div class="dh_tc_navr f xi25 bai">运动补给站</div>
+        </div>
+    </a>
+    <a href="#">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_20.png" /></div>
+            <div class="dh_tc_navr f xi25 bai">设&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置</div>
+        </div>
+    </a>
+    <div class="dh_tc_zw mg2"></div>
+    <a href="/logout.html" id="login_href">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_22.png" /></div>
+            <div class="dh_tc_navr f xi25 bai" id="login_text">退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出</div>
+        </div>
+    </a>
+    <div class="dh_tc_logo mg2 cen"><img align="absmiddle" src="/static/images/menu_25.png" /></div>
+</div>
+<script>
+    $(".menu").click(function(){
+		$(".dh_tc").stop().animate({"left":"0px"},400);
+		$(".mengban").stop().fadeIn();
+    });
+    $(".mengban").click(function(){
+            $(".dh_tc").stop().animate({"left":"-520px"},400);
+            $(".mengban").stop().fadeOut();
+    });
+    $(document).ready(function() {
+        $.ajax({
+            type: 'POST',
+            url: base_url + 'api/iflogin',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({}),
+            dataType: 'json',
+            success: function (data) {
+                if (!data['succeed'] || !data['res']) {
+                    $('#login_href').attr('href', '/login.html');
+                    $('#login_text').html('登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录');
+                }
+            }
+        })
+    })
+</script>

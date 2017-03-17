@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no"/>
+    <title></title>
+    <link href="/static/css/css.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+    <script src="/static/js/createactivity_control.js"></script>
+</head>
+
+<body>
+<div class="menu"><img align="absmiddle" src="/static/images/activity-club-V2_02.png"/></div>
+<div id="nav"></div>
+<div id="hidden_wrapper">
+    <div id="submit_info" v-cloak>
+        <div class="clubv2_title mg2 cen"><img align="absmiddle" src="/static/images/activity_03.png"/></div>
+        <div class="clubv2s mg2 xi20 bai">运动名称 *<span class="xi15 r">（4-12字）</span></div>
+        <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写运动名称"
+                                            v-model="activity.name"></div>
+        <div class="clubv2s mg2 xi20 bai">运动开始日期 *</div>
+        <div class="clubv2x mg2 cen"><input name="" type="date" class="clubv2_bd1 xi20" placeholder="请选择"
+                                            v-model="activity.startDate"></div>
+        <div class="clubv2s mg2 xi20 bai">运动开始时间 *<span class="xi15 r">（运动开始前半小时内不能发起）</span></div>
+        <div class="clubv2x mg2 cen">
+            <select name="" class="bd1_2 xi20 bai" v-model="activity.starthour">
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+            </select>
+            <span class="maohao bai cu">:</span>
+            <select name="" class="bd1_2 xi20 bai" v-model="activity.startMinute">
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
+                <option value="55">55</option>
+                <option value="56">56</option>
+                <option value="57">57</option>
+                <option value="58">58</option>
+                <option value="59">59</option>
+            </select></div>
+        <div class="clubv2s mg2 xi20 bai">运动持续时间 *</div>
+        <div class="clubv2x mg2 cen">
+            <select name="" class="bd1_1 xi20 bai" v-model="activity.duration">
+                <option value="30">30分钟</option>
+                <option value="60">1小时</option>
+                <option value="90">1.5小时</option>
+                <option value="120">2小时</option>
+                <option value="150">2.5小时</option>
+                <option value="180">3小时</option>
+                <option value="210">3.5小时</option>
+                <option value="240">4小时</option>
+                <option value="270">4.5小时</option>
+                <option value="300">5小时</option>
+                <option value="330">5.5小时</option>
+                <option value="360">6小时</option>
+            </select>
+        </div>
+        <div class="clubv2s mg2 xi20 bai">运动类别 *</div>
+        <div class="clubv2x mg2 cen">
+            <select name="" class="bd1_1 xi20 bai" v-model="activity.type">
+                <option value="羽毛球">羽毛球</option>
+                <option value="篮球">篮球</option>
+                <option value="跑步">跑步</option>
+                <option value="游泳">游泳</option>
+                <option value="健身">健身</option>
+                <option value="乒乓球">乒乓球</option>
+                <option value="足球">足球</option>
+                <option value="网球">网球</option>
+                <option value="冰雪">冰雪</option>
+                <option value="其它">其它</option>
+            </select>
+        </div>
+        <div class="clubv2s mg2 xi20 bai">运动地点 *<span class="xi15 r">（2-10字）</span></div>
+        <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写运动地点"
+                                            v-model="activity.address"></div>
+        <div class="clubv2s mg2 xi20 bai">参与人数 *<span class="xi15 r">（不超过100人）</span></div>
+        <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写参与人数"
+                                            v-model="activity.capacity"></div>
+        <div class="clubv2s mg2 xi20 bai">备注</div>
+        <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写附加条件"
+                                            v-model="activity.remark"></div>
+        <div class="clubv2s mg2 xi20 bai">运动简介 *<span class="xi15 r">（50-200字）</span></div>
+        <div class="clubv2x mg2 cen"><textarea name="" cols="" rows="" placeholder="请在此填写运动简介"
+                                               class="clubv2_bd2 xi20" v-model="activity.introduction"></textarea></div>
+        <div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an1 xi20 bai" value="上传运动海报"></div>
+        <div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an2 xi25 bai" value="发             起" v-bind:disabled="!canSubmit" v-on:click="submitActivityInfo"></div>
+    </div>
+</div>
+<script src="/static/js/mjs.js"></script>
+</body>
+</html>

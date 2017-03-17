@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no"/>
+    <title></title>
+    <link href="static/css/css.css" rel="stylesheet"/>
+    <script type="text/javascript" language="javascript" src="/static/js/vue.js"></script>
+    <script src="static/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/static/js/club-list_control.js"></script>
+</head>
+
+<body>
+<div class="menu"><img align="absmiddle" src="static/images/activity-club-V2_02.png"/></div>
+<div id="nav"></div>
+<div class="clubv2_title mg2 cen"><img align="absmiddle" src="static/images/activity-list_03.png"/></div>
+<div class="list1 mg2 bai xi20"><a href="/index.html"><img align="absmiddle"
+                                                 src="static/images/activity-list_07.png"/>运动广场</a><span class="r"><a
+        href="/createclub.html">申请俱乐部<img align="absmiddle" src="static/images/activity-list_10.png"/></a></span></div>
+<div id="hidden_wrapper">
+    <div id="clubList" v-cloak>
+        <div v-for="club in clubList">
+            <a href="#" v-bind:id="club.id" v-on:click="showClubInfo($event)">
+                <div class="list2 mg2 bai">
+                    <div class="list2s mg2 xi15"><img align="absmiddle" src="static/images/activity-list_15.png"/><span
+                            class="r">{{ club.id }}</span>
+                    </div>
+                    <div class="list2c mg2 xi25 cen">{{ club.name }}</div>
+                    <div class="list2x mg2">
+                        <div class="list2xl f xi15"><img align="absmiddle" src="static/images/activity-list_21.png"/>{{
+                            club.leader.name }}
+                        </div>
+                        <div class="list2xc f xi15 cen">{{ club.motto }}<br/>{{ club.major }} {{ club.type }}</div>
+                        <div class="list2xr r xi15">{{ club.scale }}<img align="absmiddle"
+                                                                         src="static/images/activity-list_19.png"/>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="list3 cen"><input name="" type="search" class="dh_tc_search_bd1 xi21" placeholder="搜索俱乐部"
+                              style="margin-left:0;"></div>
+<div class="list3zw mg2"></div>
+<script src="static/js/mjs.js"></script>
+</body>
+</html>
