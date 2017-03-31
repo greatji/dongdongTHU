@@ -5,48 +5,50 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
     <title></title>
-    <link href="static/css/css.css" rel="stylesheet" />
+    <link href="/static/css/css.css" rel="stylesheet" />
     <script type="text/javascript" language="javascript" src="/static/js/vue.js"></script>
     <script src="static/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/static/js/club-list_control.js"></script>
 </head>
 
 <body>
     <div class="menu"><img align="absmiddle" src="static/images/activity-club-V2_02.png" /></div>
     <div id="nav"></div>
     <div class="clubv2_title mg2 cen"><img align="absmiddle" src="static/images/activity-list_03.png" /></div>
-    <div class="lib_Menubox2 lib_tabborder">
-        <ul class="xi15 cen" style="padding: 6px 0px 0px 0px; margin: -6px 0px 0px 0px">
-            <li id="two1" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/feature-v4_16.png" /><br/>全部
-            </li>
-            <li id="two2" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',2,11)"><img src="/static/images/feature-v4_18.png" />羽毛球
-            </li>
-            <li id="two3" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',3,11)"><img src="/static/images/feature-v4_20.png" />篮球
-            </li>
-            <li id="two4" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',4,11)"><img src="/static/images/feature-v4_22.png" />跑步
-            </li>
-            <li id="two5" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',5,11)"><img src="/static/images/feature-v4_23.png" />游泳
-            </li>
-            <li id="two6" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',6,11)"><img src="/static/images/feature-v4_24.png" />健身
-            </li>
-            <li id="two7" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',7,11)"><img src="/static/images/feature-v4_25.png" />乒乓球
-            </li>
-            <li id="two8" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',8,11)"><img src="/static/images/feature-v4_03.png" />足球
-            </li>
-            <li id="two9" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',9,11)"><img src="/static/images/feature-v4_05.png" />网球
-            </li>
-            <li id="two10" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',10,11)"><img src="/static/images/feature-v4_07.png" />冰雪
-            </li>
-            <li id="two11" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',11,11)"><img src="/static/images/feature-v4_09.png" />其它
-            </li>
-        </ul>
+
+    <div id="lib_Tab2" class="mg bai">
+        <div class="lib_Menubox2 lib_tabborder">
+            <ul class="xi15 cen" style="padding: 6px 0px 0px 0px; margin: -6px 0px 0px 0px">
+                <li id="two1" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/feature-v4_16.png" /><br/>全部
+                </li>
+                <li id="two2" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',2,11)"><img src="/static/images/feature-v4_18.png" />羽毛球
+                </li>
+                <li id="two3" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',3,11)"><img src="/static/images/feature-v4_20.png" />篮球
+                </li>
+                <li id="two4" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',4,11)"><img src="/static/images/feature-v4_22.png" />跑步
+                </li>
+                <li id="two5" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',5,11)"><img src="/static/images/feature-v4_23.png" />游泳
+                </li>
+                <li id="two6" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',6,11)"><img src="/static/images/feature-v4_24.png" />健身
+                </li>
+                <li id="two7" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',7,11)"><img src="/static/images/feature-v4_25.png" />乒乓球
+                </li>
+                <li id="two8" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',8,11)"><img src="/static/images/feature-v4_03.png" />足球
+                </li>
+                <li id="two9" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',9,11)"><img src="/static/images/feature-v4_05.png" />网球
+                </li>
+                <li id="two10" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',10,11)"><img src="/static/images/feature-v4_07.png" />冰雪
+                </li>
+                <li id="two11" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',11,11)"><img src="/static/images/feature-v4_09.png" />其它
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="list1 mg2 bai xi20">
         <a href="/index.html"><img align="absmiddle" src="static/images/activity-list_07.png" />运动广场</a><span class="r"><a
         href="/createclub.html">申请俱乐部<img align="absmiddle" src="static/images/activity-list_10.png"/></a></span></div>
     <div id="hidden_wrapper">
         <div id="clubList" v-cloak>
-            <div v-for="club in clubList">
+            <div v-for="club in clubList" v-show="cur_club == 1 || club.type == types[cur_club-2]">
                 <a href="#" v-bind:id="club.id" v-on:click="showClubInfo($event)">
                     <div class="list2 mg2 bai">
                         <div class="list2s mg2 xi15"><img align="absmiddle" src="static/images/activity-list_15.png" /><span class="r">{{ club.id }}</span>
@@ -64,9 +66,8 @@
             </div>
         </div>
     </div>
-    <div class="list3 cen"><input name="" type="search" class="dh_tc_search_bd1 xi21" placeholder="搜索俱乐部" style="margin-left:0;"></div>
     <div class="list3zw mg2"></div>
-    <script src="static/js/mjs.js"></script>
+    <script type="text/javascript" language="javascript" src="/static/js/club-list_control.js"></script>
 </body>
 
 </html>
