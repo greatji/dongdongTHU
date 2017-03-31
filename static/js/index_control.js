@@ -8,9 +8,23 @@ $.ajaxSetup ({
     cache: false //close AJAX cache
 });
 
+var app = new Vue({
+    el: '#allActivities',
+    data: {
+        activitys: [],
+        types: ['羽毛球', '篮球', '跑步', '游泳', '健身', '乒乓球', '足球', '网球', '冰雪', '其它'],
+        cur_act: 1,
+    },
+    methods: {
+        showActivityInfo: function () {
+            console.log('/Details-activity.html?id=' + $(event.currentTarget).attr('id'));
+            location.href = '/Details-activity.html?id=' + $(event.currentTarget).attr('id');
+        },
+    }
+});
+
 $(document).ready(function () {
     $('#nav').load('/static/nav.html');
-    setTab('two',1,11);
     $.ajax({
         type: 'POST',
         url: base_url + 'api/listActivities',
@@ -19,71 +33,28 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             if (data['succeed']) {
-                var allActivities = new Vue({
-                    el: '#allActivities',
-                    data: {
-                        activitys: data['info']
-                    },
-                    computed: {
-                        filterBadminton: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '羽毛球';
-                            })
-                        },
-                        filterBasketball: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '篮球';
-                            })
-                        },
-                        filterRun: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '跑步';
-                            })
-                        },
-                        filterSwim: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '游泳';
-                            })
-                        },
-                        filterGym: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '健身';
-                            })
-                        },
-                        filterPingpong: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '乒乓球';
-                            })
-                        },
-                        filterFootball: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '羽毛球';
-                            })
-                        },
-                        filterTennis: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '网球';
-                            })
-                        },
-                        filterSki: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '冰雪';
-                            })
-                        },
-                        filterOther: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '其它';
-                            })
-                        },
-                    },
-                    methods: {
-                        showActivityInfo: function () {
-                            console.log('/Details-activity.html?id=' + $(event.currentTarget).attr('id'));
-                            location.href = '/Details-activity.html?id=' + $(event.currentTarget).attr('id');
-                        }
-                    }
-                });
+                app.activitys = data['info'];
             }
         }
     });
+});
+
+function setTab(name, cursel, n) {
+    app.cur_act = cursel;
+    for (i = 1; i <= n; i++) {
+        var menu = document.getElementById(name + i);
+        if (menu) menu.className = ((i == cursel) ? "hover" : "");
+    }
+}
+
+var swiper = new Swiper('.swiper-container', {
+    pagination: '.swiper-pagination',
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    slidesPerView: 1,
+    paginationClickable: true,
+    spaceBetween: 30,
+    loop: true,
+    autoplay: 3000,
+    autoplayDisableOnInteraction: false
 });
