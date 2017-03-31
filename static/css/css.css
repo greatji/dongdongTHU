@@ -4,6 +4,7 @@
 *:focus{outline:none;}
 input,select,textarea{ line-height:normal;-webkit-appearance:none;}
 input,select,textarea,div{FONT-FAMILY:'Microsoft YaHei';font-size:24px;}
+select {font-size: 16px!important; color: black!important;}
 html {height: 100%;}
 body {margin:0px;font-size:24px; color:#2b2b2b;-webkit-text-size-adjust:none;-ms-text-size-adjust:none; background:radial-gradient(#8b4a75,#4b2a4f);}
 a {	text-decoration: none;	color: #2b2b2b;}

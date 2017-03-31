@@ -22,7 +22,6 @@ $(document).ready(function() {
                 type: '',
                 address: '',
                 capacity: '',
-                remark: '',
                 introduction: ''
             },
             canSubmit: false,
@@ -51,7 +50,6 @@ $(document).ready(function() {
                     address: this.activity.address,
                     capacity: parseInt(this.activity.capacity),
                     type: [this.activity.type],
-                    remark: this.activity.remark,
                     introduction: this.activity.introduction,
                     duringTime: this.duringTime,
                     poster: ''
@@ -66,7 +64,6 @@ $(document).ready(function() {
                         address: this.activity.address,
                         capacity: parseInt(this.activity.capacity),
                         type: [this.activity.type],
-                        remark: this.activity.remark,
                         introduction: this.activity.introduction,
                         duringTime: this.duringTime,
                         poster: ''
@@ -95,7 +92,7 @@ $(document).ready(function() {
                     this.activity.startDate != '' &&
                     this.activity.address.length >= 2 && this.activity.address.length <= 10 &&
                     parseInt(this.activity.capacity) > 0 && parseInt(this.activity.capacity) <= 100 &&
-                    this.activity.introduction.length >= 50 && this.activity.introduction.length <= 200;
+                    this.activity.introduction.length <= 200;
             },
             duringTime: function () {
                 var _date = this.activity.startDate.split('-');
