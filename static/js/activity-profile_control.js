@@ -4,6 +4,15 @@ $.ajaxSetup({
     cache: false //close AJAX cache
 });
 
+function setTab(name,cursel,n){
+ for(i=1;i<=n;i++){
+  var menu=document.getElementById(name+i);
+  var con=document.getElementById("con_"+name+"_"+i);
+  if(menu) menu.className=((i==cursel)?"hover":"");
+  if(con) con.style.display=((i==cursel)?"block":"none");
+ }
+}
+
 $(document).ready(function () {
     $('#nav').load('/static/nav.html');
     vue_activity_profile = new Vue({

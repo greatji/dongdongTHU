@@ -4,7 +4,6 @@
 *:focus{outline:none;}
 input,select,textarea{ line-height:normal;-webkit-appearance:none;}
 input,select,textarea,div{FONT-FAMILY:'Microsoft YaHei';font-size:24px;}
-select {font-size: 16px!important; color: black!important;}
 html {height: 100%;}
 body {margin:0px;font-size:24px; color:#2b2b2b;-webkit-text-size-adjust:none;-ms-text-size-adjust:none; background:radial-gradient(#8b4a75,#4b2a4f);}
 a {	text-decoration: none;	color: #2b2b2b;}
@@ -77,7 +76,7 @@ a img{text-decoration: none;margin: 0px;padding: 0px;border:none;}
 .clubv2s{ width:436px; line-height:40px; height:40px;}
 .clubv2x{ padding-bottom:18px;}
 .clubv2_bd1{ width:436px; height:43px; border:2px solid #fff; padding:0; margin:0; text-indent:13px; background:none; color:#fff;}
-.bd1_1{ width:438px; height:45px; border:2px solid #fff; text-indent:11px; padding:0; margin:0 0 0 0;
+.bd1_1{ width:438px; height:45px; border:2px solid #fff; text-indent:11px; padding:0; margin:0 auto;
 appearance:none;
 -moz-appearance:none;
 -webkit-appearance:none;
