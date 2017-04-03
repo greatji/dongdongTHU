@@ -63,6 +63,7 @@ $(document).ready(function() {
                     introduction: this.activity.introduction,
                     duringTime: this.duringTime,
                     poster: '',
+                    remark: '',
                     filterMajors: this.activity.isForClub ? this.activity.filterMajors : [],
                 });
                 console.log(send_info);
