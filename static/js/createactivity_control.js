@@ -28,7 +28,6 @@ $(document).ready(function() {
                 filterMajors: []
             },
             isAdmin: false,
-            canSubmit: false,
             majors: [ '建筑学院', '土木系', '水利系', '环境学院', '机械系', '精仪系',
             '热能系', '汽车系', '工业工程系', '电机系', '电子系', '计算机系',
             '自动化系', '微纳电子系', '航天航空学院', '工物系', '化工系',
