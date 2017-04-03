@@ -64,8 +64,7 @@ $(document).ready(function() {
                     introduction: this.activity.introduction,
                     duringTime: this.duringTime,
                     poster: '',
-                    filterMajors: this.activity.filterMajors,
-                    isForClub: this.activity.isForClub,
+                    filterMajors: this.activity.isForClub ? this.activity.filterMajors : [],
                 });
                 console.log(send_info);
                 $.ajax({

@@ -111,14 +111,14 @@
                 <option value="58">58</option>
                 <option value="59">59</option>
             </select></div>
-            <!--<div class="clubv2s mg2 xi20 bai" v-if="isAdmin">俱乐部活动 *</div>-->
-            <!--<div class="clubv2x mg2 cen" v-if="isAdmin">-->
-                <!--<select name="" class="bd1_1 xi20 bai" v-model="activity.for_club">-->
-                    <!--<option value="true">是</option>-->
-                    <!--<option value="false">否</option>-->
-                <!--</select>-->
-            <!--</div>-->
-            <div class="clubv2s mg2 xi20 bai" v-if="isAdmin">开放院系 *</div>
+            <div class="clubv2s mg2 xi20 bai" v-if="isAdmin">俱乐部活动 *</div>
+            <div class="clubv2x mg2 cen" v-if="isAdmin">
+                <select name="" class="bd1_1 xi20 bai" v-model="activity.isForClub">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </div>
+            <div class="clubv2s mg2 xi20 bai" v-if="isAdmin && activity.isForClub">开放院系 *</div>
             <div class="clubv2x mg2 cen" v-if="isAdmin">
                 <select multiple="multiple" id="multiplemajor" class="bd1_1 xi20 bai" v-model="activity.filterMajors" style="height:100px;">
 					<option value="建筑学院">建筑学院</option>
