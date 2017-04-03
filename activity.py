@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from connector import Mongo
-from utils import traitAttr
+from utils import traitAttr, get_datetime
 import parameter
 import datetime
 
@@ -14,6 +14,7 @@ import datetime
         "id": <digits string(7)>,
         "name": <string>,
         "duringTime": {"year":<int>, "month":<int>, "day":<int>, "shour":<int>, "sminute":<int>, "hour":<int>, "minute":<int>},
+        "startTimestamp": <Date(UTC datetime)> // save local time representation, not utc
         "address": <string>,
         "capacity": <int>,
         "type": [<enum string>],
@@ -42,6 +43,7 @@ import datetime
             'studentName': <string>,
             'content': <string>
         }
+        'filterMajors': [<enum string: major>] // 允许加入的院系
     }
 '''
 
@@ -76,12 +78,13 @@ def getActivityService(activityId):
     return new_res
 
 
-def createActivityService(name, duringTime, address, capacity, type, remark, introduction, leader, poster):
+def createActivityService(name, duringTime, address, capacity, type, remark, introduction, leader, poster, filterMajors=None):
     activityId = str(int(parameter.getAndUpdateActivityId())).zfill(5)
     info = {
         'id': activityId,
         'name': name,
         'duringTime': duringTime,
+        'startTimestamp': get_datetime(duringTime),
         'address': address,
         'capacity': capacity,
         'type': type,
@@ -94,6 +97,8 @@ def createActivityService(name, duringTime, address, capacity, type, remark, int
         # 'participantsSum': 1,
         'comments': []
     }
+    if filterMajors:
+        info['filterMajors'] = filterMajors
     res = Mongo.activity.insert_one(info)
     if res is None:
         return False
@@ -117,10 +122,13 @@ def addParticipant(activityId, participant):
     print res
     if res is not None:
         return True
-    capacity = Mongo.activity.find_one({'id': activityId}, {"capacity": 1})
-    print '--------------------'
-    print capacity
+    capacity = Mongo.activity.find_one({'id': activityId}, {"capacity": 1, 'filterMajors': 1})
+    # print '--------------------'
+    # print capacity
     if capacity['capacity'] == 1:
+        return None
+    if 'filterMajors' in capacity and participant['major'] not in capacity['filterMajors']:
+        print capacity['filterMajors'],"==================="
         return None
     res = Mongo.activity.find_and_modify(
         query={
@@ -180,6 +188,7 @@ def updateActivityInfoService(activityId, studentId, studentName, name, duringTi
             "$set": {
                 'name': name,
                 'duringTime': duringTime,
+                'startTimestamp': get_datetime(duringTime),
                 'address': address,
                 'capacity': capacity,
                 'type': type,
