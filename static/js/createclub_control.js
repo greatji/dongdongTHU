@@ -17,8 +17,7 @@ $(document).ready(function() {
                 remark: '',
                 introduction: ''
             },
-            canSubmit: false
-        }, 
+        },
         methods: {
             submitClubInfo: function () {
                 // console.log(this.club.name.length);

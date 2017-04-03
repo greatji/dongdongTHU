@@ -123,7 +123,7 @@ $(document).ready(function() {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function (data) {
-            if (data.length > 0) {
+            if (data.manager.length > 0) {
                 vue_activityInfo.isAdmin = true;
             }
         }
