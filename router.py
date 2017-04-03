@@ -180,15 +180,19 @@ def apiGetActivity(activityId):
     type=checkType,
     remark=isStr,
     introduction=lenIn(50, 200),
-    poster=isStr
+    poster=isStr,
+    filterMajors=optional(checkMajorList),
 )
-def apiCreateActivity(name, duringTime, address, capacity, type, remark, introduction, poster):
+def apiCreateActivity(name, duringTime, address, capacity, type, remark, introduction, poster, filterMajors=None):
     if apiCheckSession():
         leader = traitAttr(getPersonalInfoService(session['studentId']), {
             'id': session['studentId'], 'name': session['studentName'], 'phone': '', 'major': '', 'selfPhoto': '',
             'introduction': ''
         })
-        res = createActivityService(name, duringTime, address, capacity, type, remark, introduction, leader, poster)
+        if filterMajors:
+            if not isManager(session['studentId']):
+                return error('PERMISSION_DENIED')
+        res = createActivityService(name, duringTime, address, capacity, type, remark, introduction, leader, poster, filterMajors)
         if res:
             updateTimes(session['studentId'], 1)
             return success()
@@ -577,13 +581,19 @@ def checkPendingInfo(pendingInfoId, flag):
         else:
 
             def dealWithPendingInfo(innerRes, infoType, flag):
+                print innerRes
                 if infoType == 'createClub':
                     state = 'admit' if flag else 'refuse'
-                    isSuccess = changeClubState(innerRes['info']['clubId'], state)
+                    isSuccess = (changeClubState(innerRes['info']['clubId'], state)
+                        and addManagerService(innerRes['info']['clubId'], innerRes['info']['clubName'], innerRes['applyId'], state))
                     return isSuccess
                 elif infoType == 'deleteClub':
-                    return (deleteClubService(innerRes['info']['clubId'])
-                            and deletePendingInfoByClubId(innerRes['info']['clubId']))
+	            if flag:	
+                        return (deleteClubService(innerRes['info']['clubId'])
+                            and deletePendingInfoByClubId(innerRes['info']['clubId'])
+                            and delManagerService(innerRes['info']['clubId'], innerRes['info']['clubName'], innerRes['applyId']))
+                    else:
+                        return changeClubState(innerRes['info']['clubId'], 'admit') #recover the club
                 elif infoType == 'joinClub':
                     state = 'joined' if flag else 'refuse'
                     print innerRes['info']

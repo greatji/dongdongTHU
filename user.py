@@ -62,7 +62,7 @@ def getPersonalInfoService(studentId):
     else:
         return traitAttr(res, {
             'id': '', 'name': '', 'sex': '', 'email': '', 'phone': '', 'major': '', 'introduction': '', 'times': 0,
-            'tag': '', 'state': 0, 'selfPhoto': '',
+            'tag': '', 'state': 0, 'selfPhoto': '', 'manager': [],
         })
 
 
@@ -113,6 +113,14 @@ def getPresidentOfMajor(major):
     return [traitAttr(i, {
         'id': ''
     }) for i in res]
+
+
+def isManager(studentId):
+    res = Mongo.user.find_one({'id': studentId, 'manager': {'$exists': True}})
+    if res is None:
+        return False
+    else:
+        return True
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@ from flask import jsonify, request
 from functools import wraps
 from errors import *
 import json
+import datetime
 
 
 def traitAttr(dictObj, selector):
@@ -27,6 +28,12 @@ def checkOneField(jsonObj, key, checker, errs=None):
         errs.append(key)
     return res
 
+def get_datetime(s):
+    date = str(s['year']) + '-' + str(s['month']) + '-' + str(s['day'])
+    start_t = str(s['shour']) + ':' + str(s['sminute']) + ':0'
+    start_time = datetime.datetime.strptime(' '.join([date, start_t]), "%Y-%m-%d %H:%M:%S")
+    return start_time
+
 
 class jsonApi(object):
 
@@ -43,6 +50,7 @@ class jsonApi(object):
                 try:
                     j = json.loads(request.data)
                 except ValueError, e:
+                    print e
                     return jsonify(error('JSON_PARSE'))
                 errs = []
                 if not all([checkOneField(
