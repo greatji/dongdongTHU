@@ -19,8 +19,21 @@
 			<div class="clubv2_title mg2 cen"><img align="absmiddle" src="/static/images/activity-club-V2.png" /></div>
 			<div class="clubv2s mg2 xi20 bai">俱乐部名称 *<span class="xi15 r">（4-16字）</span></div>
 			<div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写俱乐部名称" v-model="club.name"></div>
-			<div class="clubv2s mg2 xi20 bai">俱乐部运动类别 *<span class="xi15 r">（2-8字）</span></div>
-			<div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写俱乐部运动类别" v-model="club.type"></div>
+			<div class="clubv2s mg2 xi20 bai">俱乐部运动类别 *</div>
+            <div class="clubv2x mg2 cen">
+                <select name="" class="bd1_1 xi20 bai" v-model="club.type">
+                    <option value="羽毛球">羽毛球</option>
+                    <option value="篮球">篮球</option>
+                    <option value="跑步">跑步</option>
+                    <option value="游泳">游泳</option>
+                    <option value="健身">健身</option>
+                    <option value="乒乓球">乒乓球</option>
+                    <option value="足球">足球</option>
+                    <option value="网球">网球</option>
+                    <option value="冰雪">冰雪</option>
+                    <option value="其它">其它</option>
+                </select>
+            </div>
 			<div class="clubv2s mg2 xi20 bai">俱乐部所属院系 *</div>
 			<div class="clubv2x mg2 cen">
 				<select name="" class="bd1_1 xi20 bai" v-model="club.major">

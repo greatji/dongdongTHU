@@ -111,16 +111,55 @@
                 <option value="58">58</option>
                 <option value="59">59</option>
             </select></div>
-            <div class="clubv2s mg2 xi20 bai" v-if="isAdmin">俱乐部活动 *</div>
-            <div class="clubv2x mg2 cen" v-if="isAdmin">
-                <select name="" class="bd1_1 xi20 bai" v-model="activity.for_club">
-                    <option value="true">是</option>
-                    <option value="false">否</option>
-                </select>
-            </div>
+            <!--<div class="clubv2s mg2 xi20 bai" v-if="isAdmin">俱乐部活动 *</div>-->
+            <!--<div class="clubv2x mg2 cen" v-if="isAdmin">-->
+                <!--<select name="" class="bd1_1 xi20 bai" v-model="activity.for_club">-->
+                    <!--<option value="true">是</option>-->
+                    <!--<option value="false">否</option>-->
+                <!--</select>-->
+            <!--</div>-->
             <div class="clubv2s mg2 xi20 bai" v-if="isAdmin">开放院系 *</div>
             <div class="clubv2x mg2 cen" v-if="isAdmin">
-                <select multiple="multiple" id="multiplemajor" class="bd1_1 xi20 bai" v-model="activity.filterMajors" style="height:100px;"><option value="建筑学院">建筑学院</option><option value="土木系">土木系</option><option value="水利系">水利系</option><option value="环境学院">环境学院</option><option value="机械系">机械系</option><option value="精仪系">精仪系</option><option value="热能系">热能系</option><option value="汽车系">汽车系</option><option value="工业工程系">工业工程系</option><option value="电机系">电机系</option><option value="电子系">电子系</option><option value="计算机系">计算机系</option><option value="自动化系">自动化系</option><option value="微纳电子系">微纳电子系</option><option value="航天航空学院">航天航空学院</option><option value="工物系">工物系</option><option value="化工系">化工系</option><option value="材料学院">材料学院</option><option value="数学系">数学系</option><option value="物理系">物理系</option><option value="化学系">化学系</option><option value="生命学院">生命学院</option><option value="地学中心">地学中心</option><option value="交叉信息学院">交叉信息学院</option><option value="经管学院">经管学院</option><option value="公管学院">公管学院</option><option value="金融学院">金融学院</option><option value="法学院">法学院</option><option value="新闻学院">新闻学院</option><option value="马克思主义学院">马克思主义学院</option><option value="人文学院">人文学院</option><option value="社科学院">社科学院</option><option value="美术学院">美术学院</option><option value="核研院">核研院</option><option value="教研院">教研院</option><option value="医学院">医学院</option><option value="软件学院">软件学院</option><option value="苏世民书院">苏世民书院</option></select>
+                <select multiple="multiple" id="multiplemajor" class="bd1_1 xi20 bai" v-model="activity.filterMajors" style="height:100px;">
+					<option value="建筑学院">建筑学院</option>
+					<option value="土木系">土木系</option>
+					<option value="水利系">水利系</option>
+					<option value="环境学院">环境学院</option>
+					<option value="机械系">机械系</option>
+					<option value="精仪系">精仪系</option>
+					<option value="热能系">热能系</option>
+					<option value="汽车系">汽车系</option>
+					<option value="工业工程系">工业工程系</option>
+					<option value="电机系">电机系</option>
+					<option value="电子系">电子系</option>
+					<option value="计算机系">计算机系</option>
+					<option value="自动化系">自动化系</option>
+					<option value="微纳电子系">微纳电子系</option>
+					<option value="航天航空学院">航天航空学院</option>
+					<option value="工物系">工物系</option>
+					<option value="化工系">化工系</option>
+					<option value="材料学院">材料学院</option>
+					<option value="数学系">数学系</option>
+					<option value="物理系">物理系</option>
+					<option value="化学系">化学系</option>
+					<option value="生命学院">生命学院</option>
+					<option value="地学中心">地学中心</option>
+					<option value="交叉信息学院">交叉信息学院</option>
+					<option value="经管学院">经管学院</option>
+					<option value="公管学院">公管学院</option>
+					<option value="金融学院">金融学院</option>
+					<option value="法学院">法学院</option>
+					<option value="新闻学院">新闻学院</option>
+					<option value="马克思主义学院">马克思主义学院</option>
+					<option value="人文学院">人文学院</option>
+					<option value="社科学院">社科学院</option>
+					<option value="美术学院">美术学院</option>
+					<option value="核研院">核研院</option>
+					<option value="教研院">教研院</option>
+					<option value="医学院">医学院</option>
+					<option value="软件学院">软件学院</option>
+					<option value="苏世民书院">苏世民书院</option>
+                </select>
             </div>
             <div class="clubv2s mg2 xi20 bai">运动持续时间 *</div>
             <div class="clubv2x mg2 cen">
