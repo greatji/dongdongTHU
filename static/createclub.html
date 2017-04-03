@@ -17,9 +17,16 @@
 	<div id="hidden_wrapper">
 		<div id="submit_info" v-cloak>
 			<div class="clubv2_title mg2 cen"><img align="absmiddle" src="/static/images/activity-club-V2.png" /></div>
-			<div class="clubv2s mg2 xi20 bai">俱乐部名称 *<span class="xi15 r">（4-16字）</span></div>
+			<div class="clubv2s mg2 xi20 bai">
+                俱乐部名称 *
+                <span class="xi15 r" v-if="!try_submit || name_ok">（4-16字）</span>
+                <span class="xi15 r" style="color:red" v-if="try_submit && !name_ok">名称长度应为4-16</span>
+            </div>
 			<div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写俱乐部名称" v-model="club.name"></div>
-			<div class="clubv2s mg2 xi20 bai">俱乐部运动类别 *</div>
+			<div class="clubv2s mg2 xi20 bai">
+                俱乐部运动类别 *
+                <span class="xi15 r" style="color:red" v-if="try_submit && !type_ok">请选择类别</span>
+            </div>
             <div class="clubv2x mg2 cen">
                 <select name="" class="bd1_1 xi20 bai" v-model="club.type">
                     <option value="羽毛球">羽毛球</option>
@@ -34,7 +41,10 @@
                     <option value="其它">其它</option>
                 </select>
             </div>
-			<div class="clubv2s mg2 xi20 bai">俱乐部所属院系 *</div>
+			<div class="clubv2s mg2 xi20 bai">
+                俱乐部所属院系 *
+                <span class="xi15 r" style="color:red" v-if="try_submit && !major_ok">请选择所属院系</span>
+            </div>
 			<div class="clubv2x mg2 cen">
 				<select name="" class="bd1_1 xi20 bai" v-model="club.major">
 					<option value="建筑学院">建筑学院</option>
@@ -75,16 +85,25 @@
 					<option value="医学院">医学院</option>
 					<option value="软件学院">软件学院</option>
 					<option value="苏世民书院">苏世民书院</option>
+					<option value="新雅书院">新雅书院</option>
 				</select>
 			</div>
-			<div class="clubv2s mg2 xi20 bai">俱乐部口号 *<span class="xi15 r">（4-16字）</span></div>
+			<div class="clubv2s mg2 xi20 bai">
+                俱乐部口号 *
+                <span class="xi15 r" v-if="!try_submit || motto_ok">（4-16字）</span>
+                <span class="xi15 r" style="color:red" v-if="try_submit && !motto_ok">口号长度应为4-16</span>
+            </div>
 			<div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写俱乐部口号" v-model="club.motto"></div>
 			<div class="clubv2s mg2 xi20 bai">备注</div>
 			<div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写备注" v-model="club.remark"></div>
-			<div class="clubv2s mg2 xi20 bai">俱乐部简介 *<span class="xi15 r">（50-200字）</span></div>
+			<div class="clubv2s mg2 xi20 bai">
+                俱乐部简介 *
+                <span class="xi15 r" v-if="!try_submit || intro_ok">（50-200字）</span>
+                <span class="xi15 r" style="color:red" v-if="try_submit && !intro_ok">简介长度应为50-200</span>
+            </div>
 			<div class="clubv2x mg2 cen"><textarea name="" cols="" rows="" placeholder="请在此填写俱乐部简介" class="clubv2_bd2 xi20" v-model="club.introduction"></textarea></div>
 			<div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an1 xi20 bai" value="上传俱乐部海报" disabled></div>
-			<div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an2 xi25 bai" value="申         请" v-bind:disabled="!canSubmit" v-on:click="submitClubInfo"></div>
+			<div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an2 xi25 bai" value="申         请" v-on:click="submitClubInfo"></div>
 		</div>
 	</div>
 </body>

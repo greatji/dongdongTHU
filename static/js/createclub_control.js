@@ -17,11 +17,14 @@ $(document).ready(function() {
                 remark: '',
                 introduction: ''
             },
+            try_submit: false,
         },
         methods: {
             submitClubInfo: function () {
                 // console.log(this.club.name.length);
                 // return true;
+                this.try_submit = true;
+                if (!this.canSubmit) return;
                 $.ajax({
                     type: 'POST',
                     url: base_url + 'api/createClub',
@@ -53,14 +56,42 @@ $(document).ready(function() {
             }
         },
         computed: {
+            name_ok: function() {
+                return this.club.name.length >= 4 && this.club.name.length <= 16;
+            },
+            major_ok: function() {
+                return !this.club.isForClub || this.club.filterMajors != [];
+            },
+            type_ok: function() {
+                return this.club.type != '';
+            },
+            motto_ok: function() {
+                return this.club.motto.length >= 4 && this.club.motto.length <= 16;
+            },
+            intro_ok: function() {
+                return this.club.introduction.length >= 50 && this.club.introduction.length <= 200;
+            },
             canSubmit: function() {
                 // return true;
-                return this.club.name.length >= 4 && this.club.name.length <= 16 &&
-                        this.club.type.length >= 2 && this.club.type.length <= 8 &&
-                        this.club.major !== '' &&
-                        this.club.motto.length >= 4 && this.club.motto.length <= 16 &&
-                        this.club.introduction.length >= 50 && this.club.introduction.length <= 200;
-            }
+                return this.name_ok && this.major_ok && this.type_ok && this.motto_ok && this.intro_ok;
+            },
         }
     })
+    $.ajax({
+        type: 'POST',
+        url: base_url + 'api/getPersonalInfo',
+        data: '{}',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data) {
+            if (!data['succeed']) {
+                if (data['errno'] === 2008) {
+                    location.href = '/login.html';
+                } else {
+                    alert('unknown error');
+                    location.href = '/index.html';
+                }
+            }
+        }
+    });
 })

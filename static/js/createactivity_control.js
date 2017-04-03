@@ -27,17 +27,13 @@ $(document).ready(function() {
                 isForClub: false,
                 filterMajors: []
             },
+            try_submit: false,
+            time_ok: false,
             isAdmin: false,
-            majors: [ '建筑学院', '土木系', '水利系', '环境学院', '机械系', '精仪系',
-            '热能系', '汽车系', '工业工程系', '电机系', '电子系', '计算机系',
-            '自动化系', '微纳电子系', '航天航空学院', '工物系', '化工系',
-            '材料学院', '数学系', '物理系', '化学系', '生命学院', '地学中心',
-            '交叉信息学院', '经管学院', '公管学院', '金融学院', '法学院',
-            '新闻学院', '马克思主义学院', '人文学院', '社科学院', '美术学院',
-            '核研院', '教研院', '医学院', '软件学院', '苏世民书院' ]
         },
         methods: {
             submitActivityInfo: function () {
+                this.try_submit = true;
                 var now_date = new Date().getTime();
                 var input_date = new Date();
                 console.log(vue_activityInfo.duringTime);
@@ -52,9 +48,11 @@ $(document).ready(function() {
                 console.log(now_date);
                 console.log(input_date);
                 if (now_date + 1000 * 60 * 30 >= input_date) {
-                    alert('时间有误，请您核对后重试');
-                    return ;
+                    this.time_ok = false;
+                    return;
                 }
+                this.time_ok = true;
+                if (!this.canSubmit) return;
                 var send_info = JSON.stringify({
                     name: this.activity.name,
                     address: this.activity.address,
@@ -93,13 +91,34 @@ $(document).ready(function() {
             },
         },
         computed: {
+            name_ok: function() {
+                return this.activity.name.length >= 4 && this.activity.name.length <= 12;
+            },
+            date_ok: function() {
+                return this.activity.startDate != '';
+            },
+            major_ok: function() {
+                return !this.activity.isForClub || this.activity.filterMajors != [];
+            },
+            duration_ok: function() {
+                return this.activity.duration != '';
+            },
+            type_ok: function() {
+                return this.activity.type != '';
+            },
+            address_ok: function() {
+                return this.activity.address.length >= 2 && this.activity.address.length <= 10;
+            },
+            capacity_ok: function() {
+                return parseInt(this.activity.capacity) > 0 && parseInt(this.activity.capacity) <= 100;
+            },
+            intro_ok: function() {
+                return this.activity.introduction.length <= 200;
+            },
             canSubmit: function() {
                 // return true;
-                return this.activity.name.length >= 4 && this.activity.name.length <= 12 &&
-                    this.activity.startDate != '' &&
-                    this.activity.address.length >= 2 && this.activity.address.length <= 10 &&
-                    parseInt(this.activity.capacity) > 0 && parseInt(this.activity.capacity) <= 100 &&
-                    this.activity.introduction.length <= 200;
+                return this.name_ok && this.date_ok && this.time_ok && this.major_ok && this.duration_ok
+                    && this.type_ok && this.address_ok && this.capacity_ok && this.intro_ok;
             },
             duringTime: function () {
                 var _date = this.activity.startDate.split('-');
@@ -122,8 +141,18 @@ $(document).ready(function() {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function (data) {
-            if (data.info.manager.length > 0) {
-                vue_activityInfo.isAdmin = true;
+            if (data['succeed']) {
+                // alert('succeed');
+                if (data.info.manager.length > 0) {
+                    vue_activityInfo.isAdmin = true;
+                }
+            }  else {
+                if (data['errno'] === 2008) {
+                    location.href = '/login.html';
+                } else {
+                    alert('unknown error');
+                    location.href = '/index.html';
+                }
             }
         }
     });

@@ -24,6 +24,7 @@ $(document).ready(function () {
                     el: '#profile',
                     data: {
                         user: data['info'],
+                        try_submit: false,
                     },
                     computed: {
                         sex_error: function() {
@@ -48,6 +49,7 @@ $(document).ready(function () {
                     },
                     methods: {
                         submitInfo: function () {
+                            this.try_submit = true;
                             submitInfo = {
                                 email: this.user.email,
                                 phone: this.user.phone,

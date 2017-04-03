@@ -52,7 +52,7 @@ $(document).ready(function () {
                                             location.reload();
                                         } else {
                                             alert(data['errmsg']);
-                                            location.href = '/activity-list.html'
+                                            location.href = '/index.html'
                                         }
                                     }
                                 });
@@ -73,7 +73,7 @@ $(document).ready(function () {
                                         location.reload();
                                     } else {
                                         alert(data['errmsg']);
-                                        location.href = '/activity-list.html'
+                                        location.href = '/index.html'
                                     }
                                 }
                             });
@@ -93,7 +93,7 @@ $(document).ready(function () {
                                     } else {
                                         alert(data['errmsg']);
                                     }
-                                    location.href = '/activity-list.html'
+                                    location.href = '/index.html'
                                 }
                             });
                         },
