@@ -114,8 +114,8 @@
             <div class="clubv2s mg2 xi20 bai" v-if="isAdmin">俱乐部活动 *</div>
             <div class="clubv2x mg2 cen" v-if="isAdmin">
                 <select name="" class="bd1_1 xi20 bai" v-model="activity.isForClub">
-                    <option value="true">是</option>
-                    <option value="false">否</option>
+                    <option :value="true">是</option>
+                    <option :value="false">否</option>
                 </select>
             </div>
             <div class="clubv2s mg2 xi20 bai" v-if="isAdmin && activity.isForClub">开放院系 *</div>

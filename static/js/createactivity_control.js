@@ -11,7 +11,7 @@ $.ajaxSetup ({
 $(document).ready(function() {
     $('#nav').load('/static/nav.html');
 	//$('#multiplemajor').multipleSelect();
-    var vue_activityInfo = new Vue({
+    vue_activityInfo = new Vue({
         el: '#submit_info',
         data: {
             activity: {
