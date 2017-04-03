@@ -8,6 +8,20 @@ $.ajaxSetup ({
     cache: false //close AJAX cache
 });
 
+var app = new Vue({
+    el: '#allActivities',
+    data: {
+        activitys: [],
+        types: ['羽毛球', '篮球', '跑步', '游泳', '健身', '乒乓球', '足球', '网球', '冰雪', '其它'],
+        cur_act: 1,
+    },
+    methods: {
+        showActivityInfo: function () {
+            console.log('/Details-activity.html?id=' + $(event.currentTarget).attr('id'));
+            location.href = '/Details-activity.html?id=' + $(event.currentTarget).attr('id');
+        },
+    }
+});
 
 $(document).ready(function () {
     $('#nav').load('/static/nav.html');
@@ -19,20 +33,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             if (data['succeed']) {
-                var app = new Vue({
-                    el: '#allActivities',
-                    data: {
-                        activitys: data['info'],
-                        types: ['羽毛球', '篮球', '跑步', '游泳', '健身', '乒乓球', '足球', '网球', '冰雪', '其它'],
-                        cur_act: 1,
-                    },
-                    methods: {
-                        showActivityInfo: function () {
-                            console.log('/Details-activity.html?id=' + $(event.currentTarget).attr('id'));
-                            location.href = '/Details-activity.html?id=' + $(event.currentTarget).attr('id');
-                        },
-                    }
-                });
+                app.activitys = data['info'];
             }
         }
     });
