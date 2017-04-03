@@ -24,12 +24,6 @@ $(document).ready(function () {
                     el: '#profile',
                     data: {
                         user: data['info'],
-                        phone_error: true,
-                        email_error: true,
-                        tag_error: true,
-                        introduction_error: true,
-                        sex_error: true,
-                        all_right: false
                     },
                     computed: {
                         sex_error: function() {
