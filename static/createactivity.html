@@ -119,7 +119,7 @@
                 </select>
             </div>
             <div class="clubv2s mg2 xi20 bai" v-if="isAdmin && activity.isForClub">开放院系 *</div>
-            <div class="clubv2x mg2 cen" v-if="isAdmin">
+            <div class="clubv2x mg2 cen" v-if="isAdmin && activity.isForClub">
                 <select multiple="multiple" id="multiplemajor" class="bd1_1 xi20 bai" v-model="activity.filterMajors" style="height:100px;">
 					<option value="建筑学院">建筑学院</option>
 					<option value="土木系">土木系</option>
