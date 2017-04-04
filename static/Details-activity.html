@@ -69,6 +69,10 @@
                 <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_29.png"/></div>
                 <div class="details3z3r f xi20"><span class="cu">运动类别：</span>{{ activity.type[0] }}</div>
             </div>
+            <div class="details3z3 mgz" v-if="activity.filterMajors.length!==0 && activity.filterMajors!==undefined">
+                <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_05.png"/></div>
+                <div class="details3z3r f xi20"><span class="cu">开放院系：</span>{{ activity.filterMajors.join(',') }}</div>
+            </div>
             <div class="details3z3 mgz">
                 <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_31.png"/></div>
                 <div class="details3z3r f xi20"><span class="cu">参与人数：</span>{{ activity.participantsSum }}人</div>
@@ -135,14 +139,14 @@
                 </ul>
             </div>
         </div>
-        <div class="details3 mgz">
+        <div class="details3 mgz" v-if="!canJoinOrLogin">
             <div class="details3z1 mgz">
                 <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_52.png"/></div>
                 <div class="details3z1r f xi20">参与者<span class="r">{{ activity.participantsSum }}/{{ activity.capacity }}</span>
                 </div>
             </div>
         </div>
-        <div class="details3 mgz">
+        <div class="details3 mgz" v-if="!canJoinOrLogin">
             <div class="details3z5">
                 <div class="details3z5_list mg2" v-bind:id="activity.leader.id" v-on:click="showPersonalInfo($event)">
                     <div class="details3z5_listl f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56"

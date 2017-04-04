@@ -28,7 +28,7 @@ $(document).ready(function () {
         success: function (data) {
             if (data['succeed']) {
                 console.log(data['info']);
-                var activityDetails = new Vue({
+                activityDetails = new Vue({
                     el: '#activityDetails',
                     data: {
                         activity: data['info']
