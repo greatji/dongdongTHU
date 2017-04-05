@@ -62,7 +62,7 @@ a img{text-decoration: none;margin: 0px;padding: 0px;border:none;}
 .cu{font-weight:bold;}
 .xi{font-weight:lighter;}
 /*样式*/
-.an1{ width:290px; height:290px; padding:0; margin:0; border:none; background:url(../images/Login_03.png);}
+.an1{ width:290px; height:290px; padding:0; margin:0; border:none; background:url(../images/Login_03_new.png);}
 .logins{ position:fixed; left:50%; top:22%; width:640px; margin-left:-320px;}
 .loginx{ position:fixed; bottom:0; left:0; width:100%;}
 .loginxs{ width:595px; height:77px; background:#944c6f; margin-bottom:16px;border-radius:77px;}
