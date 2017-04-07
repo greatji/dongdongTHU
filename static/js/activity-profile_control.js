@@ -41,7 +41,7 @@ $(document).ready(function () {
                             if (data['errno'] === 2008) {
                                 location.href = '/login.html';
                             } else {
-                                alert('unknown error');
+                                alert(data['errmsg']);
                                 location.href = '/index.html';
                             }
                         }
@@ -67,7 +67,7 @@ $(document).ready(function () {
                             if (data['errno'] === 2008) {
                                 location.href = '/login.html';
                             } else {
-                                alert('unknown error');
+                                alert(data['errmsg']);
                                 location.href = '/index.html';
                             }
                         }

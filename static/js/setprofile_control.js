@@ -50,6 +50,7 @@ $(document).ready(function () {
                     methods: {
                         submitInfo: function () {
                             this.try_submit = true;
+                            if (!this.all_right) return;
                             submitInfo = {
                                 email: this.user.email,
                                 phone: this.user.phone,
@@ -71,7 +72,7 @@ $(document).ready(function () {
                                         // console.log('成功');
                                         location.href = '/index.html';
                                     } else {
-                                        console.log(data['errmsg']);
+                                        alert(data['errmsg']);
                                     }
                                 }
                             })
@@ -82,7 +83,7 @@ $(document).ready(function () {
                 if (data['errno'] === 2008) {
                     location.href = '/login.html';
                 } else {
-                    alert('unknown error');
+                    alert(data['errmsg']);
                     location.href = '/index.html';
                 }
             }

@@ -47,7 +47,7 @@ $(document).ready(function () {
                     lspace: function (x) {
                         var s = x.toString();
                         return Array(3 - s.length + 1).join('0') + s;
-                        // return String.format('%03d', (x % 1000)); 
+                        // return String.format('%03d', (x % 1000));
                     }
                 },
                 methods: {
@@ -66,7 +66,9 @@ $(document).ready(function () {
                                     alert('succeed');
                                 } else {
                                     if (data['errno'] === 2008) {
-                                        location.href = '/setUserInfo.html';
+                                        location.href = '/login.html';
+                                    } else {
+                                        alert(data['errmsg']);
                                     }
                                 }
                             }

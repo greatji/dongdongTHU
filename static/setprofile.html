@@ -92,13 +92,13 @@
 			<div class="edit3 mg2 zi xi15"><span class="edit3hover" v-if="try_submit && phone_error">请输入11位电话号码</span></div>
 			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="邮箱" v-model="user.email"></div>
 			<div class="edit3 mg2 zi xi15"><span class="edit3hover" v-if="try_submit && email_error">错误的邮箱</span></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="兴趣" v-model="user.tag"></div>
+			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="兴趣（2-12字）" v-model="user.tag"></div>
 			<div class="edit3 mg2 zi xi15"><span class="edit3hover" v-if="try_submit && tag_error">请输入2-12个字</span></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="个性签名" v-model="user.introduction"></div>
+			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="个性签名（4-12字）" v-model="user.introduction"></div>
 			<div class="edit3 mg2 zi xi15"><span class="edit3hover" v-if="try_submit && introduction_error">请输入4-12个字</span></div>
 			<!--判断edit3hover的显示和隐藏 -->
 			<!--<div class="edit4 mg2 cen"><span v-if="all_right"><input name="" type="button" class="clubv2_an2 xi25 bai" value="完&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成"></span></div>-->
-			<div class="edit4 mg2 cen"><span><input v-bind:disabled="!all_right" name="" type="button" class="clubv2_an2 xi25 bai" v-on:click="submitInfo" value="完         成"></span></div>
+			<div class="edit4 mg2 cen"><span><input name="" type="button" class="clubv2_an2 xi25 bai" v-on:click="submitInfo" value="完         成"></span></div>
 		</div>
 	</div>
 	<script src="/static/js/setprofile_control.js"></script>
