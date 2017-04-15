@@ -4,6 +4,7 @@ from connector import Mongo
 from utils import traitAttr, get_datetime
 import parameter
 import datetime
+from errors import error_num
 
 '''
     collection: activity
@@ -18,7 +19,6 @@ import datetime
         "address": <string>,
         "capacity": <int>,
         "type": [<enum string>],
-        "remark": <string>,
         "introduction": <string>,
         'poster': <string>,
         'state':<enum string>, ['open', 'close']
@@ -52,7 +52,7 @@ def listActivitiesService(skip, limit, para={}):
     res = [traitAttr(i, {
         'id':'', 'name':'', 
         'duringTime':{'year':0, 'month':0, 'day':0, 'shour':0, 'sminute':0, 'hour':0, 'minute':0},
-        'address':'', 'capacity':0, 'leader':{'name':'', 'id':''}, 'remark': '', 'introduction':'', 'type':[],
+        'address':'', 'capacity':0, 'leader':{'name':'', 'id':''}, 'introduction':'', 'type':[],
         'participantsSum': len(i['participants']) + 1, 'state': 'close'
     }) for i in Mongo.activity.find(para).skip(skip).limit(limit).sort(
         [('duringTime.year', -1), ('duringTime.month', -1), ('duringTime.day', -1), ('duringTime.shour', -1),
@@ -69,16 +69,16 @@ def getActivityService(activityId):
     new_res = traitAttr(res, {
         'id': '', 'name': '',
         'duringTime': {'year': 0, 'month': 0, 'day': 0, 'shour': 0, 'sminute': 0, 'hour': 0, 'minute': 0},
-        'address': '', 'capacity': 0, 'type': [], 'remark': '', 'introduction': '', 'state': 'close',
+        'address': '', 'capacity': 0, 'type': [], 'introduction': '', 'state': 'close',
         'leader': {'name': '', 'id': '', 'phone': '', 'major': '', 'selfPhone': ''},
-        'participants': [], 'participantsSum': len(res['participants']) + 1
+        'participants': [], 'participantsSum': len(res['participants']) + 1, 'filterMajors':[],
     })
     if len(res['comments']) != 0:
         new_res['comments'] = res['comments']
     return new_res
 
 
-def createActivityService(name, duringTime, address, capacity, type, remark, introduction, leader, poster, filterMajors=None):
+def createActivityService(name, duringTime, address, capacity, type, introduction, leader, poster, filterMajors=None):
     activityId = str(int(parameter.getAndUpdateActivityId())).zfill(5)
     info = {
         'id': activityId,
@@ -88,7 +88,6 @@ def createActivityService(name, duringTime, address, capacity, type, remark, int
         'address': address,
         'capacity': capacity,
         'type': type,
-        'remark': remark,
         'introduction': introduction,
         'leader': leader,
         'poster': poster,
@@ -126,14 +125,14 @@ def addParticipant(activityId, participant):
     # print '--------------------'
     # print capacity
     if capacity['capacity'] == 1:
-        return None
+        return error_num('ACTIVITY_FULL')
     if 'filterMajors' in capacity and participant['major'] not in capacity['filterMajors']:
         print capacity['filterMajors'],"==================="
-        return None
+        return error_num('ACTIVITY_MAJOR_NOT_MATCH')
     res = Mongo.activity.find_and_modify(
         query={
             'id': activityId,
-            'participants.' + str(capacity['capacity']-1): {"$exists": 0}
+            'participants.' + str(capacity['capacity'] - 2): {"$exists": 0}
         },
         update={
             '$addToSet': {'participants': participant}
@@ -149,12 +148,14 @@ def addParticipant(activityId, participant):
                 'participants': [], 'participantsSum': 0
             })
         else:
-            return None
+            return error_num('ACTIVITY_FULL')
     else:
         return False
 
 
 def quitActivityService(activityId, studentId):
+    if not checkActivityState(activityId):
+        return False
     res = Mongo.activity.find_and_modify(
         query={
             'id': activityId

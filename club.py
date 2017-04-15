@@ -74,8 +74,8 @@ def delManagerService(clubId, clubName, applyId):
         query={
             'id': applyId
         },
-        remove={
-            '$pull': {'manager': manageList}
+        update={
+            '$pull': {'manager': {"clubId": clubId}}
         },
         upsert=False,
         full_response=True,

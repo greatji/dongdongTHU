@@ -1,4 +1,5 @@
 errors = {
+    'UNKNOWN_ERRNO': (999, 'Unknown error number'),
     'JSON_PARSE': (1001, 'JSON parse error'),
     'ARGUMENTS': (1002, 'Arguments error'),
     'VALIDATE_CODE_EXPIRED': (2001, 'Validate code expired'),
@@ -31,7 +32,9 @@ errors = {
     'ACTIVITY_QUIT_FAILED': (7004, 'Failed to quit activity'),
     'ACTIVITY_DELETE_FAILED': (7005, 'Failed to delete activity'),
     'ACTIVITY_NOT_EXIST': (7006, 'The activity does not exist'),
-    'PERMISSION_DENIED': (9000, 'Not authenticated to access this resource')
+    'ACTIVITY_FULL': (7007, 'The activity is full'),
+    'ACTIVITY_MAJOR_NOT_MATCH': (7008, 'You do not match the major requirements'),
+    'PERMISSION_DENIED': (9000, 'Not authenticated to access this resource'),
 }
 
 
@@ -53,3 +56,11 @@ def success(**kwargs):
     if kwargs:
         res.update(kwargs)
     return res
+
+
+def error_num(key):
+    if key in errors:
+        e = errors[key]
+        return e[0]
+    else:
+        return errors['UNKNOWN_ERRNO'][0]

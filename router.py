@@ -12,7 +12,6 @@ from errors import error, success
 from login import *
 from loginAPI import *
 
-
 # @app.route('/index', methods = ['GET'])
 # def hello():
 #     return render_template('index.html')
@@ -43,14 +42,16 @@ from loginAPI import *
 # login logout
 
 import hashlib
-@app.route('/weixin', methods = ['GET'])
+
+
+@app.route('/weixin', methods=['GET'])
 def weixin():
-    #TOKEN = 'PEplatform'
-    #signature = request.args.get('signature')
-    #timestamp = request.args.get('timestamp')
-    #nonce     = request.args.get('nonce')
-    echostr   = request.args.get('echostr')
-    #if signature and timestamp and nonce and echostr:
+    # TOKEN = 'PEplatform'
+    # signature = request.args.get('signature')
+    # timestamp = request.args.get('timestamp')
+    # nonce     = request.args.get('nonce')
+    echostr = request.args.get('echostr')
+    # if signature and timestamp and nonce and echostr:
     #    arr = [TOKEN, timestamp, nonce]
     #    sorted(arr)
     #    arr2 = ''.join(arr)
@@ -59,9 +60,10 @@ def weixin():
     #        return echostr
     #    else:
     #        return 'ERR'
-    #else:
+    # else:
     #    return 'ERR'
     return echostr
+
 
 @app.route('/api/login', methods=['POST'])
 @jsonApi(
@@ -110,6 +112,7 @@ def apiIfLogin():
     else:
         return success(res=False)
 
+
 # activity
 
 
@@ -119,7 +122,16 @@ def apiIfLogin():
     limit=optional(isPositive),
 )
 def apiListActivities(skip=0, limit=200):
-    res = listActivitiesService(skip, limit, {'state': 'open'})
+    if apiCheckSession():
+        info = getPersonalInfoService(session['studentId'])
+        major = info['major']
+    else:
+        major = ''
+
+    res = listActivitiesService(skip, limit, {
+        'state': 'open',
+        '$or': [{'filterMajors': {'$exists': False}}, {'filterMajors': major}]
+    })
     return error('CHECK ERROR') if res is None else success(info=res)
 
 
@@ -166,8 +178,10 @@ def apiGetActivity(activityId):
                 res['identity'] = 'participant'
         else:
             res['identity'] = 'non-participant'
+            res['participants'] = []
     else:
         res['identity'] = 'nobody'
+        res['participants'] = []
     return success(info=res)
 
 
@@ -178,12 +192,11 @@ def apiGetActivity(activityId):
     address=lenIn(2, 10),
     capacity=checkCapacity,
     type=checkType,
-    remark=isStr,
-    introduction=lenIn(50, 200),
+    introduction=lenIn(0, 200),
     poster=isStr,
     filterMajors=optional(checkMajorList),
 )
-def apiCreateActivity(name, duringTime, address, capacity, type, remark, introduction, poster, filterMajors=None):
+def apiCreateActivity(name, duringTime, address, capacity, type, introduction, poster, filterMajors=None):
     if apiCheckSession():
         leader = traitAttr(getPersonalInfoService(session['studentId']), {
             'id': session['studentId'], 'name': session['studentName'], 'phone': '', 'major': '', 'selfPhoto': '',
@@ -192,7 +205,8 @@ def apiCreateActivity(name, duringTime, address, capacity, type, remark, introdu
         if filterMajors:
             if not isManager(session['studentId']):
                 return error('PERMISSION_DENIED')
-        res = createActivityService(name, duringTime, address, capacity, type, remark, introduction, leader, poster, filterMajors)
+        res = createActivityService(name, duringTime, address, capacity, type, introduction, leader, poster,
+                                    filterMajors)
         if res:
             updateTimes(session['studentId'], 1)
             return success()
@@ -241,6 +255,10 @@ def apiAddParticipant(activityId):
             return error('ACTIVITY_JOIN_FAILED')
         elif res is False:
             return error('ACTIVITY_NOT_EXIST')
+        elif res == error_num('ACTIVITY_FULL'):
+            return error('ACTIVITY_FULL')
+        elif res == error_num('ACTIVITY_MAJOR_NOT_MATCH'):
+            return error('ACTIVITY_MAJOR_NOT_MATCH')
         else:
             updateTimes(session['studentId'], 1)
             return success(info=res)
@@ -301,6 +319,7 @@ def apiAddComment(activityId, content):
     else:
         return error('NOT_LOGGED_IN')
 
+
 # club
 
 
@@ -356,9 +375,10 @@ def apiGetClub(clubId):
 def apiGetClubList(flag, skip=0, limit=200):
     if apiCheckSession():
         if flag == 'member':
-            res = listClubsService(skip, limit, {'state': 'admit', 'members': {'$elemMatch': {'id': session['studentId'], 'state': 'joined'}}})
-                                                 # 'members.id': session['studentId'],
-                                                 # 'members.state': 'joined'})
+            res = listClubsService(skip, limit, {'state': 'admit', 'members': {
+                '$elemMatch': {'id': session['studentId'], 'state': 'joined'}}})
+            # 'members.id': session['studentId'],
+            # 'members.state': 'joined'})
             # print res
             return success(info=res)
         elif flag == 'manager':
@@ -398,7 +418,8 @@ def apiCreateClub(name, type, major, motto, remark, introduction, poster):
         else:
             for i in res:
                 president.append(i['id'])
-        clubId = str(int(datetime.datetime.now().year)) + major_type[major] + str(int(getAndUpdateClubId(major))).zfill(3)
+        clubId = str(int(datetime.datetime.now().year)) + major_type[major] + str(int(getAndUpdateClubId(major))).zfill(
+            3)
         res = createClubService(clubId, name, type, major, motto, remark, introduction, poster, leader, manager, member)
         if res == 0:
             return error('CLUB_CREATE_FAILED')
@@ -585,19 +606,22 @@ def checkPendingInfo(pendingInfoId, flag):
                 if infoType == 'createClub':
                     state = 'admit' if flag else 'refuse'
                     isSuccess = (changeClubState(innerRes['info']['clubId'], state)
-                        and addManagerService(innerRes['info']['clubId'], innerRes['info']['clubName'], innerRes['applyId'], state))
+                                 and addManagerService(innerRes['info']['clubId'], innerRes['info']['clubName'],
+                                                       innerRes['applyId'], state))
                     return isSuccess
                 elif infoType == 'deleteClub':
-	            if flag:	
+                    if flag:
                         return (deleteClubService(innerRes['info']['clubId'])
-                            and deletePendingInfoByClubId(innerRes['info']['clubId'])
-                            and delManagerService(innerRes['info']['clubId'], innerRes['info']['clubName'], innerRes['applyId']))
+                                and deletePendingInfoByClubId(innerRes['info']['clubId'])
+                                and delManagerService(innerRes['info']['clubId'], innerRes['info']['clubName'],
+                                                      innerRes['applyId']))
                     else:
-                        return changeClubState(innerRes['info']['clubId'], 'admit') #recover the club
+                        return changeClubState(innerRes['info']['clubId'], 'admit')  # recover the club
                 elif infoType == 'joinClub':
                     state = 'joined' if flag else 'refuse'
                     print innerRes['info']
-                    isSuccess = changeMemberState(innerRes['info'][u'clubId'], session['studentId'], innerRes['applyId'], state)
+                    isSuccess = changeMemberState(innerRes['info'][u'clubId'], session['studentId'],
+                                                  innerRes['applyId'], state)
                     return isSuccess
 
             res = dealWithPendingInfo(res, res['type'], flag)
