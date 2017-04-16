@@ -43,6 +43,7 @@ $(document).ready(function () {
                 el: '#userInfo',
                 data: {
                     user: data,
+                    is_full: is_full,
                 },
                 filters: {
                     lspace: function (x) {
