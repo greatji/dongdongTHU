@@ -51,14 +51,14 @@
             <div v-for="club in clubList" v-show="cur_club == 1 || club.type == types[cur_club-2]">
                 <a href="#" v-bind:id="club.id" v-on:click="showClubInfo($event)">
                     <div class="list2 mg2 bai">
-                        <div class="list2s mg2 xi18"><img align="absmiddle" src="static/images/activity-list_15.png" /><span class="r">{{ club.id }}</span>
+                        <div class="list2s mg2 xi18"><span class="r">{{ club.id }}</span>
                         </div>
                         <div class="list2c mg2 xi28 cen">{{ club.name }}</div>
                         <div class="list2x mg2">
                             <div class="list2xl f xi18"><img align="absmiddle" src="static/images/activity-list_21.png" />{{ club.leader.name }}
                             </div>
                             <div class="list2xc f xi18 cen">{{ club.motto }}<br/>{{ club.major }} {{ club.type }}</div>
-                            <div class="list2xr r xi18">{{ club.scale }}<img align="absmiddle" src="static/images/activity-list_19.png" />
+                            <div class="list2xr r xi18">{{ club.scale }}
                             </div>
                         </div>
                     </div>
