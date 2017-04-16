@@ -16,7 +16,7 @@ function param(name) {
 }
 
 var user_id = param('id');
-var is_full = param('full');
+var is_full = param('full')=='true' ? true : false;
 
 $(document).ready(function () {
     $('#nav').load('/static/nav.html');

@@ -97,11 +97,13 @@ $(document).ready(function () {
                                 }
                             });
                         },
-                        showPersonalInfo: function (event) {
+                        showPersonalInfo: function (id) {
                             if (data['info']['identity'] == 'nobody') {
                                 location.href = '/login.html';
+                            } else if(data['info']['identity'] == 'non-participant') {
+                                location.href = '/userInfo.html?id=' + id + '&full=false';
                             } else {
-                                location.href = '/userInfo.html?id=' + $(event.currentTarget).attr('id');
+                                location.href = '/userInfo.html?id=' + id + '&full=true';
                             }
                         },
                         shareAlert: function (event) {

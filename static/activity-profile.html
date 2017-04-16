@@ -28,16 +28,18 @@
                 <div v-for="activity in leadingActivities">
                     <a v-bind:href="'/Details-activity.html?id=' + activity.id">
                         <div class="list2 mg2 bai">
-                            <div class="list2s mg2 xi15"><img align="absmiddle"
-                                                              src="/static/images/activity-list_15.png"/><span
-                                    class="r">{{ activity.id }}</span></div>
+                            <div class="list2s mg2 xi15">
+                                <img align="absmiddle" src="/static/images/activity-list_15.png"/>
+                                <span class="r">{{ activity.id }}</span>
+                            </div>
                             <div class="list2c mg2 xi25 cen">{{ activity.name }}</div>
                             <div class="list2x mg2">
-                                <div class="list2xl f xi15"><img align="absmiddle"
-                                                                 src="/static/images/activity-list_21.png"/>{{
-                                    activity.leader.name }}
+                                <div class="list2xl f xi15">
+                                    <img align="absmiddle" src="/static/images/activity-list_21.png"/>
+                                    {{ activity.leader.name }}
                                 </div>
-                                <div class="list2xc f xi15 cen">{{ activity.duringTime.year }}-{{
+                                <div class="list2xc f xi15 cen">
+                                    {{ activity.duringTime.year }}-{{
                                     activity.duringTime.month }}-{{ activity.duringTime.day }}
                                     {{ activity.duringTime.shour }} : {{ ((10>activity.duringTime.sminute)?'0':'') +
                                     activity.duringTime.sminute }} - {{ ((activity.duringTime.hour
@@ -49,9 +51,10 @@
                                     activity.duringTime.sminute)
                                     % 60) }}<br/> {{ activity.address }} {{ activity.type[0] }}
                                 </div>
-                                <div class="list2xr r xi15">{{ activity.participantsSum }}/{{ activity.capacity
-                                    }}<img align="absmiddle" src="static/images/activity-list_19.png"
-                                    /></div>
+                                <div class="list2xr r xi15">
+                                    {{ activity.participantsSum }}/{{ activity.capacity }}
+                                    <img align="absmiddle" src="static/images/activity-list_19.png" />
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -62,30 +65,31 @@
                 <div v-for="activity in jAct">
                     <a v-bind:href="'/Details-activity.html?id=' + activity.id">
                         <div class="list2 mg2 bai">
-                            <div class="list2s mg2 xi15"><img align="absmiddle"
-                                                              src="/static/images/activity-list_15.png"/><span
-                                    class="r">{{ activity.id }}</span></div>
+                            <div class="list2s mg2 xi15">
+                                <img align="absmiddle" src="/static/images/activity-list_15.png"/>
+                                <span class="r">{{ activity.id }}</span>
+                            </div>
                             <div class="list2c mg2 xi25 cen">{{ activity.name }}</div>
                             <div class="list2x mg2">
-                                <div class="list2xl f xi15"><img align="absmiddle"
-                                                                 src="/static/images/activity-list_21.png"/>{{
-                                    activity.leader.name }}
+                                <div class="list2xl f xi15">
+                                    <img align="absmiddle" src="/static/images/activity-list_21.png"/>
+                                    {{ activity.leader.name }}
                                 </div>
-                                <div class="list2xc f xi15 cen">{{ activity.duringTime.year }}-{{
-                                    activity.duringTime.month }}-{{ activity.duringTime.day }}
-                                    {{ activity.duringTime.shour }} : {{ ((10>activity.duringTime.sminute)?'0':'') +
-                                    activity.duringTime.sminute }} - {{ ((activity.duringTime.hour
-                                    + activity.duringTime.shour) >= 24)?"次日":"" }} {{ (activity.duringTime.hour +
-                                    activity.duringTime.shour
-                                    + (((activity.duringTime.minute + activity.duringTime.sminute)>=60)?1:0)) % 24
-                                    }} : {{ ((10>((activity.duringTime.minute
-                                    + activity.duringTime.sminute)%60))?'0':'') + ((activity.duringTime.minute +
-                                    activity.duringTime.sminute)
-                                    % 60) }}<br/> {{ activity.address }} {{ activity.type[0] }}
+                                <div class="list2xc f xi15 cen">
+                                    {{ activity.duringTime.year }}-{{ activity.duringTime.month }}-{{ activity.duringTime.day }}
+                                    {{ activity.duringTime.shour }} : 
+                                    {{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }} - 
+                                    {{ ((activity.duringTime.hour + activity.duringTime.shour) >= 24)?"次日":"" }} 
+                                    {{ (activity.duringTime.hour + activity.duringTime.shour 
+                                    + (((activity.duringTime.minute + activity.duringTime.sminute)>=60)?1:0)) % 24 }} : 
+                                    {{ ((10>((activity.duringTime.minute + activity.duringTime.sminute)%60))?'0':'') 
+                                    + ((activity.duringTime.minute + activity.duringTime.sminute) % 60) }}<br/>
+                                    {{ activity.address }} {{ activity.type[0] }}
                                 </div>
-                                <div class="list2xr r xi15">{{ activity.participantsSum }}/{{ activity.capacity
-                                    }}<img align="absmiddle" src="static/images/activity-list_19.png"
-                                    /></div>
+                                <div class="list2xr r xi15">
+                                    {{ activity.participantsSum }}/{{ activity.capacity }}
+                                    <img align="absmiddle" src="static/images/activity-list_19.png" />
+                                </div>
                             </div>
                         </div>
                     </a>
