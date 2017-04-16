@@ -298,6 +298,12 @@ def checkActivityState(activityId):
             return False
 
 
+def filterSensitiveInfo(participants):
+    for p in participants:
+        p.update(phone='')
+
+
+
 if __name__ == '__main__':
     t_name = '游泳嘉年华'
     t_duringTime = {

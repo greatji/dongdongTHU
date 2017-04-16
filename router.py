@@ -178,10 +178,10 @@ def apiGetActivity(activityId):
                 res['identity'] = 'participant'
         else:
             res['identity'] = 'non-participant'
-            res['participants'] = []
+            filterSensitiveInfo(res['participants'])
     else:
         res['identity'] = 'nobody'
-        res['participants'] = []
+        filterSensitiveInfo(res['participants'])
     return success(info=res)
 
 
@@ -273,7 +273,9 @@ def apiAddParticipant(activityId):
 def apiDeleteActivity(activityId):
     if apiCheckSession():
         isOrganizer = searchOrganizer(activityId, session['studentId'])
-        if isOrganizer:
+        isSuperuser = apiCheckSession(3)
+        # print 'isSuper', isSuperuser, session['state']
+        if isOrganizer or isSuperuser:
             res = deleteActivityService(activityId)
             if res:
                 return success()
@@ -657,8 +659,8 @@ def getPendingInfo():
     phone=lenIn(11, 11),
     major=checkMajor,
     sex=checkSex,
-    tag=lenIn(2, 12),
-    introduction=lenIn(4, 12),
+    tag=lenIn(0, 12),
+    introduction=lenIn(0, 12),
     selfPhoto=isStr
 )
 def apiSetPersonalInfo(email, phone, major, sex, tag, introduction, selfPhoto):
@@ -685,17 +687,20 @@ def apiSetPersonalInfo(email, phone, major, sex, tag, introduction, selfPhoto):
 
 @app.route('/api/getPersonalInfo', methods=['POST'])
 @jsonApi(
-    studentId=optional(allChecked(lenIn(10, 10), isAllDigits))
+    studentId=optional(allChecked(lenIn(10, 10), isAllDigits)),
+    full=optional(isBool),
 )
-def apiGetPersonalInfo(studentId=None):
+def apiGetPersonalInfo(studentId=None, full=False):
     if apiCheckSession(1):
         if studentId is None:
             studentId = session['studentId']
         isThisPerson = (session['studentId'] == studentId)
-        if not isThisPerson:
+        if isThisPerson:
+            res = getPersonalInfoService(studentId)
+        else:
             if not apiCheckSession(2):
                 return error('NOT_LOGGED_IN')
-        res = getPersonalInfoService(studentId)
+            res = getPersonalInfoService(studentId, full)
         res.update({'is_this_person': isThisPerson})
         if isStr(res):
             return error(res)

@@ -1,7 +1,8 @@
+# coding=utf-8
 errors = {
     'UNKNOWN_ERRNO': (999, 'Unknown error number'),
     'JSON_PARSE': (1001, 'JSON parse error'),
-    'ARGUMENTS': (1002, 'Arguments error'),
+    'ARGUMENTS': (1002, '参数错误'),
     'VALIDATE_CODE_EXPIRED': (2001, 'Validate code expired'),
     'VALIDATE_CODE_WRONG': (2002, 'Validate code is wrong'),
     'USER_EXISTS': (2003, 'Username or Email exists'),
