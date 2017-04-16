@@ -4,86 +4,94 @@
 
 document.write("<script language=javascript src='static/js/config.js'></script>");
 
-$.ajaxSetup ({
+$.ajaxSetup({
     cache: false //close AJAX cache
 });
 
-$(document).ready(function () {
+var app = new Vue({
+    el: '#allActivities',
+    data: {
+        activitys: [],
+        types: ['羽毛球', '篮球', '跑步', '游泳', '健身', '乒乓球', '足球', '网球', '冰雪', '其它'],
+        cur_act: 1,
+        is_su: false,
+    },
+    methods: {
+        showActivityInfo: function(id) {
+            console.log('/Details-activity.html?id=' + id);
+            location.href = '/Details-activity.html?id=' + id;
+        },
+        dissolveActivity: function(id) {
+            if (confirm('确认删除吗？')) {
+                $.ajax({
+                    type: 'POST',
+                    url: base_url + 'api/deleteActivity',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        activityId: id,
+                    }),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data['succeed']) {
+                            alert('succeed');
+                        } else {
+                            alert(data['errmsg']);
+                        }
+                        location.href = '/index.html'
+                    }
+                });
+            }
+        },
+    }
+});
+
+$(document).ready(function() {
     $('#nav').load('/static/nav.html');
-    setTab('two',1,11);
     $.ajax({
         type: 'POST',
         url: base_url + 'api/listActivities',
         data: '{}',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             if (data['succeed']) {
-                var allActivities = new Vue({
-                    el: '#allActivities',
-                    data: {
-                        activitys: data['info']
-                    },
-                    computed: {
-                        filterBadminton: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '羽毛球';
-                            })
-                        },
-                        filterBasketball: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '篮球';
-                            })
-                        },
-                        filterRun: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '跑步';
-                            })
-                        },
-                        filterSwim: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '游泳';
-                            })
-                        },
-                        filterGym: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '健身';
-                            })
-                        },
-                        filterPingpong: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '乒乓球';
-                            })
-                        },
-                        filterFootball: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '羽毛球';
-                            })
-                        },
-                        filterTennis: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '网球';
-                            })
-                        },
-                        filterSki: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '冰雪';
-                            })
-                        },
-                        filterOther: function () {
-                            return this.activitys.filter(function (activity) {
-                                return activity['type'][0] === '其它';
-                            })
-                        },
-                    },
-                    methods: {
-                        showActivityInfo: function () {
-                            console.log('/Details-activity.html?id=' + $(event.currentTarget).attr('id'));
-                            location.href = '/Details-activity.html?id=' + $(event.currentTarget).attr('id');
-                        }
-                    }
-                });
+                app.activitys = data['info'];
             }
         }
     });
+    $.ajax({
+        type: 'POST',
+        url: base_url + 'api/getPersonalInfo',
+        data: '{}',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(data) {
+            if (data['succeed']) {
+                // alert('succeed');
+                if (data.info.state == 3) {
+                    app.is_su = true;
+                }
+            }
+        }
+    });
+});
+
+function setTab(name, cursel, n) {
+    app.cur_act = cursel;
+    for (i = 1; i <= n; i++) {
+        var menu = document.getElementById(name + i);
+        if (menu) menu.className = ((i == cursel) ? "hover" : "");
+    }
+}
+
+var swiper = new Swiper('.swiper-container', {
+    pagination: '.swiper-pagination',
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    slidesPerView: 1,
+    paginationClickable: true,
+    spaceBetween: 30,
+    loop: true,
+    autoplay: 3000,
+    autoplayDisableOnInteraction: false
 });

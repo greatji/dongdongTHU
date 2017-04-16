@@ -96,14 +96,15 @@ $(document).ready(function () {
                                 }
                             });
                         },
-                        showPersonalInfo: function (event) {
+                        showPersonalInfo: function (id) {
                             if (data['info']['identity'] == 'nobody') {
                                 location.href = '/login.html';
+                            } else if(data['info']['identity'] == 'non-member') {
+                                location.href = '/userInfo.html?id=' + id + '&full=false';
                             } else {
-                                location.href = '/userInfo.html?id=' + $(event.currentTarget).attr('id');
+                                location.href = '/userInfo.html?id=' + id + '&full=true';
                             }
-                            // console.log($(event.currentTarget).attr('id'));
-                        }
+                        },
                     },
                     computed: {
                         canJoinOrLogin: function () {

@@ -16,13 +16,14 @@ function param(name) {
 }
 
 var user_id = param('id');
+var is_full = param('full')=='true' ? true : false;
 
 $(document).ready(function () {
     $('#nav').load('/static/nav.html');
     // console.log(JSON.stringify({
     //     studentId: user_id
     // }))
-    var submitData = (user_id === undefined || user_id === null)?{}:{studentId: user_id};
+    var submitData = (user_id === undefined || user_id === null)?{}:{studentId: user_id, full:is_full};
     console.log(submitData);
     $.ajax({
         type: 'POST',
@@ -42,12 +43,13 @@ $(document).ready(function () {
                 el: '#userInfo',
                 data: {
                     user: data,
+                    is_full: is_full|| data.is_this_person,
                 },
                 filters: {
                     lspace: function (x) {
                         var s = x.toString();
                         return Array(3 - s.length + 1).join('0') + s;
-                        // return String.format('%03d', (x % 1000)); 
+                        // return String.format('%03d', (x % 1000));
                     }
                 },
                 methods: {
@@ -66,7 +68,9 @@ $(document).ready(function () {
                                     alert('succeed');
                                 } else {
                                     if (data['errno'] === 2008) {
-                                        location.href = '/setUserInfo.html';
+                                        location.href = '/login.html';
+                                    } else {
+                                        alert(data['errmsg']);
                                     }
                                 }
                             }

@@ -129,9 +129,6 @@ def isManager(studentId):
         return True
 
 
-
-
-
 if __name__ == '__main__':
     id = u"2013012444"
     phone = "18812345010"

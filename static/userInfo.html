@@ -31,14 +31,13 @@
 				<div class="profilev2crs mg2 xi20"><span class="xi31 zi">{{ user.name }}</span>{{ user.sex }}</div>
 				<div class="profilev2crx mg2 xi17">学院：{{ user.major }}</div>
 				<div class="profilev2crx mg2 xi17">学号：{{ user.id }}</div>
-				<div class="profilev2crx mg2 xi17">电话：{{ user.phone }}</div>
-				<div class="profilev2crx mg2 xi17">邮箱：{{ user.email }}</div>
+				<div class="profilev2crx mg2 xi17" v-if="is_full">电话：{{ user.phone }}</div>
+				<div class="profilev2crx mg2 xi17" v-if="is_full">邮箱：{{ user.email }}</div>
 				<div class="profilev2crx mg2 xi17">兴趣：{{ user.tag }}</div>
 			</div>
 		</div>
 		<div class="profilev2x mg xi30 cen bai">{{ user.introduction }}</div>
 	</div>
-	<script src="/static/js/mjs.js"></script>
 </body>
 
 </html>

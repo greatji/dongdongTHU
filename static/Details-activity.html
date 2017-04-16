@@ -1,177 +1,181 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
     <title></title>
-    <link href="/static/css/css.css" rel="stylesheet"/>
+    <link href="/static/css/css.css" rel="stylesheet" />
     <script type="text/javascript" language="javascript" src="/static/js/vue.js"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" language="javascript" src="/static/js/Details-activity_control.js"></script>
 </head>
 
 <body>
-<style>
-    body {
-        background: #ffffff;
-    }
-</style>
-<div class="menu"><img align="absmiddle" src="/static/images/profile-edit_02.png"/></div>
-<div id="nav"></div>
-<div id="hidden_wrapper">
-    <div id="activityDetails" v-cloak>
-        <div class="profilev2_title mg2 xi20"><a href="#">运动详情</a></div>
-        <div class="details1 mgz">
-            <div class="details1l f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg"/></div>
-            <div class="details1r f">
-                <div class="details1rs mg2 xi31 zi">{{ activity.leader.name }}</div>
-                <div class="details1rx mg2 xi17">
-                    <img align="absmiddle" src="/static/images/Details-club_05.png"/>{{ activity.leader.major }}
-                    <img align="absmiddle" src="/static/images/Details-club_07.png"/>{{ activity.leader.phone }}
-                    <img align="absmiddle" src="/static/images/Details-club_09.png"/>运动发起人
-                </div>
-            </div>
-        </div>
-        <div class="details2 mgz"><img align="absmiddle" src="/static/images/Details-club_14.jpg" width="640"/>
-            <div class="details2s"><a href="#"><img align="absmiddle" src="/static/images/Details-club_03.png"/></a>
-            </div>
-        </div>
-        <div class="details3 mgz"></div>
-        <div class="details3 mgz">
-            <div class="details3z1 mgz">
-                <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_17.png"/></div>
-                <div class="details3z1r f xi20">运动内容</div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z2 mg2 xi30 zi">{{ activity.name }}</div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_22.png"/></div>
-                <div class="details3z3r f xi20">
-                    <span class="cu">开始时间：</span>
-                    {{ activity.duringTime.year }}-{{ activity.duringTime.month }}-{{ activity.duringTime.day }} {{ activity.duringTime.shour }}:{{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }}
-                </div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_25.png"/></div>
-                <div class="details3z3r f xi20">
-                    <span class="cu">持续时间：</span>
-                    {{ activity.duringTime.hour }}小时{{ activity.duringTime.minute }}分钟
-                </div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_27.png"/></div>
-                <div class="details3z3r f xi20"><span class="cu">运动地点：</span>{{ activity.address }}</div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_29.png"/></div>
-                <div class="details3z3r f xi20"><span class="cu">运动类别：</span>{{ activity.type[0] }}</div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_31.png"/></div>
-                <div class="details3z3r f xi20"><span class="cu">参与人数：</span>{{ activity.participantsSum }}人</div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_33.png"/></div>
-                <div class="details3z3r2 f xi20"><span class="cu">备注：</span>{{ activity.remark }}
-                </div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z1 mgz">
-                <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_37.png"/></div>
-                <div class="details3z1r f xi20">运动简介</div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_22.png"/></div>
-                <div class="details3z3r3 f xi20">
-                    {{ activity.introduction }}
-                </div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z1 mgz">
-                <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_40.png"/></div>
-                <div class="details3z1r f xi20">点击右上角分享给朋友或分享到朋友圈</div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z4 mg2">
-                <ul>
-                    <li v-if="canJoinOrLogin" v-on:click="joinActivityOrLogin">
-                        <div class="details3z4s mg2"><a href="#"><img align="absmiddle"
-                                                                      src="/static/images/Details-club_43.png"/></a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">加入运动</div>
-                    </li>
-                    <li v-if="canQuit" v-on:click="quitActivity">
-                        <div class="details3z4s mg2"><a href="#"><img align="absmiddle"
-                                                                      src="/static/images/Details-club2_43.png"/></a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">退出运动</div>
-                    </li>
-                    <li v-if="canDissolve" v-on:click="dissolveActivity">
-                        <div class="details3z4s mg2"><a href="#"><img align="absmiddle"
-                                                                      src="/static/images/Details-club2_43.png"/></a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">取消运动</div>
-                    </li>
-                    <li>
-                        <div class="details3z4s mg2"><a href="#"><img align="absmiddle"
-                                                                      src="/static/images/Details-club_45.png"/></a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">运动补给</div>
-                    </li>
-                    <li>
-                        <div class="details3z4s mg2" v-on:click="shareAlert"><a href="#"><img align="absmiddle"
-                                                                      src="/static/images/Details-club_47.png"/></a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">运动分享</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z1 mgz">
-                <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_52.png"/></div>
-                <div class="details3z1r f xi20">参与者<span class="r">{{ activity.participantsSum }}/{{ activity.capacity }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z5">
-                <div class="details3z5_list mg2" v-bind:id="activity.leader.id" v-on:click="showPersonalInfo($event)">
-                    <div class="details3z5_listl f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56"
-                                                         height="56"/>
-                    </div>
-                    <div class="details3z5_listr f">
-                        <div class="details3z5_listrs mg2 xi17"><span
-                                class="xi20 zi">{{ activity.leader.name }}</span><img align="absmiddle"
-                                                                                      src="/static/images/Details-club_56.png"/>运动发起人
-                        </div>
-                        <div class="details3z5_listrx mg2 xi15">{{ activity.leader.introduction }}</div>
+    <style>
+        body {
+            background: #ffffff;
+        }
+    </style>
+    <div class="menu"><img align="absmiddle" src="/static/images/profile-edit_02.png" /></div>
+    <div id="nav"></div>
+    <div id="hidden_wrapper">
+        <div id="activityDetails" v-cloak>
+            <div class="profilev2_title mg2 xi20"><a href="#">运动详情</a></div>
+            <div class="details1 mgz" @click="showPersonalInfo(activity.leader.id)">
+                <div class="details1l f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" /></div>
+                <div class="details1r f">
+                    <div class="details1rs mg2 xi31 zi">{{ activity.leader.name }}</div>
+                    <div class="details1rx mg2 xi17">
+                        <img align="absmiddle" src="/static/images/Details-club_05.png" />{{ activity.leader.major }}
+                        <img align="absmiddle" src="/static/images/Details-club_07.png" />{{ activity.leader.phone }}
+                        <img align="absmiddle" src="/static/images/Details-club_09.png" />运动发起人
                     </div>
                 </div>
-                <div v-for="participant in activity.participants">
-                    <div class="details3z5_list mg2" v-bind:id="participant.id" v-on:click="showPersonalInfo($event)">
-                        <div class="details3z5_listl f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56"
-                                                             height="56"/>
+            </div>
+            <div class="details2 mgz"><img align="absmiddle" src="/static/images/Details-club_14.jpg" width="640" />
+                <div class="details2s">
+                    <a href="#"><img align="absmiddle" src="/static/images/Details-club_03.png" /></a>
+                </div>
+            </div>
+            <div class="details3 mgz"></div>
+            <div class="details3 mgz">
+                <div class="details3z1 mgz">
+                    <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_17.png" /></div>
+                    <div class="details3z1r f xi20">运动内容</div>
+                </div>
+            </div>
+            <div class="details3 mgz">
+                <div class="details3z2 mg2 xi30 zi">{{ activity.name }}</div>
+            </div>
+            <div class="details3 mgz">
+                <div class="details3z3 mgz">
+                    <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_22.png" /></div>
+                    <div class="details3z3r f xi20">
+                        <span class="cu">开始时间：</span> {{ activity.duringTime.year }}-{{ activity.duringTime.month }}-{{ activity.duringTime.day }} {{ activity.duringTime.shour }}:{{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }}
+                    </div>
+                </div>
+                <div class="details3z3 mgz">
+                    <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_25.png" /></div>
+                    <div class="details3z3r f xi20">
+                        <span class="cu">持续时间：</span> {{ activity.duringTime.hour }}小时{{ activity.duringTime.minute }}分钟
+                    </div>
+                </div>
+                <div class="details3z3 mgz">
+                    <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_27.png" /></div>
+                    <div class="details3z3r f xi20"><span class="cu">运动地点：</span>{{ activity.address }}</div>
+                </div>
+                <div class="details3z3 mgz">
+                    <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_29.png" /></div>
+                    <div class="details3z3r f xi20"><span class="cu">运动类别：</span>{{ activity.type[0] }}</div>
+                </div>
+                <div class="details3z3 mgz" v-if="activity.filterMajors.length!==0 && activity.filterMajors!==undefined">
+                    <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_05.png" /></div>
+                    <div class="details3z3r f xi20"><span class="cu">开放院系：</span>{{ activity.filterMajors.join(',') }}</div>
+                </div>
+                <div class="details3z3 mgz">
+                    <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_31.png" /></div>
+                    <div class="details3z3r f xi20"><span class="cu">参与人数：</span>{{ activity.participantsSum }}人</div>
+                </div>
+                <div class="details3z3 mgz">
+                    <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_33.png" /></div>
+                    <div class="details3z3r2 f xi20"><span class="cu">备注：</span>{{ activity.remark }}
+                    </div>
+                </div>
+            </div>
+            <div class="details3 mgz">
+                <div class="details3z1 mgz">
+                    <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_37.png" /></div>
+                    <div class="details3z1r f xi20">运动简介</div>
+                </div>
+            </div>
+            <div class="details3 mgz">
+                <div class="details3z3 mgz">
+                    <div class="details3z3l f"><img align="absmiddle" src="/static/images/Details-club_22.png" /></div>
+                    <div class="details3z3r3 f xi20">
+                        {{ activity.introduction }}
+                    </div>
+                </div>
+            </div>
+            <div class="details3 mgz">
+                <div class="details3z1 mgz">
+                    <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_40.png" /></div>
+                    <div class="details3z1r f xi20">点击右上角分享给朋友或分享到朋友圈</div>
+                </div>
+            </div>
+            <div class="details3 mgz">
+                <div class="details3z4 mg2">
+                    <ul>
+                        <li v-if="canJoinOrLogin" v-on:click="joinActivityOrLogin">
+                            <div class="details3z4s mg2">
+                                <a href="#"><img align="absmiddle" src="/static/images/Details-club_43.png" /></a>
+                            </div>
+                            <div class="details3z4x mg2 xi15 cen">加入运动</div>
+                        </li>
+                        <li v-if="canQuit" v-on:click="quitActivity">
+                            <div class="details3z4s mg2">
+                                <a href="#"><img align="absmiddle" src="/static/images/Details-club2_43.png" /></a>
+                            </div>
+                            <div class="details3z4x mg2 xi15 cen">退出运动</div>
+                        </li>
+                        <li v-if="canDissolve" v-on:click="dissolveActivity">
+                            <div class="details3z4s mg2">
+                                <a href="#"><img align="absmiddle" src="/static/images/Details-club2_43.png" /></a>
+                            </div>
+                            <div class="details3z4x mg2 xi15 cen">取消运动</div>
+                        </li>
+                        <li>
+                            <div class="details3z4s mg2">
+                                <a href="#"><img align="absmiddle" src="/static/images/Details-club_45.png" /></a>
+                            </div>
+                            <div class="details3z4x mg2 xi15 cen">运动补给</div>
+                        </li>
+                        <li>
+                            <div class="details3z4s mg2" v-on:click="shareAlert">
+                                <a href="#"><img align="absmiddle" src="/static/images/Details-club_47.png" /></a>
+                            </div>
+                            <div class="details3z4x mg2 xi15 cen">运动分享</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="details3 mgz">
+                <div class="details3z1 mgz">
+                    <div class="details3z1l f"><img align="absmiddle" src="/static/images/Details-club_52.png" /></div>
+                    <div class="details3z1r f xi20">参与者<span class="r">{{ activity.participantsSum }}/{{ activity.capacity }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="details3 mgz">
+                <div class="details3z5">
+                    <div class="details3z5_list mg2" @click="showPersonalInfo(activity.leader.id)">
+                        <div class="details3z5_listl f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56" height="56" />
                         </div>
                         <div class="details3z5_listr f">
-                            <div class="details3z5_listrs mg2 xi17"><span class="xi20 zi">{{ participant.name }}</span></div>
-                            <div class="details3z5_listrx mg2 xi15">{{ participant.introduction }}</div>
+                            <div class="details3z5_listrs mg2 xi17">
+                                <span class="xi20 zi">{{ activity.leader.name }}</span>
+                                <img align="absmiddle" src="/static/images/Details-club_56.png" />
+                                运动发起人
+                            </div>
+                            <div class="details3z5_listrx mg2 xi15">{{ activity.leader.introduction }}</div>
+                        </div>
+                    </div>
+                    <div v-for="participant in activity.participants">
+                        <div class="details3z5_list mg2" @click="showPersonalInfo(participant.id)">
+                            <div class="details3z5_listl f">
+                                <img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56" height="56" />
+                            </div>
+                            <div class="details3z5_listr f">
+                                <div class="details3z5_listrs mg2 xi17"><span class="xi20 zi">{{ participant.name }}</span></div>
+                                <div class="details3z5_listrx mg2 xi15">{{ participant.introduction }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="details4 mgz"><img align="absmiddle" src="/static/images/Details-club_59.jpg"/></div>
-<script src="/static/js/mjs.js"></script>
+    <div class="details4 mgz"><img align="absmiddle" src="/static/images/Details-club_59.jpg" /></div>
 </body>
+
 </html>

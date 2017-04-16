@@ -21,7 +21,7 @@
 <div id="hidden_wrapper">
     <div id="clubDetails" v-cloak>
         <div class="profilev2_title mg2 xi20"><a href="#">俱乐部详情</a></div>
-        <div class="details1 mgz">
+        <div class="details1 mgz" @click="showPersonalInfo(club.leader.id)">
             <div class="details1l f"><img align="absmiddle" src="static/images/xiaoyan.jpeg"/></div>
             <div class="details1r f">
                 <div class="details1rs mg2 xi31 zi">{{ club.leader.name }}</div>
@@ -146,7 +146,7 @@
         </div>
         <div class="details3 mgz">
             <div class="details3z5">
-                <div class="details3z5_list mg2" v-bind:id="club.leader.id" v-on:click="showPersonalInfo($event)">
+                <div class="details3z5_list mg2" @click="showPersonalInfo(club.leader.id)">
                     <div class="details3z5_listl f">
                         <img align="absmiddle" src="static/images/xiaoyan.jpeg" width="56" height="56"/>
                     </div>
@@ -159,7 +159,7 @@
                     </div>
                 </div>
                 <div v-for="manager in club.managers">
-                    <div class="details3z5_list mg2" v-bind:id="manager.id" v-on:click="showPersonalInfo($event)">
+                    <div class="details3z5_list mg2" @click="showPersonalInfo(manager.id)">
                         <div class="details3z5_listl f">
                             <img align="absmiddle" src="static/images/xiaoyan.jpeg" width="56" height="56"/>
                         </div>
@@ -173,7 +173,7 @@
                     </div>
                 </div>
                 <div v-for="member in club.members">
-                    <div class="details3z5_list mg2" v-bind:id="member.id" v-on:click="showPersonalInfo($event)">
+                    <div class="details3z5_list mg2" @click="showPersonalInfo(member.id)">
                         <div class="details3z5_listl f">
                             <img align="absmiddle" src="static/images/xiaoyan.jpeg" width="56" height="56"/>
                         </div>
@@ -188,6 +188,5 @@
     </div>
 </div>
 <div class="details4 mgz"><img align="absmiddle" src="static/images/Details-club_59.jpg"/></div>
-<script src="static/js/mjs.js"></script>
 </body>
 </html>

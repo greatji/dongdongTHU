@@ -31,7 +31,7 @@ $(document).ready(function () {
                         if (data['succeed']) {
                             if (data['state'] === 1) {
                                 location.href = '/setprofile.html';
-                            } else if (data['state'] === 2) {
+                            } else if (data['state'] === 2 || data['state'] === 3) {
                                 // console.log('登陆成功，会跳转到活动列表界面');
                                 location.href = '/index.html';
                             }

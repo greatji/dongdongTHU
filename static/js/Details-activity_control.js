@@ -28,7 +28,7 @@ $(document).ready(function () {
         success: function (data) {
             if (data['succeed']) {
                 console.log(data['info']);
-                var activityDetails = new Vue({
+                activityDetails = new Vue({
                     el: '#activityDetails',
                     data: {
                         activity: data['info']
@@ -52,7 +52,7 @@ $(document).ready(function () {
                                             location.reload();
                                         } else {
                                             alert(data['errmsg']);
-                                            location.href = '/activity-list.html'
+                                            location.href = '/index.html'
                                         }
                                     }
                                 });
@@ -73,7 +73,7 @@ $(document).ready(function () {
                                         location.reload();
                                     } else {
                                         alert(data['errmsg']);
-                                        location.href = '/activity-list.html'
+                                        location.href = '/index.html'
                                     }
                                 }
                             });
@@ -93,15 +93,17 @@ $(document).ready(function () {
                                     } else {
                                         alert(data['errmsg']);
                                     }
-                                    location.href = '/activity-list.html'
+                                    location.href = '/index.html'
                                 }
                             });
                         },
-                        showPersonalInfo: function (event) {
+                        showPersonalInfo: function (id) {
                             if (data['info']['identity'] == 'nobody') {
                                 location.href = '/login.html';
+                            } else if(data['info']['identity'] == 'non-participant') {
+                                location.href = '/userInfo.html?id=' + id + '&full=false';
                             } else {
-                                location.href = '/userInfo.html?id=' + $(event.currentTarget).attr('id');
+                                location.href = '/userInfo.html?id=' + id + '&full=true';
                             }
                         },
                         shareAlert: function (event) {

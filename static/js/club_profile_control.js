@@ -6,6 +6,15 @@ $.ajaxSetup({
 
 var all_padding_size = 7;
 
+function setTab(name,cursel,n){
+ for(i=1;i<=n;i++){
+  var menu=document.getElementById(name+i);
+  var con=document.getElementById("con_"+name+"_"+i);
+  if(menu) menu.className=((i==cursel)?"hover":"");
+  if(con) con.style.display=((i==cursel)?"block":"none");
+ }
+}
+
 function dealMyClubMethod() {
     setTab('one', 1, 3);
     $.ajax({
@@ -25,7 +34,7 @@ function dealMyClubMethod() {
                 if (data['errno'] === 2008) {
                     location.href = '/login.html';
                 } else {
-                    alert('unknown error');
+                    alert(data['errmsg']);
                     location.href = '/index.html';
                 }
             }
@@ -52,7 +61,7 @@ function dealManagedClubMethod() {
                 if (data['errno'] === 2008) {
                     location.href = '/login.html';
                 } else {
-                    alert('unknown error');
+                    alert(data['errmsg']);
                     location.href = '/index.html';
                 }
             }
@@ -77,7 +86,7 @@ function dealPendingInfoMethod() {
                 if (data['errno'] === 2008) {
                     location.href = '/login.html';
                 } else {
-                    alert('unknown error');
+                    alert(data['errmsg']);
                     location.href = '/index.html';
                 }
             }
@@ -114,7 +123,7 @@ function sendDeterminationMethod(id, determination) {
                 if (data['errno'] === 2008) {
                     location.href = '/login.html';
                 } else {
-                    alert('unknown error');
+                    alert(data['errmsg']);
                     location.href = '/index.html';
                 }
             }

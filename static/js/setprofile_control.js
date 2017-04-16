@@ -20,20 +20,20 @@ $(document).ready(function () {
         success: function (data) {
             console.log(data);
             if (data['succeed']) {
+                if (data['info']['major'] === undefined)
+                    data['info']['major']= 'default';
                 vue_profile = new Vue({
                     el: '#profile',
                     data: {
                         user: data['info'],
-                        phone_error: true,
-                        email_error: true,
-                        tag_error: true,
-                        introduction_error: true,
-                        sex_error: true,
-                        all_right: false
+                        try_submit: false,
                     },
                     computed: {
                         sex_error: function() {
                             return this.user.sex !== '男' && this.user.sex !== '女';
+                        },
+                        major_error: function() {
+                            return this.user.major === 'default';
                         },
                         phone_error: function () {
                             // console.log(this.user.phone.length);
@@ -42,18 +42,14 @@ $(document).ready(function () {
                         email_error: function () {
                             return this.user.email.length < 5 || this.user.email.length > 128 || this.user.email.indexOf('@') < 0;
                         },
-                        tag_error: function () {
-                            return this.user.tag.length > 12 || this.user.tag.length < 2;
-                        },
-                        introduction_error: function () {
-                            return this.user.introduction.length > 12 || this.user.introduction.length < 4;
-                        },
                         all_right: function () {
-                            return this.user.sex !== "" && this.user.major !== "" && (!this.sex_error) && (!this.phone_error) && (!this.email_error) && (!this.tag_error) && (!this.introduction_error);
+                            return this.user.sex !== "" && this.user.major !== "" && (!this.sex_error) && (!this.phone_error) && (!this.email_error) && (!this.major_error);
                         }
                     },
                     methods: {
                         submitInfo: function () {
+                            this.try_submit = true;
+                            if (!this.all_right) return;
                             submitInfo = {
                                 email: this.user.email,
                                 phone: this.user.phone,
@@ -75,7 +71,7 @@ $(document).ready(function () {
                                         // console.log('成功');
                                         location.href = '/index.html';
                                     } else {
-                                        console.log(data['errmsg']);
+                                        alert(data['errmsg']);
                                     }
                                 }
                             })
@@ -86,7 +82,7 @@ $(document).ready(function () {
                 if (data['errno'] === 2008) {
                     location.href = '/login.html';
                 } else {
-                    alert('unknown error');
+                    alert(data['errmsg']);
                     location.href = '/index.html';
                 }
             }
