@@ -20,7 +20,7 @@ $(document).ready(function () {
         success: function (data) {
             console.log(data);
             if (data['succeed']) {
-                if (data['info']['major'] === undefined)
+                if (data['info']['major'] === '')
                     data['info']['major']= 'default';
                 vue_profile = new Vue({
                     el: '#profile',
