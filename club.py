@@ -38,6 +38,59 @@ import datetime
     }
 '''
 
+def addManagerService(clubId, clubName, applyId, state):
+    if state == 'refuse':
+        return True
+    manageList = {
+        'clubId': clubId,
+        'clubName':clubName
+    }
+    res = Mongo.user.find_and_modify(
+        query={
+            'id': applyId
+        },
+        update={
+            '$addToSet': {'manager': manageList}
+        },
+        upsert=False,
+        full_response=True,
+        new=True
+    )
+    print 'addManagerService res: ', res
+    if res['ok']:
+        if res['value'] is None:
+            return None
+        else:
+            return res['value']
+    else:
+        return False
+
+def delManagerService(clubId, clubName, applyId):
+    manageList = {
+        'clubId': clubId,
+        'clubName':clubName
+    }
+    res = Mongo.user.find_and_modify(
+        query={
+            'id': applyId
+        },
+        update={
+            '$pull': {'manager': {"clubId": clubId}}
+        },
+        upsert=False,
+        full_response=True,
+    )
+    print 'delManagerService res: ', res
+    if res['ok']:
+        if res['value'] is None:
+            return None
+        else:
+            return res['value']
+    else:
+        return False
+
+ 
+    
 
 def listClubsService(skip, limit, para={}):
     return [traitAttr(i, {

@@ -55,15 +55,21 @@ def createPersonalInfoService(id, name):
         return res['state']
 
 
-def getPersonalInfoService(studentId):
+def getPersonalInfoService(studentId, full=True):
     res = Mongo.user.find_one({'id': studentId})
     if res is None:
         return 'NO_SUCH_USER'
     else:
-        return traitAttr(res, {
+        info = traitAttr(res, {
             'id': '', 'name': '', 'sex': '', 'email': '', 'phone': '', 'major': '', 'introduction': '', 'times': 0,
-            'tag': '', 'state': 0, 'selfPhoto': '',
+            'tag': '', 'state': 0, 'selfPhoto': '', 'manager': [],
         })
+        if full:
+            return info
+        else:
+            info.update(email='', phone='')
+            return info
+
 
 
 def updatePersonalInfoService(id, name, email, phone, major, sex, tag, introduction, selfPhoto):
@@ -113,6 +119,17 @@ def getPresidentOfMajor(major):
     return [traitAttr(i, {
         'id': ''
     }) for i in res]
+
+
+def isManager(studentId):
+    res = Mongo.user.find_one({'id': studentId, 'manager': {'$exists': True}})
+    if res is None:
+        return False
+    else:
+        return True
+
+
+
 
 
 if __name__ == '__main__':

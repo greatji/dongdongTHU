@@ -170,6 +170,16 @@ def checkMajor(s):
     else:
         return False
 
+def checkMajorList(l):
+    print l
+    if not isinstance(l, list):
+        return False
+    for i in l:
+        if i not in major_type:
+            return False
+    return True
+
+
 
 def checkSex(s):
     print s
