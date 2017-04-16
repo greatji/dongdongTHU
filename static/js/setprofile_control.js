@@ -20,6 +20,8 @@ $(document).ready(function () {
         success: function (data) {
             console.log(data);
             if (data['succeed']) {
+                if (data['info']['major'] === undefined)
+                    data['info']['major']= 'default';
                 vue_profile = new Vue({
                     el: '#profile',
                     data: {
@@ -30,6 +32,9 @@ $(document).ready(function () {
                         sex_error: function() {
                             return this.user.sex !== '男' && this.user.sex !== '女';
                         },
+                        major_error: function() {
+                            return this.user.major === 'default';
+                        },
                         phone_error: function () {
                             // console.log(this.user.phone.length);
                             return this.user.phone.length !== 11 || parseInt(this.user.phone, 10) === NaN;
@@ -38,7 +43,7 @@ $(document).ready(function () {
                             return this.user.email.length < 5 || this.user.email.length > 128 || this.user.email.indexOf('@') < 0;
                         },
                         all_right: function () {
-                            return this.user.sex !== "" && this.user.major !== "" && (!this.sex_error) && (!this.phone_error) && (!this.email_error);
+                            return this.user.sex !== "" && this.user.major !== "" && (!this.sex_error) && (!this.phone_error) && (!this.email_error) && (!this.major_error);
                         }
                     },
                     methods: {

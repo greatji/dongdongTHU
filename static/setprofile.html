@@ -26,11 +26,11 @@
 					<a href="#"><img align="absmiddle" src="/static/images/profile-edit_06.png" /></a>
 				</div>
 			</div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="* 姓名" disabled v-model="user.name"></div>
+			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="姓名" disabled v-model="user.name"></div>
 			<div class="edit3 mg2"></div>
 			<div class="edit2 mg2 xi21">
 				<ul>
-					<li> * 性别</li>
+					<li> 性别（必填）</li>
 					<li><input type="radio" id="radio-1-1" class="regular-radio" name="radio-1-set" value="男" v-model="user.sex"><label for="radio-1-1"></label>
 					</li>
 					<li>男</li>
@@ -41,9 +41,9 @@
 				</ul>
 			</div>
 			<div class="edit3 mg2 zi xi18"><span class="edit3hover" v-if="try_submit && sex_error">请选择性别</span></div>
-			<div class="edit3 mg2"></div>
 			<div class="edit2 mg2">
 				<select v-model="user.major" class="bd1_3 xi20 bai">
+					<option value="default">请选择院系（必填）</option>
 					<option value="建筑学院">建筑学院</option>
 					<option value="土木系">土木系</option>
 					<option value="水利系">水利系</option>
@@ -85,16 +85,16 @@
 					<option value="新雅书院">新雅书院</option>
 				</select>
 			</div>
+			<div class="edit3 mg2 zi xi18"><span class="edit3hover" v-if="try_submit && major_error">请选择院系</span></div>
+			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="学号" disabled v-model="user.id"></div>
 			<div class="edit3 mg2"></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="* 学号" disabled v-model="user.id"></div>
-			<div class="edit3 mg2"></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="* 电话" v-model="user.phone"></div>
+			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="电话（必填）" v-model="user.phone"></div>
 			<div class="edit3 mg2 zi xi18"><span class="edit3hover" v-if="try_submit && phone_error">请输入11位电话号码</span></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="* 邮箱" v-model="user.email"></div>
+			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="邮箱（必填）" v-model="user.email"></div>
 			<div class="edit3 mg2 zi xi18"><span class="edit3hover" v-if="try_submit && email_error">错误的邮箱</span></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="兴趣" v-model="user.tag"></div>
+			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="兴趣（选填）" v-model="user.tag"></div>
 			<div class="edit3 mg2 zi xi18"></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="个性签名" v-model="user.introduction"></div>
+			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="个性签名（选填）" v-model="user.introduction"></div>
 			<div class="edit3 mg2 zi xi18"></div>
 			<!--判断edit3hover的显示和隐藏 -->
 			<!--<div class="edit4 mg2 cen"><span v-if="all_right"><input name="" type="button" class="clubv2_an2 xi25 bai" value="完&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成"></span></div>-->
