@@ -43,7 +43,7 @@ $(document).ready(function () {
                 el: '#userInfo',
                 data: {
                     user: data,
-                    is_full: is_full,
+                    is_full: is_full|| data.info.is_this_person,
                 },
                 filters: {
                     lspace: function (x) {

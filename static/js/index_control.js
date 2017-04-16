@@ -4,7 +4,7 @@
 
 document.write("<script language=javascript src='static/js/config.js'></script>");
 
-$.ajaxSetup ({
+$.ajaxSetup({
     cache: false //close AJAX cache
 });
 
@@ -17,33 +17,35 @@ var app = new Vue({
         is_su: false,
     },
     methods: {
-        showActivityInfo: function (id) {
+        showActivityInfo: function(id) {
             console.log('/Details-activity.html?id=' + id);
             location.href = '/Details-activity.html?id=' + id;
         },
-        dissolveActivity: function (id) {
-            $.ajax({
-                type: 'POST',
-                url: base_url + 'api/deleteActivity',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({
-                    activityId: id,
-                }),
-                dataType: 'json',
-                success: function (data) {
-                    if (data['succeed']) {
-                        alert('succeed');
-                    } else {
-                        alert(data['errmsg']);
+        dissolveActivity: function(id) {
+            if (confirm('确认删除吗？')) {
+                $.ajax({
+                    type: 'POST',
+                    url: base_url + 'api/deleteActivity',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        activityId: id,
+                    }),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data['succeed']) {
+                            alert('succeed');
+                        } else {
+                            alert(data['errmsg']);
+                        }
+                        location.href = '/index.html'
                     }
-                    location.href = '/index.html'
-                }
-            });
+                });
+            }
         },
     }
 });
 
-$(document).ready(function () {
+$(document).ready(function() {
     $('#nav').load('/static/nav.html');
     $.ajax({
         type: 'POST',
@@ -51,7 +53,7 @@ $(document).ready(function () {
         data: '{}',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             if (data['succeed']) {
                 app.activitys = data['info'];
             }
@@ -63,7 +65,7 @@ $(document).ready(function () {
         data: '{}',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             if (data['succeed']) {
                 // alert('succeed');
                 if (data.info.state == 3) {
