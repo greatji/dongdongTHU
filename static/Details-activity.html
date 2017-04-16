@@ -162,8 +162,10 @@
                 </div>
                 <div v-for="participant in activity.participants">
                     <div class="details3z5_list mg2" v-bind:id="participant.id" v-on:click="showPersonalInfo($event)">
-                        <div class="details3z5_listl f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56"
-                                                             height="56"/>
+                        <div class="details3z5_listl f">
+                            <a :href="document.location.host + '/userInfo.html?id=' + participant.id + '&full=' + canJoinOrLogin?'false':'true'">
+                                <img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56" height="56"/>
+                            </a>
                         </div>
                         <div class="details3z5_listr f">
                             <div class="details3z5_listrs mg2 xi17"><span class="xi20 zi">{{ participant.name }}</span></div>

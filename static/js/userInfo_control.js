@@ -16,13 +16,14 @@ function param(name) {
 }
 
 var user_id = param('id');
+var is_full = param('full');
 
 $(document).ready(function () {
     $('#nav').load('/static/nav.html');
     // console.log(JSON.stringify({
     //     studentId: user_id
     // }))
-    var submitData = (user_id === undefined || user_id === null)?{}:{studentId: user_id};
+    var submitData = (user_id === undefined || user_id === null)?{}:{studentId: user_id, full:is_full};
     console.log(submitData);
     $.ajax({
         type: 'POST',

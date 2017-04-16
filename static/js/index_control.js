@@ -14,11 +14,31 @@ var app = new Vue({
         activitys: [],
         types: ['羽毛球', '篮球', '跑步', '游泳', '健身', '乒乓球', '足球', '网球', '冰雪', '其它'],
         cur_act: 1,
+        is_su: false,
     },
     methods: {
-        showActivityInfo: function () {
-            console.log('/Details-activity.html?id=' + $(event.currentTarget).attr('id'));
-            location.href = '/Details-activity.html?id=' + $(event.currentTarget).attr('id');
+        showActivityInfo: function (id) {
+            console.log('/Details-activity.html?id=' + id);
+            location.href = '/Details-activity.html?id=' + id;
+        },
+        dissolveActivity: function (id) {
+            $.ajax({
+                type: 'POST',
+                url: base_url + 'api/deleteActivity',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    activityId: id,
+                }),
+                dataType: 'json',
+                success: function (data) {
+                    if (data['succeed']) {
+                        alert('succeed');
+                    } else {
+                        alert(data['errmsg']);
+                    }
+                    location.href = '/index.html'
+                }
+            });
         },
     }
 });
@@ -34,6 +54,21 @@ $(document).ready(function () {
         success: function (data) {
             if (data['succeed']) {
                 app.activitys = data['info'];
+            }
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: base_url + 'api/getPersonalInfo',
+        data: '{}',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data) {
+            if (data['succeed']) {
+                // alert('succeed');
+                if (data.info.state == 3) {
+                    app.is_su = true;
+                }
             }
         }
     });

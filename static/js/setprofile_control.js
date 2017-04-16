@@ -37,14 +37,8 @@ $(document).ready(function () {
                         email_error: function () {
                             return this.user.email.length < 5 || this.user.email.length > 128 || this.user.email.indexOf('@') < 0;
                         },
-                        tag_error: function () {
-                            return this.user.tag.length > 12 || this.user.tag.length < 2;
-                        },
-                        introduction_error: function () {
-                            return this.user.introduction.length > 12 || this.user.introduction.length < 4;
-                        },
                         all_right: function () {
-                            return this.user.sex !== "" && this.user.major !== "" && (!this.sex_error) && (!this.phone_error) && (!this.email_error) && (!this.tag_error) && (!this.introduction_error);
+                            return this.user.sex !== "" && this.user.major !== "" && (!this.sex_error) && (!this.phone_error) && (!this.email_error);
                         }
                     },
                     methods: {

@@ -17,7 +17,7 @@
 
     <div id="lib_Tab2" class="mg bai">
         <div class="lib_Menubox2 lib_tabborder">
-            <ul class="xi15 cen" style="padding: 6px 0px 0px 0px; margin: -6px 0px 0px 0px">
+            <ul class="xi21 cen" style="padding: 6px 0px 0px 0px; margin: -6px 0px 0px 0px">
                 <li id="two1" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/feature-v4_16.png" /><br/>全部
                 </li>
                 <li id="two2" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',2,11)"><img src="/static/images/feature-v4_18.png" />羽毛球
@@ -43,7 +43,7 @@
             </ul>
         </div>
     </div>
-    <div class="list1 mg2 bai xi20">
+    <div class="list1 mg2 bai xi24">
         <a href="/index.html"><img align="absmiddle" src="static/images/activity-list_07.png" />运动广场</a><span class="r"><a
         href="/createclub.html">申请俱乐部<img align="absmiddle" src="static/images/activity-list_10.png"/></a></span></div>
     <div id="hidden_wrapper">
@@ -51,14 +51,14 @@
             <div v-for="club in clubList" v-show="cur_club == 1 || club.type == types[cur_club-2]">
                 <a href="#" v-bind:id="club.id" v-on:click="showClubInfo($event)">
                     <div class="list2 mg2 bai">
-                        <div class="list2s mg2 xi15"><img align="absmiddle" src="static/images/activity-list_15.png" /><span class="r">{{ club.id }}</span>
+                        <div class="list2s mg2 xi18"><img align="absmiddle" src="static/images/activity-list_15.png" /><span class="r">{{ club.id }}</span>
                         </div>
-                        <div class="list2c mg2 xi25 cen">{{ club.name }}</div>
+                        <div class="list2c mg2 xi28 cen">{{ club.name }}</div>
                         <div class="list2x mg2">
-                            <div class="list2xl f xi15"><img align="absmiddle" src="static/images/activity-list_21.png" />{{ club.leader.name }}
+                            <div class="list2xl f xi18"><img align="absmiddle" src="static/images/activity-list_21.png" />{{ club.leader.name }}
                             </div>
-                            <div class="list2xc f xi15 cen">{{ club.motto }}<br/>{{ club.major }} {{ club.type }}</div>
-                            <div class="list2xr r xi15">{{ club.scale }}<img align="absmiddle" src="static/images/activity-list_19.png" />
+                            <div class="list2xc f xi18 cen">{{ club.motto }}<br/>{{ club.major }} {{ club.type }}</div>
+                            <div class="list2xr r xi18">{{ club.scale }}<img align="absmiddle" src="static/images/activity-list_19.png" />
                             </div>
                         </div>
                     </div>
