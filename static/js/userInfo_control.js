@@ -65,7 +65,7 @@ $(document).ready(function () {
                             dataType: 'json',
                             success: function (data) {
                                 if (data['succeed']) {
-                                    alert('succeed');
+                                    alert('操作成功');
                                 } else {
                                     if (data['errno'] === 2008) {
                                         location.href = '/login.html';

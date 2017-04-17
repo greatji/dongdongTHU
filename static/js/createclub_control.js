@@ -41,7 +41,7 @@ $(document).ready(function() {
                     dataType: 'json',
                     success: function (data) {
                         if (data['succeed']) {
-                            alert('succeed');
+                            alert('操作成功');
                             location.href = '/club-list.html';
                         }  else {
                             if (data['errno'] === 2008) {
