@@ -2,6 +2,7 @@
 
 from connector import Mongo
 from utils import traitAttr
+from information import superusers
 
 '''
     collection: user
@@ -46,7 +47,8 @@ def createPersonalInfoService(id, name):
             'name': name,
             'state': 1,
             'selfPhoto': '',
-            'times': 0
+            'times': 0,
+            'president': [],
         })
         if res is None:
             return 0
@@ -74,23 +76,25 @@ def getPersonalInfoService(studentId, full=True):
 
 def updatePersonalInfoService(id, name, email, phone, major, sex, tag, introduction, selfPhoto):
     print id, name
+    newInfo = {
+        'email': email,
+        'phone': phone,
+        'major': major,
+        'sex': sex,
+        'introduction': introduction,
+        'tag': tag,
+        'state': 2,
+        'selfPhoto': selfPhoto,
+    }
+    if name in superusers:
+        newInfo['state'] = 3
     res = Mongo.user.find_and_modify(
         query={
             'id': id,
             'name': name
         },
         update={
-            "$set": {
-                'email': email,
-                'phone': phone,
-                'major': major,
-                'sex': sex,
-                'introduction': introduction,
-                'tag': tag,
-                'state': 2,
-                'selfPhoto': selfPhoto,
-                'president': []
-            }
+            "$set": newInfo
         },
         upsert=False,
         full_response=True,
@@ -123,6 +127,17 @@ def getPresidentOfMajor(major):
 
 def isManager(studentId):
     res = Mongo.user.find_one({'id': studentId, 'manager': {'$exists': True}})
+    if res is None:
+        return False
+    else:
+        return True
+
+
+def updateSuperuser():
+    res = Mongo.user.update_many(
+        {'name': {'$in': superusers}, 'state': 2},
+        {'$set': {'state': 3}},
+    )
     if res is None:
         return False
     else:
