@@ -28,6 +28,7 @@ $(document).ready(function () {
         success: function (data) {
             if (data['succeed']) {
                 console.log(data['info']);
+                document.title = '咚咚体育平台 | ' + data.info.name + ' | ' + data.info.type[0];
                 activityDetails = new Vue({
                     el: '#activityDetails',
                     data: {
@@ -48,7 +49,7 @@ $(document).ready(function () {
                                     dataType: 'json',
                                     success: function (data) {
                                         if (data['succeed']) {
-                                            alert('succeed');
+                                            alert('操作成功');
                                             location.reload();
                                         } else {
                                             alert(data['errmsg']);
@@ -69,7 +70,7 @@ $(document).ready(function () {
                                 dataType: 'json',
                                 success: function (data) {
                                     if (data['succeed']) {
-                                        alert('succeed');
+                                        alert('操作成功');
                                         location.reload();
                                     } else {
                                         alert(data['errmsg']);
@@ -89,7 +90,7 @@ $(document).ready(function () {
                                 dataType: 'json',
                                 success: function (data) {
                                     if (data['succeed']) {
-                                        alert('succeed');
+                                        alert('操作成功');
                                     } else {
                                         alert(data['errmsg']);
                                     }

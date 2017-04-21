@@ -33,7 +33,7 @@ var app = new Vue({
                     dataType: 'json',
                     success: function(data) {
                         if (data['succeed']) {
-                            alert('succeed');
+                            alert('操作成功');
                         } else {
                             alert(data['errmsg']);
                         }
@@ -67,7 +67,6 @@ $(document).ready(function() {
         dataType: 'json',
         success: function(data) {
             if (data['succeed']) {
-                // alert('succeed');
                 if (data.info.state == 3) {
                     app.is_su = true;
                 }
