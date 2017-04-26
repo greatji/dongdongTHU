@@ -19,12 +19,12 @@ def checkOneField(jsonObj, key, checker, errs=None):
         res = checker(jsonObj[key])
         if not res:
             print key, res
-            if errs != None:
+            if errs is not None:
                 errs.append(key)
         return res
     print key, "not found"
     res = checker(None)
-    if (not res) and (errs != None):
+    if (not res) and (errs is not None):
         errs.append(key)
     return res
 
