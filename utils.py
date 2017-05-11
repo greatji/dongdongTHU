@@ -3,6 +3,7 @@ from functools import wraps
 from errors import *
 import json
 import datetime
+from information import banned_words
 
 
 def traitAttr(dictObj, selector):
@@ -60,6 +61,13 @@ class jsonApi(object):
                     {k: j[k] for k in self.checkers if k in j})
             return jsonify(func(*args, **kwargs))
         return wrapped
+
+
+def checkSensitiveWords(s):
+    for w in banned_words:
+        if w in s:
+            return False
+    return True
 
 # test
 

@@ -1,7 +1,7 @@
 from appConfig import app, initialize
 from flask import request, render_template, session, redirect
 import flask
-from utils import jsonApi
+from utils import jsonApi, checkSensitiveWords
 from checkers import *
 from club import *
 from activity import *
@@ -205,6 +205,8 @@ def apiCreateActivity(name, duringTime, address, capacity, type, introduction, p
         if filterMajors:
             if not isManager(session['studentId']):
                 return error('PERMISSION_DENIED')
+        if not checkSensitiveWords(name):
+            return error('ACTIVITY_THEME_BANNED')
         res = createActivityService(name, duringTime, address, capacity, type, introduction, leader, poster,
                                     filterMajors)
         if res:

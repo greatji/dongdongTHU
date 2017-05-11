@@ -31,7 +31,7 @@ app.config['SECRET_KEY'] = '2016*platform'
 # app.config['JWT_AUTH_URL_RULE'] = None
 # app.config['JWT_AUTH_EMAIL_KEY'] = "email"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://ubuntu:ubuntu@2016@123.207.153.209:3306/platform?charset=utf8'
-app.permanent_session_lifetime = timedelta(minutes=30)
+app.permanent_session_lifetime = timedelta(days=10)
 app.config.update(
     CELERY_BROKER_URL='redis://localhost:6379',
     CELERY_RESULT_BACKEND='redis://localhost:6379',
