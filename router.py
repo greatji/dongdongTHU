@@ -315,11 +315,15 @@ def apiQuitActivity(activityId):
 )
 def apiAddComment(activityId, content):
     if apiCheckSession():
-        res = addComment(session['studentName'], activityId, content)
-        if isStr(res):
-            return error(res)
+        isOrganizer = searchOrganizer(activityId, session['studentId'])
+        if isOrganizer or searchParticipant(activityId, session['studentId']):
+            res = addComment(session['studentId'], session['studentName'], activityId, content)
+            if isStr(res):
+                return error(res)
+            else:
+                return success(info=res)
         else:
-            return success(info=res)
+            return error('PERMISSION_DENIED')
     else:
         return error('NOT_LOGGED_IN')
 
