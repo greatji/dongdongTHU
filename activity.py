@@ -40,8 +40,10 @@ from errors import error_num
             'selfPhoto':<string>
         },...]
         comments: {
+            'studentId': <string>,
             'studentName': <string>,
-            'content': <string>
+            'content': <string>,
+            'createTime': <Date(UTC datetime)>, // save local time representation, not utc
         }
         'filterMajors': [<enum string: major>] // 允许加入的院系
     }
@@ -229,7 +231,7 @@ def searchOrganizer(activityId, leaderId):
     return False
 
 
-def addComment(studentName, activityId, commentContent):
+def addComment(studentId, studentName, activityId, commentContent):
     res = Mongo.activity.find_and_modify(
         query={
             'id': activityId
@@ -237,8 +239,10 @@ def addComment(studentName, activityId, commentContent):
         update={
             '$addToSet': {
                 'comments': {
+                    'studentId': studentId,
                     'studentName': studentName,
-                    'content': commentContent
+                    'content': commentContent,
+                    'createTime': datetime.datetime.now(),
                 }
             }
         },
@@ -250,12 +254,13 @@ def addComment(studentName, activityId, commentContent):
         if res['value'] is None:
             return 'COMMENT_FAILED'
         else:
+            print res
             new_res = traitAttr(res['value'], {
                 'id': '', 'name': '',
                 'duringTime': {'year': 0, 'month': 0, 'day': 0, 'shour': 0, 'sminute': 0, 'hour': 0, 'minute': 0},
                 'address': '', 'capacity': 0, 'type': [], 'introduction': '',
                 'leader': {'name': '', 'id': '', 'phone': '', 'major': '', 'selfPhone': ''},
-                'participants': [], 'participantsSum': len(res['participants'])
+                'participants': [], 'participantsSum': len(res['value']['participants'])
             })
             if len(res['value']['comments']) != 0:
                 new_res['comments'] = res['value']['comments']

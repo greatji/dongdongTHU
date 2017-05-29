@@ -24,7 +24,7 @@ errors = {
     'CLUB_JOIN_FAILED': (6003, 'Failed to join club'),
     'CLUB_QUIT_FAILED': (6003, 'Failed to quit club'),
     'CLUB_ID_EXISTS': (6004, 'Club id exists'),
-    'HAS_NO_PRESIDENT': (6005, 'Has no president'),
+    'HAS_NO_PRESIDENT': (6005, '您所在的院系尚无院系负责人'),
     'CLUB_INFORMATION_MODIFY_FAILED': (6006, 'Failed to modify the information of club'),
     'CLUB_NOT_EXIST': (6007, 'The club does not exist'),
     'ACTIVITY_JOIN_FAILED': (7001, 'Failed to join this activity'),
@@ -34,7 +34,8 @@ errors = {
     'ACTIVITY_DELETE_FAILED': (7005, 'Failed to delete activity'),
     'ACTIVITY_NOT_EXIST': (7006, 'The activity does not exist'),
     'ACTIVITY_FULL': (7007, 'The activity is full'),
-    'ACTIVITY_MAJOR_NOT_MATCH': (7008, 'You do not match the major requirements'),
+    'ACTIVITY_MAJOR_NOT_MATCH': (7008, '本活动不对您所在的院系开放'),
+    'ACTIVITY_THEME_BANNED': (7009, '活动主题不合要求'),
     'PERMISSION_DENIED': (9000, 'Not authenticated to access this resource'),
 }
 
