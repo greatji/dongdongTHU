@@ -89,8 +89,8 @@ def delManagerService(clubId, clubName, applyId):
     else:
         return False
 
- 
-    
+
+
 
 def listClubsService(skip, limit, para={}):
     return [traitAttr(i, {
@@ -348,6 +348,44 @@ def searchLeader(clubId, leaderId):
     if res['leader']['id'] == leaderId:
         return True
     return False
+
+def getLeader(clubId):
+    res = Mongo.club.find_one({'id': clubId}, {'leader': 1})
+    if res is None:
+        return None
+    else:
+        return res['leader']
+
+
+def getMajor(clubId):
+    res = Mongo.club.find_one({'id': clubId}, {'major': 1})
+    if res is None:
+        return None
+    else:
+        return res['major']
+
+
+def changeClubLeaderService(clubId, leaderId, leaderName):
+    clubInfo = getClubService(clubId, [])
+    if not clubInfo:
+        return None
+    else:
+        newLeader = {'id': leaderId, 'name': leaderName}
+        updateRes = Mongo.club.update_one(
+            {'id': clubId},
+            {'$set': {
+                'leader': newLeader,
+                'manager': newLeader,
+            }}
+        )
+        res = delManagerService(clubId, '', clubInfo['leader']['id']) and \
+              addManagerService(clubId, clubInfo['name'], leaderId, 'admit') and \
+              updateRes and updateRes['modified_count']
+        if not res:
+            return False
+        else:
+            return True
+
 
 
 if __name__ == '__main__':

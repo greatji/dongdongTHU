@@ -7,6 +7,7 @@ __author__ = 'JasonLee'
 import requests
 import json
 import datetime
+from appConfig import celery
 
 
 AUTH_KEY = "key-56cf73ec3cd1df1f2716b3f901e6c14c"   ### 这只是一个示例，并不是真实的，如果你注册了螺丝帽的账号就会生成一个authkey
@@ -32,6 +33,24 @@ def send_batch(phones, content):
                         },timeout=3 , verify=False)
     result =  json.loads( resp.content )
     return result['error'], result['msg']
+
+
+@celery.task(name='delete_notify')
+def notify_delete_activity(activity, by_superuser, reason):
+    name = activity['name']
+    event = "管理员删除" if by_superuser else "发起者取消"
+    content = "您参加的活动：%s已被%s。" % (name, event)
+    if by_superuser and reason:
+        content += "删除原因：%s" % reason
+    phone_list = [one['phone'] for one in activity['participants']]
+    if by_superuser:
+        phone_list.append(activity['leader']['phone'])
+    code, msg = send_batch(phone_list, content)
+    if code == 0:
+        return True
+    else:
+        print activity['id'], activity['name'], 'send fail', msg
+        return False
 
 
 # def send_batch(phones, content):

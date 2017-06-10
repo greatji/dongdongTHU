@@ -36,7 +36,10 @@ errors = {
     'ACTIVITY_FULL': (7007, 'The activity is full'),
     'ACTIVITY_MAJOR_NOT_MATCH': (7008, '本活动不对您所在的院系开放'),
     'ACTIVITY_THEME_BANNED': (7009, '活动主题不合要求'),
+    'ACTIVITY_TOP_FAILED': (7010, '置顶失败'),
+    'ACTIVITY_UNTOP_FAILED': (7010, '取消置顶失败'),
     'PERMISSION_DENIED': (9000, 'Not authenticated to access this resource'),
+    'SET_BANNED_WORDS_FAILED': (9001, '设置屏蔽词出错'),
 }
 
 

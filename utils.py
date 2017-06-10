@@ -3,7 +3,8 @@ from functools import wraps
 from errors import *
 import json
 import datetime
-from information import banned_words
+from connector import Redis
+from parameter import getBannedWords
 
 
 def traitAttr(dictObj, selector):
@@ -64,10 +65,27 @@ class jsonApi(object):
 
 
 def checkSensitiveWords(s):
+    banned_words = getBannedWords()
     for w in banned_words:
         if w in s:
             return False
     return True
+
+
+def addRefreshStateList(studentId):
+    Redis.hset('state', studentId, 1)
+
+
+def popRefreshStateList(studentId):
+    p = Redis.pipeline()
+    p.hget('state', studentId)
+    p.hdel('state', studentId)
+    res = p.execute()
+    if res[0] is not None:
+        return True
+    else:
+        return False
+
 
 # test
 

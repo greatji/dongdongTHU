@@ -106,6 +106,16 @@ def isAllDigits(s):
     return True
 
 
+def isStrList(l):
+    if not isinstance(l, list):
+        return False
+    for i in l:
+        if not isinstance(i, basestring):
+            return False
+    return True
+
+
+
 def checkDuringTime(s):
     keys = s.keys()
     time_keys = ['year', 'month', 'day', 'shour', 'sminute', 'hour', 'minute']
@@ -202,6 +212,12 @@ def checkCapacity(s):
             return True
     return False
 
+
+def checkLevel(s):
+    if s in levels:
+        return True
+    else:
+        return False
 
 if __name__ == '__main__':
     # try:

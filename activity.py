@@ -5,6 +5,7 @@ from utils import traitAttr, get_datetime
 import parameter
 import datetime
 from errors import error_num
+from sms import notify_delete_activity
 
 '''
     collection: activity
@@ -55,10 +56,10 @@ def listActivitiesService(skip, limit, para={}):
         'id':'', 'name':'', 
         'duringTime':{'year':0, 'month':0, 'day':0, 'shour':0, 'sminute':0, 'hour':0, 'minute':0},
         'address':'', 'capacity':0, 'leader':{'name':'', 'id':''}, 'introduction':'', 'type':[],
-        'participantsSum': len(i['participants']) + 1, 'state': 'close'
+        'participantsSum': len(i['participants']) + 1, 'state': 'close', 'top': 0,
     }) for i in Mongo.activity.find(para).skip(skip).limit(limit).sort(
-        [('duringTime.year', -1), ('duringTime.month', -1), ('duringTime.day', -1), ('duringTime.shour', -1),
-         ('duringTime.sminute', -1), ('duringTime.hour', -1), ('duringTime.minute', -1)])]
+        [('top', -1), ('duringTime.year', -1), ('duringTime.month', -1), ('duringTime.day', -1),
+         ('duringTime.shour', -1), ('duringTime.sminute', -1), ('duringTime.hour', -1), ('duringTime.minute', -1)])]
     print res
     return res
 
@@ -106,12 +107,13 @@ def createActivityService(name, duringTime, address, capacity, type, introductio
     return True
 
 
-def deleteActivityService(activityId):
-    res = Mongo.activity.remove({'id': activityId})
-    if res['n'] == 1:
-        return True
-    else:
+def deleteActivityService(activityId, bySuperuser=False, reason=''):
+    res = Mongo.activity.find_one_and_delete({'id': activityId})
+    if not res:
         return False
+    else:
+        notify_delete_activity.delay(res, bySuperuser, reason)
+        return True
 
 
 def addParticipant(activityId, participant):
@@ -306,6 +308,24 @@ def checkActivityState(activityId):
 def filterSensitiveInfo(participants):
     for p in participants:
         p.update(phone='')
+
+
+def topActivityService(activityId, top):
+    if top:
+        modify = {'$set': {'top': 1}}
+    else:
+        modify = {'$unset': {'top': 1}}
+    res = Mongo.activity.update_one(
+        {'id': activityId},
+        modify,
+    )
+    if not res:
+        return None
+    elif res['modified_count']:
+        return True
+    else:
+        return False
+
 
 
 

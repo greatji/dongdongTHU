@@ -1,7 +1,7 @@
 from appConfig import app, initialize
 from flask import request, render_template, session, redirect
 import flask
-from utils import jsonApi, checkSensitiveWords
+from utils import jsonApi, checkSensitiveWords, addRefreshStateList, popRefreshStateList
 from checkers import *
 from club import *
 from activity import *
@@ -89,6 +89,11 @@ def apiLogin(studentId, password):
 
 def apiCheckSession(state=2):
     if all(['studentId' in session, 'state' in session]):
+        needFresh = popRefreshStateList(session['studentId'])
+        if needFresh:
+            userInfo = getPersonalInfoService(session['studentId'])
+            if not isinstance(userInfo, basestring):
+                session['state'] = userInfo['state']
         if session['state'] >= state:
             return True
     return False
@@ -328,7 +333,27 @@ def apiAddComment(activityId, content):
         return error('NOT_LOGGED_IN')
 
 
+@app.route('api/activity/top', methods=['POST'])
+@jsonApi(
+    activityId=allChecked(lenIn(5, 5), isAllDigits),
+    top=isBool,
+)
+def apiTopActivity(activityId, top):
+    if apiCheckSession(3):
+        res = topActivityService(activityId, top)
+        if not res:
+            errorType = 'ACTIVITY_TOP_FAILED' if top else 'ACTIVITY_UNTOP_FAILED'
+            return error(errorType)
+        else:
+            success()
+    else:
+        return error('PERMISSION_DENIED')
+
 # club
+
+"""
+Clubs List
+"""
 
 
 @app.route('/api/listClubs', methods=['POST'])
@@ -339,6 +364,11 @@ def apiAddComment(activityId, content):
 def apiListClubs(skip=0, limit=200):
     res = listClubsService(skip, limit, {'state': 'admit'})
     return success(info=res)
+
+
+"""
+Club detail
+"""
 
 
 @app.route('/api/getClub', methods=['POST'])
@@ -374,6 +404,11 @@ def apiGetClub(clubId):
     return success(info=res)
 
 
+"""
+My Clublist
+"""
+
+
 @app.route('/api/getClubList', methods=['POST'])
 @jsonApi(
     skip=optional(isPositive),
@@ -397,6 +432,30 @@ def apiGetClubList(flag, skip=0, limit=200):
             return error('CHECK ERROR')
     else:
         return error('NOT_LOGGED_IN')
+
+
+@app.route('/api/searchClub', methods=['GET'])
+@jsonApi(
+    skip=optional(isPositive),
+    limit=optional(isPositive),
+    major=optional(checkMajor),
+    type=optional(lenIn(2, 8)),
+)
+def apiSearchClub(skip=0, limit=0, major=None, type=None):
+    if apiCheckSession(3):
+        para = {}
+        if major:
+            para['major'] = major
+        if type:
+            para['type'] = type
+        if not para:
+            error('ARGUMENTS')
+        para['state'] = 'admit'
+        res = listClubsService(skip, limit, para)
+        return success(info=res)
+
+    else:
+        return error('PERMISSION_DENIED')
 
 
 @app.route('/api/createClub', methods=['POST'])
@@ -477,10 +536,24 @@ def apiSetClubInfo(clubId, name, type, introduction, major):
 
 @app.route('/api/deleteClub', methods=['POST'])
 @jsonApi(
-    clubId=allChecked(lenIn(9, 9), isAllDigits)
+    clubId=allChecked(lenIn(9, 9), isAllDigits),
+    direct=optional(isBool)
 )
-def apiDeleteClub(clubId):
+def apiDeleteClub(clubId, direct=False):
     if apiCheckSession():
+        if direct:  # super user or major president direct delete
+            major = getMajor(clubId)
+            if major is None:
+                return error('PERMISSION_DENIED')
+            presidents = getPresidentOfMajor(major)
+            if apiCheckSession(3) or session['studentId'] in presidents:
+                res = changeClubState(clubId, 'delete') and delManagerService(clubId, '', session['studentId'])
+                if not res:
+                    return error('CHECK ERROR')
+                else:
+                    return success()
+            else:
+                return error('PERMISSION_DENIED')
         isLeader = searchLeader(clubId, session['studentId'])
         if isLeader:
             res_club = getClubService(clubId, ['joined'])
@@ -594,6 +667,38 @@ def apiChangeMemberState(clubId, memberId, state):
         return error('NOT_LOGGED_IN')
 
 
+@app.route('api/changeClubLeader', methods=['POST'])
+@jsonApi(
+    cludId=allChecked(lenIn(9, 9), isAllDigits),
+    leaderId=allChecked(lenIn(10, 10), isAllDigits),
+    leaderName=isStr,
+)
+def apichangeClubLeader(clubId, leaderId, leaderName):
+    if apiCheckSession():
+        canOperate = apiCheckSession(3)
+        if not canOperate:
+            major = getMajor(clubId)
+            if not major:
+                return error('CHECK_ERROR')
+            presidents = getPresidentOfMajor(major)
+            if session['studentId'] in presidents:
+                canOperate = True
+        if not canOperate:
+            return error('PERMISSION_DENIED')
+        userInfo = getPersonalInfoService(leaderId)
+        if isStr(userInfo):
+            return error(userInfo)
+        if userInfo['name'] != leaderName:
+            return error('NO_SUCH_USER')
+        res = changeClubLeaderService(clubId, leaderId, leaderName)
+        if not res:
+            return error("CHECK_ERROR")
+        else:
+            return success()
+    else:
+        return error('PERMISSION_DENIED')
+
+
 # pending
 
 
@@ -671,12 +776,13 @@ def getPendingInfo():
 )
 def apiSetPersonalInfo(email, phone, major, sex, tag, introduction, selfPhoto):
     if 'studentId' in session:
+        nowState = session.get('state', 1)
         res = updatePersonalInfoService(session['studentId'], session['studentName'],
-                                        email, phone, major, sex, tag, introduction, selfPhoto)
+                                        email, phone, major, sex, tag, introduction, selfPhoto, nowState)
         if isStr(res):
             return error(res)
         else:
-            session['state'] = 2
+            session['state'] = res['state']
             return success()
     else:
         return error('NOT_LOGGED_IN')
@@ -713,6 +819,79 @@ def apiGetPersonalInfo(studentId=None, full=False):
         return success(info=res)
     else:
         return error('NOT_LOGGED_IN')
+
+@app.route('/api/searchUser', methods=['GET'])
+@jsonApi(
+    studentId=optional(allChecked(lenIn(10, 10), isAllDigits)),
+    studentName=isStr,
+)
+def apiSearchUser(studentId=None, studentName=None):
+    if apiCheckSession(3):
+        para = {}
+        if studentId:
+            para['id'] = studentId
+        if studentName:
+            para['name'] = studentName
+        if not para:
+            return  error('ARGUMENTS')
+        userInfo = searchUser(para)
+        return success(info=userInfo)
+    else:
+        return error('PERMISSION_DENIED')
+
+
+@app.route('/api/changeUserLevel', methods=['POST'])
+@jsonApi(
+    studentId=allChecked(lenIn(10, 10), isAllDigits),
+    level=checkLevel,
+)
+def apiChangeUserLevel(studentId, level):
+    if apiCheckSession(3):
+        if level == 'common':
+            if studentId == session['studentId']:
+                return error('USER_LEVEL_CHANGE_FAILED')
+            res = changeUserLevelService(studentId, 0)
+            addRefreshStateList(studentId) # set new state
+        elif level == 'president':
+            res = changeUserLevelService(studentId, 1)
+        elif level == 'superuser':
+            if studentId == session['studentId']:
+                res = True
+            else:
+                res = changeUserLevelService(studentId, 3)
+        else:
+            res = False
+        if not res:
+            return error('USER_LEVEL_CHANGE_FAILED')
+        else:
+            return success()
+    else:
+        return error('PERMISSION_DENIED')
+
+
+# miscellaneous
+@app.route('/api/getBannedWords', methods=['GET'])
+@jsonApi()
+def apiGetBannedWords():
+    if apiCheckSession(3):
+        return success(info=getBannedWords())
+    else:
+        return error('PERMISSION_DENIED')
+
+
+@app.route('/api/setBannedWords', methods=['POST'])
+@jsonApi(
+    bannedWords=isStrList
+)
+def apiSetBannedWords(bannedWords):
+    if apiCheckSession(3):
+        res = setBannedWords(banned_words)
+        if not res:
+            return error('SET_BANNED_WORDS_FAILED')
+        else:
+            return success()
+    else:
+        return error('PERMISSION_DENIED')
 
 
 # @app.route('/api/getAnotherInfo', methods=['POST'])
