@@ -425,8 +425,7 @@ def apiGetClubList(flag, skip=0, limit=200):
             # print res
             return success(info=res)
         elif flag == 'manager':
-            res = listClubsService(skip, limit, {'state': 'admit',
-                                                 'managers.id': session['studentId']})
+            res = listClubsService(skip, limit, {'managers.id': session['studentId']})
             return success(info=res)
         else:
             return error('CHECK ERROR')
