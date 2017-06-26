@@ -8,87 +8,64 @@
     <link href="/static/css/css.css" rel="stylesheet" />
     <script type="text/javascript" language="javascript" src="/static/js/vue.js"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <link href="/static/css/swiper-3.3.1.min.css" rel="stylesheet" />
-    <script src="/static/js/swiper-3.3.1.jquery.min.js"></script>
 </head>
 
 <body>
     <div id="nav"></div>
-    <div class="swiper-container mgz">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><img align="absmiddle" src="/static/images/feature-pic-01.jpg" width="640" height="271" />
+    <div class="head" id="menu"><img align="absmiddle" src="/static/images/menu.png" />运动广场</div>
+    <div class="newbtn"><a href="/createactivity.html"><img src="/static/images/ground/new.png" /> 发起新运动</a></div>
+    <div class="mgz top2"><img align="absmiddle" src="/static/images/ground/bg.png" width="100%" /> </div>
+    <div id="allActivities" v-cloak>
+        <div id="lib_Tab2" class="mg2">
+            <div class="lib_Menubox2">
+                <ul class="xi21 cen">
+                    <li id="two1" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/ground/kind_all.png" /><br/>全部
+                    </li>
+                    <li id="two2" onClick="setTab('two',2,11)"><img src="/static/images/ground/kind_01.png" />羽毛球
+                    </li>
+                    <li id="two3" onClick="setTab('two',3,11)"><img src="/static/images/ground/kind_02.png" />篮球
+                    </li>
+                    <li id="two4" onClick="setTab('two',4,11)"><img src="/static/images/ground/kind_03.png" />跑步
+                    </li>
+                    <li id="two5" onClick="setTab('two',5,11)"><img src="/static/images/ground/kind_04.png" />游泳
+                    </li>
+                    <li id="two6" onClick="setTab('two',6,11)"><img src="/static/images/ground/kind_05.png" />健身
+                    </li>
+                    <li id="two7" onClick="setTab('two',7,11)"><img src="/static/images/ground/kind_06.png" />乒乓球
+                    </li>
+                    <li id="two8" onClick="setTab('two',8,11)"><img src="/static/images/ground/kind_07.png" />足球
+                    </li>
+                    <li id="two9" onClick="setTab('two',9,11)"><img src="/static/images/ground/kind_08.png" />网球
+                    </li>
+                    <li id="two10" onClick="setTab('two',10,11)"><img src="/static/images/ground/kind_09.png" />冰雪
+                    </li>
+                    <li id="two11" onClick="setTab('two',11,11)"><img src="/static/images/ground/kind_other.png" />其它
+                    </li>
+                </ul>
             </div>
-            <div class="swiper-slide"><img align="absmiddle" src="/static/images/feature-pic-02.jpg" width="640" height="271" />
-            </div>
-            <div class="swiper-slide"><img align="absmiddle" src="/static/images/feature-pic-03.jpg" width="640" height="271" />
-            </div>
-            <div class="swiper-slide"><img align="absmiddle" src="/static/images/feature-pic-04.jpg" width="640" height="271" />
-            </div>
-        </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
-    <!--<div id="allActivities" v-cloak>-->
-    <div id="lib_Tab2" class="mg bai">
-        <div class="lib_Menubox2 lib_tabborder">
-            <ul class="xi21 cen" style="padding: 6px 0px 0px 0px; margin: -6px 0px 0px 0px">
-                <li id="two1" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/feature-v4_16.png" /><br/>全部
-                </li>
-                <li id="two2" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',2,11)"><img src="/static/images/feature-v4_18.png" />羽毛球
-                </li>
-                <li id="two3" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',3,11)"><img src="/static/images/feature-v4_20.png" />篮球
-                </li>
-                <li id="two4" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',4,11)"><img src="/static/images/feature-v4_22.png" />跑步
-                </li>
-                <li id="two5" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',5,11)"><img src="/static/images/feature-v4_23.png" />游泳
-                </li>
-                <li id="two6" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',6,11)"><img src="/static/images/feature-v4_24.png" />健身
-                </li>
-                <li id="two7" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',7,11)"><img src="/static/images/feature-v4_25.png" />乒乓球
-                </li>
-                <li id="two8" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',8,11)"><img src="/static/images/feature-v4_03.png" />足球
-                </li>
-                <li id="two9" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',9,11)"><img src="/static/images/feature-v4_05.png" />网球
-                </li>
-                <li id="two10" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',10,11)"><img src="/static/images/feature-v4_07.png" />冰雪
-                </li>
-                <li id="two11" style="padding: 6px 0px 0px 0px;" onClick="setTab('two',11,11)"><img src="/static/images/feature-v4_09.png" />其它
-                </li>
-            </ul>
-        </div>
-        <div class="lib_Contentbox lib_tabborder">
-            <div class="list1 mg2 bai xi24" id="menu"><img align="absmiddle" src="/static/images/activity-list_07.png" />咚咚导航
-                <span class="r">
-                    <a href="/createactivity.html">发起运动
-                        <img align="absmiddle" src="/static/images/activity-list_10.png"/>
-                    </a>
-                </span>
-            </div>
-            <div id="allActivities" v-cloak>
-                <div id="con_two_1">
-                    <div v-for="activity in activitys" v-show="cur_act == 1 || activity.type == types[cur_act-2]">
-                        <div class="list2 mg2 bai">
-                            <div class="list2s mg2 xi18">
-                                <a @click="dissolveActivity(activity.id)" style="color:red" v-if="is_su">【删除】</a>
-                                <span class="r">{{ activity.id }}</span>
+            <div class="lib_Contentbox" style="min-height:1000px">
+                <div class="list2 mg2" v-for="activity in activitys" v-show="cur_act == 1 || activity.type == types[cur_act-2]">
+                    <!--<div class="list2s mg2 xi18">-->
+                        <!--<a @click="dissolveActivity(activity.id)" style="color:red" v-if="is_su">【删除】</a>-->
+                        <!--<span class="r">{{ activity.id }}</span>-->
+                    <!--</div>-->
+                    <a href="#" v-bind:id="activity.id" v-on:click="showActivityInfo(activity.id)">
+                        <div class="list2icon"><img :src="'/static/images/ground/'+activity.type[0]+'.png'" /></div>
+                        <div class="list2content">
+                            <div class="list2c mg2 xi28 blk">
+                                {{ activity.name }}
                             </div>
-                            <a href="#" v-bind:id="activity.id" @click="showActivityInfo(activity.id)">
-                                <div class="list2c mg2 xi28 cen">
-                                    {{ activity.name }}
+                            <div class="list2x mg2">
+                                <div class="list2xc f xi20"><img align="absmiddle" src="/static/images/ground/address.png" />{{ activity.address }}</div>
+                                <div class="list2xc f xi20">
+                                    <img src="/static/images/ground/time.png" />
+                                    {{ activity.duringTime.year }}年{{ activity.duringTime.month }}月{{ activity.duringTime.day }}日 {{ activity.duringTime.shour }}:{{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }}-{{ ((activity.duringTime.hour + activity.duringTime.shour) >= 24)?"次日":"" }}{{ (activity.duringTime.hour + activity.duringTime.shour + (((activity.duringTime.minute + activity.duringTime.sminute)>=60)?1:0)) % 24 }}:{{ ((10>((activity.duringTime.minute + activity.duringTime.sminute)%60))?'0':'') + ((activity.duringTime.minute + activity.duringTime.sminute) % 60) }} 
                                 </div>
-                                <div class="list2x mg2">
-                                    <div class="list2xl f xi18"><img align="absmiddle" src="/static/images/activity-list_21.png" />{{ activity.leader.name }}
-                                    </div>
-                                    <div class="list2xc f xi18 cen">{{ activity.duringTime.year }}-{{ activity.duringTime.month }}-{{ activity.duringTime.day }} {{ activity.duringTime.shour }} : {{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }} - {{ ((activity.duringTime.hour + activity.duringTime.shour) >= 24)?"次日":"" }} {{ (activity.duringTime.hour + activity.duringTime.shour + (((activity.duringTime.minute + activity.duringTime.sminute)>=60)?1:0)) % 24 }} : {{ ((10>((activity.duringTime.minute + activity.duringTime.sminute)%60))?'0':'') + ((activity.duringTime.minute + activity.duringTime.sminute) % 60) }}<br/> {{ activity.address }} {{ activity.type[0] }}
-                                    </div>
-                                    <div class="list2xr r xi18">{{ activity.participantsSum }}/{{ activity.capacity }} </div>
-                                </div>
-                            </a>
+                                <div class="list2xc f xi20"><img align="absmiddle" src="/static/images/ground/leader.png" />{{ activity.leader.name }}发起 </div>
+                                <div class="list2xc f xi20"><span class="huang">{{ activity.participantsSum }}</span>人已报名（人数限制{{ activity.capacity }} ）</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
