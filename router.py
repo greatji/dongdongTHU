@@ -333,7 +333,7 @@ def apiAddComment(activityId, content):
         return error('NOT_LOGGED_IN')
 
 
-@app.route('api/activity/top', methods=['POST'])
+@app.route('/api/activity/top', methods=['POST'])
 @jsonApi(
     activityId=allChecked(lenIn(5, 5), isAllDigits),
     top=isBool,
@@ -666,7 +666,7 @@ def apiChangeMemberState(clubId, memberId, state):
         return error('NOT_LOGGED_IN')
 
 
-@app.route('api/changeClubLeader', methods=['POST'])
+@app.route('/api/changeClubLeader', methods=['POST'])
 @jsonApi(
     cludId=allChecked(lenIn(9, 9), isAllDigits),
     leaderId=allChecked(lenIn(10, 10), isAllDigits),
