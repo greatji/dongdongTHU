@@ -60,7 +60,7 @@ $(document).ready(function() {
                 return this.club.name.length >= 4 && this.club.name.length <= 16;
             },
             major_ok: function() {
-                return !this.club.isForClub || this.club.filterMajors != [];
+                return this.club.major != '';
             },
             type_ok: function() {
                 return this.club.type != '';

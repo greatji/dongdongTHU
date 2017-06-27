@@ -2,111 +2,114 @@
 <html>
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
-	<title>咚咚体育平台</title>
-	<link href="/static/css/css.css" rel="stylesheet" />
-	<script src="/static/js/jquery-3.1.1.min.js"></script>
-	<script src="/static/js/createclub_control.js"></script>
-	<script src="/static/js/vue.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet" />
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/createclub_control.js"></script>
+    <script src="/static/js/vue.js"></script>
 </head>
 
 <body>
-	<div class="menu"><img align="absmiddle" src="/static/images/activity-club-V2_02.png" /></div>
-	<div id="nav"></div>
-	<div id="hidden_wrapper">
-		<div id="submit_info" v-cloak>
-			<div class="clubv2_title mg2 cen"><img align="absmiddle" src="/static/images/activity-club-V2.png" /></div>
-			<div class="clubv2s mg2 xi20 bai">
-                俱乐部名称 *
-                <span class="xi15 r" v-if="!try_submit || name_ok">（4-16字）</span>
-                <span class="xi15 r" style="color:red" v-if="try_submit && !name_ok">名称长度应为4-16</span>
+    <div id="nav"></div>
+    <div class="head" id="menu" style="color:#333"><img align="absmiddle" src="/static/images/menu.png" />申请体育俱乐部</div>
+    <div id="submit_info" class="top2" v-cloak>
+        <div class="lib_Sheet">
+            <div class="input_s mg2" :style="try_submit && !name_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 俱乐部名称 </div> 
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" placeholder="（限4至16字）" v-model="club.name"></div>
+                <span class="clubv2e xi24" v-if="try_submit && !name_ok">限4至16字</span>
             </div>
-			<div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写俱乐部名称" v-model="club.name"></div>
-			<div class="clubv2s mg2 xi20 bai">
-                俱乐部运动类别 *
-                <span class="xi15 r" style="color:red" v-if="try_submit && !type_ok">请选择类别</span>
+            <div class="input_s mg2" :style="try_submit && !type_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 运动类别 </div>
+                <div class="clubv2x mg2 cen">
+                    <select name="" class="clubv2_bd1 xi24" v-model="club.type">
+                        <option value="羽毛球">羽毛球</option>
+                        <option value="篮球">篮球</option>
+                        <option value="跑步">跑步</option>
+                        <option value="游泳">游泳</option>
+                        <option value="健身">健身</option>
+                        <option value="乒乓球">乒乓球</option>
+                        <option value="足球">足球</option>
+                        <option value="网球">网球</option>
+                        <option value="冰雪">冰雪</option>
+                        <option value="其它">其它</option>
+                    </select>
+                </div>
+                <span class="clubv2e xi24" v-if="try_submit && !type_ok">请选择</span>
             </div>
-            <div class="clubv2x mg2 cen">
-                <select name="" class="bd1_1 xi20 bai" v-model="club.type">
-                    <option value="羽毛球">羽毛球</option>
-                    <option value="篮球">篮球</option>
-                    <option value="跑步">跑步</option>
-                    <option value="游泳">游泳</option>
-                    <option value="健身">健身</option>
-                    <option value="乒乓球">乒乓球</option>
-                    <option value="足球">足球</option>
-                    <option value="网球">网球</option>
-                    <option value="冰雪">冰雪</option>
-                    <option value="其它">其它</option>
-                </select>
+            <div class="input_s mg2" :style="try_submit && !major_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 所属院系 </div>
+                <div class="clubv2x mg2 cen">
+                    <select class="clubv2_bd1 xi24" v-model="club.major">
+                        <option value="建筑学院">建筑学院</option>
+                        <option value="土木系">土木系</option>
+                        <option value="水利系">水利系</option>
+                        <option value="环境学院">环境学院</option>
+                        <option value="机械系">机械系</option>
+                        <option value="精仪系">精仪系</option>
+                        <option value="热能系">热能系</option>
+                        <option value="汽车系">汽车系</option>
+                        <option value="工业工程系">工业工程系</option>
+                        <option value="电机系">电机系</option>
+                        <option value="电子系">电子系</option>
+                        <option value="计算机系">计算机系</option>
+                        <option value="自动化系">自动化系</option>
+                        <option value="微纳电子系">微纳电子系</option>
+                        <option value="航天航空学院">航天航空学院</option>
+                        <option value="工物系">工物系</option>
+                        <option value="化工系">化工系</option>
+                        <option value="材料学院">材料学院</option>
+                        <option value="数学系">数学系</option>
+                        <option value="物理系">物理系</option>
+                        <option value="化学系">化学系</option>
+                        <option value="生命学院">生命学院</option>
+                        <option value="地学中心">地学中心</option>
+                        <option value="交叉信息学院">交叉信息学院</option>
+                        <option value="经管学院">经管学院</option>
+                        <option value="公管学院">公管学院</option>
+                        <option value="金融学院">金融学院</option>
+                        <option value="法学院">法学院</option>
+                        <option value="新闻学院">新闻学院</option>
+                        <option value="马克思主义学院">马克思主义学院</option>
+                        <option value="人文学院">人文学院</option>
+                        <option value="社科学院">社科学院</option>
+                        <option value="美术学院">美术学院</option>
+                        <option value="核研院">核研院</option>
+                        <option value="教研院">教研院</option>
+                        <option value="医学院">医学院</option>
+                        <option value="软件学院">软件学院</option>
+                        <option value="苏世民书院">苏世民书院</option>
+                        <option value="新雅书院">新雅书院</option>
+                        <option value="深研院">深研院</option>
+                    </select>
+                </div>
+                <span class="clubv2e xi24" v-if="try_submit && !major_ok">请选择</span>
             </div>
-			<div class="clubv2s mg2 xi20 bai">
-                俱乐部所属院系 *
-                <span class="xi15 r" style="color:red" v-if="try_submit && !major_ok">请选择所属院系</span>
+            <div class="input_s mg2" :style="try_submit && !motto_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24">俱乐部口号</div>
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" placeholder="（限4至16字）" v-model="club.motto"></div>
+                <span class="clubv2e xi24" v-if="try_submit && !motto_ok">限4至16字</span>
             </div>
-			<div class="clubv2x mg2 cen">
-				<select name="" class="bd1_1 xi20 bai" v-model="club.major">
-					<option value="建筑学院">建筑学院</option>
-					<option value="土木系">土木系</option>
-					<option value="水利系">水利系</option>
-					<option value="环境学院">环境学院</option>
-					<option value="机械系">机械系</option>
-					<option value="精仪系">精仪系</option>
-					<option value="热能系">热能系</option>
-					<option value="汽车系">汽车系</option>
-					<option value="工业工程系">工业工程系</option>
-					<option value="电机系">电机系</option>
-					<option value="电子系">电子系</option>
-					<option value="计算机系">计算机系</option>
-					<option value="自动化系">自动化系</option>
-					<option value="微纳电子系">微纳电子系</option>
-					<option value="航天航空学院">航天航空学院</option>
-					<option value="工物系">工物系</option>
-					<option value="化工系">化工系</option>
-					<option value="材料学院">材料学院</option>
-					<option value="数学系">数学系</option>
-					<option value="物理系">物理系</option>
-					<option value="化学系">化学系</option>
-					<option value="生命学院">生命学院</option>
-					<option value="地学中心">地学中心</option>
-					<option value="交叉信息学院">交叉信息学院</option>
-					<option value="经管学院">经管学院</option>
-					<option value="公管学院">公管学院</option>
-					<option value="金融学院">金融学院</option>
-					<option value="法学院">法学院</option>
-					<option value="新闻学院">新闻学院</option>
-					<option value="马克思主义学院">马克思主义学院</option>
-					<option value="人文学院">人文学院</option>
-					<option value="社科学院">社科学院</option>
-					<option value="美术学院">美术学院</option>
-					<option value="核研院">核研院</option>
-					<option value="教研院">教研院</option>
-					<option value="医学院">医学院</option>
-					<option value="软件学院">软件学院</option>
-					<option value="苏世民书院">苏世民书院</option>
-					<option value="新雅书院">新雅书院</option>
-					<option value="深研院">深研院</option>
-				</select>
-			</div>
-			<div class="clubv2s mg2 xi20 bai">
-                俱乐部口号 *
-                <span class="xi15 r" v-if="!try_submit || motto_ok">（4-16字）</span>
-                <span class="xi15 r" style="color:red" v-if="try_submit && !motto_ok">口号长度应为4-16</span>
+            <div class="input_s mg2">
+                <div class="clubv2s mg2 xi24">备注(选填)</div>
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" v-model="club.remark"></div>
             </div>
-			<div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写俱乐部口号" v-model="club.motto"></div>
-			<div class="clubv2s mg2 xi20 bai">备注</div>
-			<div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写备注" v-model="club.remark"></div>
-			<div class="clubv2s mg2 xi20 bai">
-                俱乐部简介 *
-                <span class="xi15 r" v-if="!try_submit || intro_ok">（50-200字）</span>
-                <span class="xi15 r" style="color:red" v-if="try_submit && !intro_ok">简介长度应为50-200</span>
+            <div style="position:relative;">
+                <div class="clubv2s mg2 xi24" style="width:100%;padding:0px 15px 20px 15px;line-height:30px;">
+                    俱乐部简介
+                </div>
+                <span class="clubv2e xi24" style="padding:0;line-height:30px;" v-if="try_submit && !intro_ok">字数不符</span>
             </div>
-			<div class="clubv2x mg2 cen"><textarea name="" cols="" rows="" placeholder="请在此填写俱乐部简介" class="clubv2_bd2 xi20" v-model="club.introduction"></textarea></div>
-			<div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an1 xi20 bai" value="上传俱乐部海报" disabled></div>
-			<div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an2 xi25 bai" value="申         请" v-on:click="submitClubInfo"></div>
-		</div>
-	</div>
+            <div class="input_s mg2" style="height:200px" :style="try_submit && !intro_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2x mg2 cen" style="width:calc(100% - 30px);height:calc(100% - 80px);"><textarea name="" maxlength="200" class="clubv2_bd2 xi24" v-model="club.introduction"></textarea></div>
+                <span class="xi24 r hui">（50至200字）</span>
+            </div>
+            <!--<div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an1 xi20 bai" value="上传俱乐部海报" disabled></div>-->
+            <div class="clubv2b mg2 cen bai" v-on:click="submitClubInfo">发起</div>
+        </div>
+    </div>
 </body>
 
 </html>

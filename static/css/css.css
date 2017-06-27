@@ -4,7 +4,7 @@
 *:focus{outline:none;}
 input,select,textarea{ font-size:24px;line-height:normal;-webkit-appearance:none;}
 html {height: 100%;}
-body {margin:0px;font-size:24px;font-family:'SimHei';color:#777;-webkit-text-size-adjust:none;-ms-text-size-adjust:none; background:#fff;}
+body {margin:0px;font-size:24px;font-family:'Arial';color:#777;-webkit-text-size-adjust:none;-ms-text-size-adjust:none; background:#fff;}
 a {	text-decoration: none;	color: #777;}
 ul,li,tr,td{list-style-type: none;margin: 0px;padding: 0px;}
 li{ overflow:hidden;}
@@ -78,18 +78,7 @@ a img{text-decoration: none;margin: 0px;padding: 0px;border:none;}
 .newbtn { position:fixed; bottom:30px; background-color:#fec22c; left:0; right:0; margin:0 auto; width:290px; height:90px; line-height:90px; border-radius:45px; z-index:9; }
 .newbtn a { color:#fff; font-size:35px; }
 .newbtn img { padding: 27.5px 10px 27.5px 40px;float: left; }
-.clubv2s{ width:436px; line-height:40px; height:40px;}
-.clubv2x{ padding-bottom:18px;}
-.clubv2_bd1{ width:436px; height:43px; border:2px solid #fff; padding:0; margin:0; text-indent:13px; background:none; color:#fff;}
-.bd1_1{ width:438px; height:45px; border:2px solid #fff; text-indent:11px; padding:0; margin:0 auto;
-appearance:none;
--moz-appearance:none;
--webkit-appearance:none;
-background:url(../images/activity-club-V2_06.png) no-repeat scroll right center transparent;}
 select::-ms-expand { display: none;}
-.clubv2_bd2{ width:410px; height:130px; line-height:28px; border:2px solid #fff; padding:5px 13px; margin:0; background:none; color:#fff;}
-.clubv2_an1{ background:#934c6f;border-radius:5px; width:192px; height:42px; border:none; padding:0; margin:0;}
-.clubv2_an2{ background:#934c6f;border-radius:5px; width:330px; height:54px; border:none; padding:0; margin:0 0 18px 0;}
 .dh_tc{ overflow-x:hidden; overflow-y:auto; position:fixed; left:-550px; top:0; width:500px; height:100%; background:#fff; z-index:9999999;box-shadow:0px 0px 35px #353535;}
 .dh_tc_search_bd1{ width:430px; height:54px; border:none; padding:0; margin:42px 0 14px 18px; background:#f8f8f8 url(../images/menu_03.png) no-repeat;border-radius:5px; text-indent:57px;}
 .dh_tc_user{ padding-top:50px; border-bottom:1px solid #e3e3e3;}
@@ -102,12 +91,6 @@ select::-ms-expand { display: none;}
 .success2{ line-height:38px; height:38px;}
 .success3{ line-height:18px; height:54px;}
 .success4{ line-height:35px; height:35px; width:138px;border-radius:5px; background:#831c51;}
-.bd1_2{ width:204px; height:45px; border:2px solid #fff; text-indent:11px; padding:0; margin:0 0 0 0;
-appearance:none;
--moz-appearance:none;
--webkit-appearance:none;
-background:url(../images/activity-club-V2_06.png) no-repeat scroll right center transparent;}
-.maohao{ padding:0 4px;}
 .list1{ width:572px; line-height:76px; height:76px;}
 .list2{ width:100%; height:150px; background-color:#fff; margin-bottom:15px; }
 .list2icon{ float: left; height:60px; padding: 45px 20px; }
@@ -225,6 +208,27 @@ background:url(../images/profile-edit_18.png) no-repeat scroll right center tran
 .lib_Menubox2 li img{ width:70px; height:70px;border-radius:50%;border:1px solid #fff;}
 .lib_Menubox2 li.hover img{ border:1px solid #ff6a00;}
 .lib_Menubox2 li.hover { color: #ff6a00;}
+/*选项卡3*/
+/*菜单class*/
+.lib_Sheet { padding:30px; color:#333; }
+.input_s { width:100%; height:90px; background-color:#f4f4f4; border:1px solid #e0e0e0; border-radius:1px; margin-bottom:25px; position:relative }
+.input_s:focus { border-color:#999; }
+.clubv2s{ width:120px; height:calc(100% - 30px); line-height:60px; float:left; padding:15px; }
+.clubv2x{ width:calc(100% - 180px); height:calc(100% - 30px); line-height:60px; float:left; padding:15px; }
+.clubv2e{ width:120px; height:calc(100% - 30px); line-height:60px; position:absolute; right:0px; padding:15px 0; color:#ff6a00; }
+.clubv2b{ width:80%; height:60px; line-height:60px; background-color:#ff6a00; border-radius:45px; }
+.clubv2_bd1{ width:100%; line-height:60px; border:none; padding:0; margin:0; background:none; font-family: inherit;}
+.clubv2_bd2{ width:100%; height:100%; border:none; padding:0; margin:0; background:none; font-family: inherit; resize:none;}
+.clubv2_an1{ background:#934c6f;border-radius:5px; width:192px; height:42px; border:none; padding:0; margin:0;}
+.clubv2_an2{ background:#934c6f;border-radius:5px; width:330px; height:54px; border:none; padding:0; margin:0 0 18px 0;}
+.bd1_2{ font-family: inherit; width: 50px; float: left; line-height: 60px; border: none; background: none;}
+.maohao{ padding:0 15px; float:left; }
+.bd1_1{ font-family: inherit; width: 100%; float: left; line-height: 60px; border: none; background: none;}
+input::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+input::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+input::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+    color: transparent;
+}
 
 [v-cloak] {
   display: none;

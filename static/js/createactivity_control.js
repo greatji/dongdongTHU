@@ -17,8 +17,7 @@ $(document).ready(function() {
             activity: {
                 name: '',
                 startDate: '',
-                starthour: '',
-                startMinute: '',
+                startTime: '',
                 duration: '',
                 type: '',
                 address: '',
@@ -122,12 +121,13 @@ $(document).ready(function() {
             },
             duringTime: function () {
                 var _date = this.activity.startDate.split('-');
+                var _time = this.activity.startTime.split(':');
                 return {
                     year: parseInt(_date[0]),
                     month: parseInt(_date[1]),
                     day: parseInt(_date[2]),
-                    shour: parseInt(this.activity.starthour),
-                    sminute: parseInt(this.activity.startMinute),
+                    shour: parseInt(_time[0]),
+                    sminute: parseInt(_time[1]),
                     hour: Math.floor(parseInt(this.activity.duration) / 60),
                     minute: parseInt(this.activity.duration) % 60
                 }
@@ -157,3 +157,4 @@ $(document).ready(function() {
         }
     });
 });
+
