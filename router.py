@@ -536,9 +536,10 @@ def apiSetClubInfo(clubId, name, type, introduction, major):
 @app.route('/api/deleteClub', methods=['POST'])
 @jsonApi(
     clubId=allChecked(lenIn(9, 9), isAllDigits),
-    direct=optional(isBool)
+    direct=optional(isBool),
+    reason=optional(lenIn(0, 100)),
 )
-def apiDeleteClub(clubId, direct=False):
+def apiDeleteClub(clubId, direct=False, reason=""):
     if apiCheckSession():
         if direct:  # super user or major president direct delete
             major = getMajor(clubId)
@@ -546,7 +547,7 @@ def apiDeleteClub(clubId, direct=False):
                 return error('PERMISSION_DENIED')
             presidents = getPresidentOfMajor(major)
             if apiCheckSession(3) or session['studentId'] in presidents:
-                res = changeClubState(clubId, 'delete') and delManagerService(clubId, '', session['studentId'])
+                res = changeClubState(clubId, 'delete', reason) and delManagerService(clubId, '', session['studentId'])
                 if not res:
                     return error('CHECK ERROR')
                 else:

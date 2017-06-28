@@ -35,6 +35,7 @@ import datetime
         },...],
         "major": <enum string> ['计算机系', '电子系', '社科学院', '土木系']
         "state": <enum string> ['pending', 'admit', 'delete', 'refuse']
+        "reason": <string>
     }
 '''
 
@@ -95,7 +96,7 @@ def delManagerService(clubId, clubName, applyId):
 def listClubsService(skip, limit, para={}):
     return [traitAttr(i, {
         'id': '', 'name': '', 'type': '', 'motto': '', 'major': '', 'leader': '',
-        'scale': len(filterMember(i['members'], ['joined']))
+        'scale': len(filterMember(i['members'], ['joined'])), 'state': '',
     }) for i in Mongo.club.find(para).skip(skip).limit(limit).sort('members', {'$size': 1})]
 
 
@@ -267,14 +268,15 @@ def changeMemberState(clubId, managerId, memberId, state):
         return False
 
 
-def changeClubState(clubId, state):
+def changeClubState(clubId, state, reason=""):
     res = Mongo.club.find_and_modify(
         query={
             'id': clubId
         },
         update={
             "$set": {
-                'state': state
+                'state': state,
+                'reason': reason,
             }
         },
         upsert=False,
