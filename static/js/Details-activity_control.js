@@ -1,5 +1,6 @@
 /**
  * Created by hexiaohao on 2016/12/5.
+ * Modified by Dash Chen on 2017/06.
  */
 
 document.write("<script language=javascript src='static/js/config.js'></script>");
@@ -79,24 +80,26 @@ $(document).ready(function () {
                                 }
                             });
                         },
-                        dissolveActivity: function () {
-                            $.ajax({
-                                type: 'POST',
-                                url: base_url + 'api/deleteActivity',
-                                contentType: 'application/json; charset=utf-8',
-                                data: JSON.stringify({
-                                    activityId: activityId,
-                                }),
-                                dataType: 'json',
-                                success: function (data) {
-                                    if (data['succeed']) {
-                                        alert('操作成功');
-                                    } else {
-                                        alert(data['errmsg']);
+                        deleteActivity: function () {
+                            if (confirm('确认删除吗？')) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: base_url + 'api/deleteActivity',
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: JSON.stringify({
+                                        activityId: activityId,
+                                    }),
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data['succeed']) {
+                                            alert('操作成功');
+                                        } else {
+                                            alert(data['errmsg']);
+                                        }
+                                        location.href = '/index.html'
                                     }
-                                    location.href = '/index.html'
-                                }
-                            });
+                                });
+                            };
                         },
                         showPersonalInfo: function (id) {
                             if (data['info']['identity'] == 'nobody') {
@@ -118,7 +121,7 @@ $(document).ready(function () {
                         canQuit: function () {
                             return data['info']['identity'] == 'participant';
                         },
-                        canDissolve: function () {
+                        canDelete: function () {
                             return data['info']['identity'] == 'organizer';
                         }
                     }

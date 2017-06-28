@@ -8,11 +8,13 @@
     <link href="/static/css/css.css" rel="stylesheet" />
     <script src="/static/js/jquery-3.1.1.min.js"></script>
     <script src="/static/js/vue.js"></script>
+    <script src="/static/js/setprofile_control.js"></script>
 </head>
 
 <body>
     <div id="nav"></div>
-    <div class="head" id="menu" style="color:#333"><img align="absmiddle" src="/static/images/menu.png" />申请体育俱乐部</div>
+    <!--TODO:修改头像-->
+    <div class="head blk2"><a href="/userInfo.html"><img class="head2nav" align="absmiddle" src="/static/images/detail/return.png" /></a>个人信息</div>
     <div id="profile" class="top2" v-cloak>
         <div class="lib_Sheet">
             <div class="input_s mg2">
@@ -102,7 +104,6 @@
             <div class="clubv2b mg2 cen bai" v-on:click="submitInfo">完成</div>
         </div>
     </div>
-    <script src="/static/js/setprofile_control.js"></script>
 </body>
 
 </html>

@@ -8,20 +8,17 @@
     <link href="/static/css/css.css" rel="stylesheet" />
     <script src="/static/js/jquery-3.1.1.min.js"></script>
     <script src="/static/js/vue.js"></script>
-    <script src="/static/js/club_profile_control.js"></script>
 </head>
 
 <body>
     <div id="nav"></div>
-    <div class="head" id="menu"><img align="absmiddle" src="/static/images/menu.png" />我的体育俱乐部</div>
+    <div class="head"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />我的体育俱乐部</div>
     <div id="vue_info" class="top2" v-cloak>
         <div id="lib_Tab1" class="mgz">
-            <div class="lib_Menubox">
-                <ul class="xi26">
-                    <li id="one1" v-on:click="dealMyClub" class="hover">我的体育俱乐部</li>
-                    <li id="one2" v-on:click="dealManagedClub">体育俱乐部管理</li>
-                    <!--<li id="one3" v-on:click="dealPendingInfo">体育俱乐部审核</li>-->
-                </ul>
+            <div class="lib_Menubox xi26">
+                <p id="one1" class="hover" v-on:click="dealMyClub">我的体育俱乐部</p>
+                <p id="one2" v-on:click="dealManagedClub">体育俱乐部管理</p>
+                <p id="one3" v-if="is_manager" v-on:click="dealPendingInfo">体育俱乐部审核</p>
             </div>
             <div class="lib_Contentbox" style="min-height:1000px;">
                 <div id="con_one_1">
@@ -57,9 +54,8 @@
                                         <div class="list2xc f xi20 list2type">{{ club.type }}</div>
                                         <div class="list2xc f xi20"><img align="absmiddle" src="static/images/club/leader.png" />{{ club.leader.name }}发起 </div>
                                         <div class="list2xc f xi24" style="color:red;line-height:50px;line-height:27px;margin-top:10px;">
-                                            <!--TODO-->
-                                            <img align="absmiddle" src="static/images/club/申请失败.png" />{{ club.major }}
-                                            <!--<img align="absmiddle" src="static/images/club/被管理员删除.png" />-->
+                                            <!--TODO:申请俱乐部状态-->
+                                            <img align="absmiddle" :src="'static/images/club/' + toChinese(club.state) + '.png'" />{{ toChinese(club.state) }}
                                         </div>
                                     </div>
                                     <div class="list2fix xi18">{{ club.scale }}人加入</div>
@@ -72,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="zw60 mg2"></div>
+    <script src="/static/js/club-profile_control.js"></script>
 </body>
 
 </html>

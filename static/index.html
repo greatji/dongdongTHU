@@ -6,18 +6,18 @@
     <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
     <title>咚咚体育平台</title>
     <link href="/static/css/css.css" rel="stylesheet" />
-    <script type="text/javascript" language="javascript" src="/static/js/vue.js"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
 </head>
 
 <body>
     <div id="nav"></div>
-    <div class="head" id="menu"><img align="absmiddle" src="/static/images/menu.png" />运动广场</div>
-    <div class="newbtn"><a href="/createactivity.html"><img src="/static/images/ground/new.png" /> 发起新运动</a></div>
+    <div class="head"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />运动广场</div>
+    <div class="newbtn"><a href="/createactivity.html"><img align="absmiddle" src="/static/images/ground/new.png" /><span>发起新运动</span></a></div>
     <div class="mgz top2"><img align="absmiddle" src="/static/images/ground/bg.png" width="100%" /> </div>
     <div id="allActivities" v-cloak>
         <div id="lib_Tab2" class="mg2">
-            <div class="lib_Menubox2">
+            <div class="lib_Menubox2 clearfix">
                 <ul class="xi21 cen">
                     <li id="two1" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/ground/kind_all.png" /><br/>全部
                     </li>
@@ -46,7 +46,7 @@
             <div class="lib_Contentbox" style="min-height:1000px">
                 <div class="list2 mg2" v-for="activity in activitys" v-show="cur_act == 1 || activity.type == types[cur_act-2]">
                     <!--<div class="list2s mg2 xi18">-->
-                        <!--<a @click="dissolveActivity(activity.id)" style="color:red" v-if="is_su">【删除】</a>-->
+                        <!--<a @click="deleteActivity(activity.id)" style="color:red" v-if="is_su">【删除】</a>-->
                         <!--<span class="r">{{ activity.id }}</span>-->
                     <!--</div>-->
                     <a href="#" v-bind:id="activity.id" v-on:click="showActivityInfo(activity.id)">
@@ -70,10 +70,7 @@
             </div>
         </div>
     </div>
-    <!--</div>-->
-    <div class="features mgz"></div>
-    <div class="featurex mgz"><img align="absmiddle" src="/static/images/feature-v4_33.png" /></div>
-    <script type="text/javascript" language="javascript" src="/static/js/index_control.js"></script>
+    <script src="/static/js/index_control.js"></script>
 </body>
 
 </html>

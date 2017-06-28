@@ -6,18 +6,18 @@
     <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
     <title>咚咚体育平台</title>
     <link href="/static/css/css.css" rel="stylesheet" />
-    <script type="text/javascript" language="javascript" src="/static/js/vue.js"></script>
+    <script src="/static/js/vue.js"></script>
     <script src="static/js/jquery-3.1.1.min.js"></script>
 </head>
 
 <body>
     <div id="nav"></div>
-    <div class="head" id="menu"><img align="absmiddle" src="/static/images/menu.png" />俱乐部广场</div>
-    <div class="newbtn"><a href="/createclub.html"><img src="/static/images/ground/new.png" /> 创建俱乐部</a></div>
+    <div class="head"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />俱乐部广场</div>
+    <div class="newbtn"><a href="/createclub.html"><img align="absmiddle" src="/static/images/ground/new.png" /> <span>创建俱乐部</span></a></div>
 
     <div id="clubList" v-cloak>
         <div id="lib_Tab2" class="mg2 top2">
-            <div class="lib_Menubox2">
+            <div class="lib_Menubox2 clearfix">
                 <ul class="xi21 cen">
                     <li id="two1" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/ground/kind_all.png" /><br/>全部
                     </li>
@@ -65,8 +65,7 @@
             </div>
         </div>
     </div>
-    <div class="list3zw mg2"></div>
-    <script type="text/javascript" language="javascript" src="/static/js/club-list_control.js"></script>
+    <script src="/static/js/club-list_control.js"></script>
 </body>
 
 </html>

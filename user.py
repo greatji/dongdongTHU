@@ -74,7 +74,7 @@ def getPersonalInfoService(studentId, full=True):
 
 
 
-def updatePersonalInfoService(id, name, email, phone, major, sex, tag, introduction, selfPhoto):
+def updatePersonalInfoService(id, name, email, phone, major, sex, tag, introduction, selfPhoto, nowState):
     print id, name
     newInfo = {
         'email': email,
@@ -83,12 +83,11 @@ def updatePersonalInfoService(id, name, email, phone, major, sex, tag, introduct
         'sex': sex,
         'introduction': introduction,
         'tag': tag,
-        'state': 2,
         'selfPhoto': selfPhoto,
     }
-    if name in superusers:
-        newInfo['state'] = 3
-    res = Mongo.user.find_and_modify(
+    if nowState == 1:
+        newInfo['state'] = 2
+    res = Mongo.user.find_amodify(
         query={
             'id': id,
             'name': name
@@ -105,7 +104,7 @@ def updatePersonalInfoService(id, name, email, phone, major, sex, tag, introduct
         if res['value'] is None:
             return 'USER_INFORMATION_MODIFY_FAILED'
         else:
-            return True
+            return res['value']
     else:
         return 'USER_INFORMATION_MODIFY_FAILED'
 
@@ -142,6 +141,39 @@ def updateSuperuser():
         return False
     else:
         return True
+
+
+def changeUserLevelService(studentId, level):
+    if level == 0: # common:
+        modify = {'$set': {'state': 2, 'president': []}},
+    elif level == 1: # president:
+        userInfo = getPersonalInfoService(studentId)
+        if isinstance(userInfo, basestring):
+            return False
+        modify = {'$addToSet': {'president': userInfo['major']}}
+    elif level == 3: # superuser:
+        modify = {'$set': {'state': 3}}
+    else:
+        return False
+    res = Mongo.user.update_one(
+        {'id': studentId, 'state': {'$gte': 2}},
+        modify,
+    )
+    if not res:
+        return None
+    elif res['modified_count']:
+        return True
+    else:
+        return False
+
+
+def searchUser(para):
+    res = Mongo.user.find(para)
+    info = [traitAttr(i, {
+        'id': '', 'name': '', 'sex': '', 'email': '', 'phone': '', 'major': '', 'introduction': '', 'times': 0,
+        'tag': '', 'state': 0, 'selfPhoto': '', 'manager': [],
+    }) for i in res]
+    return info
 
 
 if __name__ == '__main__':

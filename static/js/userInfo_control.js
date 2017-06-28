@@ -44,6 +44,7 @@ $(document).ready(function () {
                 data: {
                     user: data,
                     is_full: is_full|| data.is_this_person,
+                    show_medal: false,
                 },
                 filters: {
                     lspace: function (x) {

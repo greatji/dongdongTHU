@@ -56,6 +56,27 @@ def createParameter():
     return res
 
 
+def getBannedWords():
+    res = Mongo.parameter.find_one({'type': 'global'}, {'bannedWords': 1})
+    if not res:
+        return []
+    else:
+        return res['bannedWords']
+
+
+def setBannedWords(wordList):
+    res = Mongo.parameter.update_one(
+        {'type': 'global'},
+        {'$set': {'bannedWords': wordList}}
+    )
+    if not res:
+        return None
+    elif res['modified_count']:
+        return True
+    else:
+        return False
+
+
 if __name__ == '__main__':
     # getAndUpdateActivityId()
     # print getAndUpdateClubId(u'计算机系')

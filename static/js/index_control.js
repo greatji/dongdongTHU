@@ -21,7 +21,7 @@ var app = new Vue({
             console.log('/Details-activity.html?id=' + id);
             location.href = '/Details-activity.html?id=' + id;
         },
-        dissolveActivity: function(id) {
+        deleteActivity: function(id) {
             if (confirm('确认删除吗？')) {
                 $.ajax({
                     type: 'POST',
