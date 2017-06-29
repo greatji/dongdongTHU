@@ -40,12 +40,12 @@ from sms import notify_delete_activity
             'introduction':<string>,
             'selfPhoto':<string>
         },...]
-        comments: {
+        comments: [{
             'studentId': <string>,
             'studentName': <string>,
             'content': <string>,
             'createTime': <Date(UTC datetime)>, // save local time representation, not utc
-        }
+        },...]
         'filterMajors': [<enum string: major>] // 允许加入的院系
     }
 '''

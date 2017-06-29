@@ -313,6 +313,25 @@ def apiQuitActivity(activityId):
         return error('NOT_LOGGED_IN')
 
 
+### comment operation
+@app.route('/api/activity/getComment', methods=['GET'])
+@jsonApi(
+    activityId=allChecked(lenIn(5, 5), isAllDigits),
+)
+def apiGetComment(activityId):
+    if apiCheckSession():
+        isOrganizer = searchOrganizer(activityId, session['studentId'])
+        if isOrganizer or searchParticipant(activityId, session['studentId']):
+            res = getActivityService(activityId)
+            if res is None:
+                return error('ACTIVITY_NOT_EXIST')
+            return success(info=res.get('comments', []))
+        else:
+            return error('PERMISSION_DENIED')
+    else:
+        return error('NOT_LOGGED_IN')
+
+
 @app.route('/api/activity/addComment', methods=['POST'])
 @jsonApi(
     activityId=allChecked(lenIn(5, 5), isAllDigits),
