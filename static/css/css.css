@@ -114,7 +114,7 @@ select::-ms-expand { display: none;}
 .list2poster { float: left; height:100%; width:190px; }
 .list2poster img { height:100%; width:190px; }
 .list2content{ padding: 20px 0;float:left;width:calc(100% - 100px);}
-.list2content2{ padding: 15px;float:left;width:calc(100% - 220px);position:relative;height:calc(100% - 30px);}
+.list2content2{ padding: 15px 0 15px 15px;float:left;width:calc(100% - 205px);position:relative;height:calc(100% - 30px);}
 .list2type{ background-color:#ff9950; color:#fff; border-radius:10px;padding:5px 10px!important; }
 .list2major{ background-color:#8fe8ca; color:#fff; border-radius:10px;padding:5px 10px!important; }
 .list2fix{ position:absolute; right:20px; top:15px; text-align:right; }
@@ -123,7 +123,7 @@ select::-ms-expand { display: none;}
 .list2xl,.list2xr{ margin-top:13px; width:140px; height:33px; line-height:33px;}
 .list2xr{ text-align:right;}
 .list2xb{ line-height:30px; height:40px;width:100%;}
-.list2xc{ line-height:30px; height:30px;margin-right:20px;padding:5px 0;}
+.list2xc{ line-height:30px; height:30px;margin-right:10px;padding:5px 0;}
 .list2xc img { float:left; padding:0px; }
 .edit1s{ width:218px; height:218px; margin-top:75px;border-radius:50%;}
 .edit1x{ position:relative; z-index:2; margin-top:-38px; margin-bottom:19px;}
