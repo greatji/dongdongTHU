@@ -2,106 +2,108 @@
 <html>
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
-	<title>咚咚体育平台</title>
-	<link href="/static/css/css.css" rel="stylesheet" />
-	<script src="/static/js/jquery-3.1.1.min.js"></script>
-	<script src="/static/js/vue.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet" />
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+    <script src="/static/js/setprofile_control.js"></script>
 </head>
 
 <body>
-	<style>
-		body {
-			background: #f8f8f8;
-		}
-	</style>
-	<div class="menu"><img align="absmiddle" src="/static/images/profile-edit_02.png" /></div>
-	<div id="nav"></div>
-	<div id="hidden_wrapper">
-		<div id="profile" v-cloak>
-			<div class="edit1 mg2">
-				<div class="edit1s mg2"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="218" height="218" /></div>
-				<div class="edit1x mg2 cen">
-					<a href="#"><img align="absmiddle" src="/static/images/profile-edit_06.png" /></a>
-				</div>
-			</div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="姓名" disabled v-model="user.name"></div>
-			<div class="edit3 mg2"></div>
-			<div class="edit2 mg2 xi21">
-				<ul>
-					<li> 性别（必填）</li>
-					<li><input type="radio" id="radio-1-1" class="regular-radio" name="radio-1-set" value="男" v-model="user.sex"><label for="radio-1-1"></label>
-					</li>
-					<li>男</li>
-					<li><input type="radio" id="radio-1-2" class="regular-radio" name="radio-1-set" value="女" v-model="user.sex">
-						<label for="radio-1-2"></label>
-					</li>
-					<li>女</li>
-				</ul>
-			</div>
-			<div class="edit3 mg2 zi xi18"><span class="edit3hover" v-if="try_submit && sex_error">请选择性别</span></div>
-			<div class="edit2 mg2">
-				<select v-model="user.major" class="bd1_3 xi20 bai">
-					<option value="default">请选择院系（必填）</option>
-					<option value="建筑学院">建筑学院</option>
-					<option value="土木系">土木系</option>
-					<option value="水利系">水利系</option>
-					<option value="环境学院">环境学院</option>
-					<option value="机械系">机械系</option>
-					<option value="精仪系">精仪系</option>
-					<option value="热能系">热能系</option>
-					<option value="汽车系">汽车系</option>
-					<option value="工业工程系">工业工程系</option>
-					<option value="电机系">电机系</option>
-					<option value="电子系">电子系</option>
-					<option value="计算机系">计算机系</option>
-					<option value="自动化系">自动化系</option>
-					<option value="微纳电子系">微纳电子系</option>
-					<option value="航天航空学院">航天航空学院</option>
-					<option value="工物系">工物系</option>
-					<option value="化工系">化工系</option>
-					<option value="材料学院">材料学院</option>
-					<option value="数学系">数学系</option>
-					<option value="物理系">物理系</option>
-					<option value="化学系">化学系</option>
-					<option value="生命学院">生命学院</option>
-					<option value="地学中心">地学中心</option>
-					<option value="交叉信息学院">交叉信息学院</option>
-					<option value="经管学院">经管学院</option>
-					<option value="公管学院">公管学院</option>
-					<option value="金融学院">金融学院</option>
-					<option value="法学院">法学院</option>
-					<option value="新闻学院">新闻学院</option>
-					<option value="马克思主义学院">马克思主义学院</option>
-					<option value="人文学院">人文学院</option>
-					<option value="社科学院">社科学院</option>
-					<option value="美术学院">美术学院</option>
-					<option value="核研院">核研院</option>
-					<option value="教研院">教研院</option>
-					<option value="医学院">医学院</option>
-					<option value="软件学院">软件学院</option>
-					<option value="苏世民书院">苏世民书院</option>
-					<option value="新雅书院">新雅书院</option>
-				</select>
-			</div>
-			<div class="edit3 mg2 zi xi18"><span class="edit3hover" v-if="try_submit && major_error">请选择院系</span></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="学号" disabled v-model="user.id"></div>
-			<div class="edit3 mg2"></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="电话（必填）" v-model="user.phone"></div>
-			<div class="edit3 mg2 zi xi18"><span class="edit3hover" v-if="try_submit && phone_error">请输入11位电话号码</span></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="邮箱（必填）" v-model="user.email"></div>
-			<div class="edit3 mg2 zi xi18"><span class="edit3hover" v-if="try_submit && email_error">错误的邮箱</span></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="兴趣（选填）" v-model="user.tag"></div>
-			<div class="edit3 mg2 zi xi18"></div>
-			<div class="edit2 mg2"><input name="" type="text" class="edit_bd1 f xi21" placeholder="个性签名（选填）" v-model="user.introduction"></div>
-			<div class="edit3 mg2 zi xi18"></div>
-			<!--判断edit3hover的显示和隐藏 -->
-			<!--<div class="edit4 mg2 cen"><span v-if="all_right"><input name="" type="button" class="clubv2_an2 xi25 bai" value="完&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成"></span></div>-->
-			<div class="edit4 mg2 cen"><span><input name="" type="button" class="clubv2_an2 xi25 bai" v-on:click="submitInfo" value="完         成"></span></div>
-		</div>
-	</div>
-	<script src="/static/js/setprofile_control.js"></script>
+    <div id="nav"></div>
+    <!--TODO:修改头像-->
+    <div class="head blk2"><a href="/userInfo.html"><img class="head2nav" align="absmiddle" src="/static/images/detail/return.png" /></a>个人信息</div>
+    <div id="profile" class="top2" v-cloak>
+        <div class="lib_Sheet">
+            <div class="input_s mg2">
+                <div class="clubv2s mg2 xi24">姓名</div>
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" disabled v-model="user.name"></div>
+            </div>
+            <div class="input_s mg2" :style="try_submit && sex_error ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24">性别</div>
+                <div class="clubv2x mg2 cen">
+                    <select name="" class="clubv2_bd1 xi24" v-model="user.sex">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </div>
+                <span class="clubv2e xi24" v-if="try_submit && sex_error">请选择</span>
+            </div>
+            <div class="input_s mg2" :style="try_submit && major_error ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 所属院系 </div>
+                <div class="clubv2x mg2 cen">
+                    <select class="clubv2_bd1 xi24" v-model="user.major">
+                        <option value="建筑学院">建筑学院</option>
+                        <option value="土木系">土木系</option>
+                        <option value="水利系">水利系</option>
+                        <option value="环境学院">环境学院</option>
+                        <option value="机械系">机械系</option>
+                        <option value="精仪系">精仪系</option>
+                        <option value="热能系">热能系</option>
+                        <option value="汽车系">汽车系</option>
+                        <option value="工业工程系">工业工程系</option>
+                        <option value="电机系">电机系</option>
+                        <option value="电子系">电子系</option>
+                        <option value="计算机系">计算机系</option>
+                        <option value="自动化系">自动化系</option>
+                        <option value="微纳电子系">微纳电子系</option>
+                        <option value="航天航空学院">航天航空学院</option>
+                        <option value="工物系">工物系</option>
+                        <option value="化工系">化工系</option>
+                        <option value="材料学院">材料学院</option>
+                        <option value="数学系">数学系</option>
+                        <option value="物理系">物理系</option>
+                        <option value="化学系">化学系</option>
+                        <option value="生命学院">生命学院</option>
+                        <option value="地学中心">地学中心</option>
+                        <option value="交叉信息学院">交叉信息学院</option>
+                        <option value="经管学院">经管学院</option>
+                        <option value="公管学院">公管学院</option>
+                        <option value="金融学院">金融学院</option>
+                        <option value="法学院">法学院</option>
+                        <option value="新闻学院">新闻学院</option>
+                        <option value="马克思主义学院">马克思主义学院</option>
+                        <option value="人文学院">人文学院</option>
+                        <option value="社科学院">社科学院</option>
+                        <option value="美术学院">美术学院</option>
+                        <option value="核研院">核研院</option>
+                        <option value="教研院">教研院</option>
+                        <option value="医学院">医学院</option>
+                        <option value="软件学院">软件学院</option>
+                        <option value="苏世民书院">苏世民书院</option>
+                        <option value="新雅书院">新雅书院</option>
+                        <option value="深研院">深研院</option>
+                    </select>
+                </div>
+                <span class="clubv2e xi24" v-if="try_submit && major_error">请选择</span>
+            </div>
+            <div class="input_s mg2">
+                <div class="clubv2s mg2 xi24">学号</div>
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" disabled v-model="user.id"></div>
+            </div>
+            <div class="input_s mg2" :style="try_submit && phone_error ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24">电话</div>
+                <div class="clubv2x mg2 cen"><input name="" type="number" class="clubv2_bd1 xi24" placeholder="请输入11位电话号码" v-model="user.phone"></div>
+                <span class="clubv2e xi24" v-if="try_submit && phone_error">格式错误</span>
+            </div>
+            <div class="input_s mg2" :style="try_submit && email_error ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24">邮箱</div>
+                <div class="clubv2x mg2 cen"><input name="" type="email" class="clubv2_bd1 xi24" v-model="user.email"></div>
+                <span class="clubv2e xi24" v-if="try_submit && email_error">格式错误</span>
+            </div>
+            <div class="input_s mg2">
+                <div class="clubv2s mg2 xi24">兴趣(选填)</div>
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" v-model="user.tag"></div>
+            </div>
+            <div class="input_s mg2">
+                <div class="clubv2s mg2 xi24">签名(选填)</div>
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" v-model="user.introduction"></div>
+            </div>
+            <div class="clubv2b mg2 cen bai" v-on:click="submitInfo">完成</div>
+        </div>
+    </div>
 </body>
 
 </html>

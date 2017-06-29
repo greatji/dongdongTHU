@@ -3,190 +3,129 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no"/>
-    <title></title>
+    <title>咚咚体育平台</title>
     <link href="static/css/css.css" rel="stylesheet"/>
-    <script type="text/javascript" language="javascript" src="/static/js/vue.js"></script>
-    <script src="static/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/static/js/Details-club_control.js"></script>
+    <script src="/static/js/vue.js"></script>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
 </head>
 
-<body>
-<style>
-    body {
-        background: #ffffff;
-    }
-</style>
-<div class="menu"><img align="absmiddle" src="static/images/profile-edit_02.png"/></div>
-<div id="nav"></div>
-<div id="hidden_wrapper">
+<body style="background-color:#f2f2f2;">
+    <div id="nav"></div>
+    <div class="mg2 head2bg2">
+        <img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />
+        <!--<img class="head2bg" align="absmiddle" src="/static/images/detail/club_bg.png" />-->
+    </div>
     <div id="clubDetails" v-cloak>
-        <div class="profilev2_title mg2 xi20"><a href="#">俱乐部详情</a></div>
-        <div class="details1 mgz" @click="showPersonalInfo(club.leader.id)">
-            <div class="details1l f"><img align="absmiddle" src="static/images/xiaoyan.jpeg"/></div>
-            <div class="details1r f">
-                <div class="details1rs mg2 xi31 zi">{{ club.leader.name }}</div>
-                <div class="details1rx mg2 xi17">
-                    <img align="absmiddle" src="static/images/Details-club_05.png"/>{{ club.leader.major }}
-                    <img align="absmiddle" src="static/images/Details-club_07.png"/>{{ club.leader.phone }}
-                    <img align="absmiddle" src="static/images/Details-club_09.png"/>俱乐部负责人
-                </div>
+        <div class="profilev2title mg2 xi20">
+            <div class="profilev2t2 cen blk" style="padding-bottom:0px;"><span>{{ club.name }}</span></div>
+            <div class="profilev2tr cen">
+                <p class="mg2 xi24"> 人数：{{ club.scale }}人 </p>
+                <p class="mg2 xi30 blk2"> 我们的口号是：{{ club.motto }} </p>
+            </div>
+            <div class="newbtn2 mg2 xi30 huang" v-if="canJoinOrLogin" v-on:click="joinClubOrLogin">
+                <img align="absmiddle" src="/static/images/detail/club_join.png" /> 
+                <span>加入俱乐部</span>
+            </div>
+            <div class="newbtn2 mg2 xi30 huang" v-if="canQuit" v-on:click="quitClub">
+                <img align="absmiddle" src="/static/images/detail/club_quit.png" /> 
+                <span>退出俱乐部</span>
+            </div>
+            <div style="padding:0 40px">
+                <a class="newbtn3 mg2 xi30 cen" style="border-color:#f54336; color:#f54336;" v-if="canDelete" :src="'/delete-club.html?id=' + club.id">
+                    <p>删除俱乐部</p>
+                </a>
+                <!--TODO:更新负责人-->
+                <a class="newbtn3 mg2 xi30 cen" style="border-color:#3fbf46; color:#3fbf46;" v-if="canDelete">
+                    <p>更新负责人</p>
+                </a>
             </div>
         </div>
-        <div class="details2 mgz"><img align="absmiddle" src="static/images/Details-club_14.jpg" width="640"/>
-            <div class="details2s"><a href="#"><img align="absmiddle" src="static/images/Details-club_03.png"/></a>
+        <div class="profilev2c mg2">
+            <div class="profilev2ch">
+                <img style="padding:8px;" align="absmiddle" src="/static/images/detail/club_id.png" />
+                <span>编号：</span>
+                <span class="blk2"> {{ club.id }} </span>
+            </div>
+            <div class="profilev2ch">
+                <img style="padding:8px;" align="absmiddle" src="/static/images/detail/activity_number.png" />
+                <span>发起人：</span>
+                <span class="blk2">{{ club.leader.name }}，{{ club.leader.major }}，{{ club.leader.phone }} </span>
+            </div>
+            <div class="profilev2ch">
+                <img style="padding:8px;" align="absmiddle" src="/static/images/detail/activity_major.png" />
+                <span>所属院系：</span>
+                <span class="blk2">{{ club.major }}</span>
+            </div>
+            <div class="profilev2ch">
+                <img style="padding:8px;" align="absmiddle" src="/static/images/detail/activity_type.png" />
+                <span>运动类别：</span>
+                <span class="blk2">{{ club.type }}</span>
+            </div>
+            <div class="profilev2ch" style="border:none;">
+                <img style="padding:8px;" align="absmiddle" src="/static/images/detail/club_remark.png" />
+                <span>备注：</span>
+                <span class="blk2"> {{club.remark==='' ? '暂无' : club.remark }} </span>
             </div>
         </div>
-        <div class="details3 mgz"></div>
-        <div class="details3 mgz">
-            <div class="details3z1 mgz">
-                <div class="details3z1l f"><img align="absmiddle" src="static/images/Details-club_17.png"/></div>
-                <div class="details3z1r f xi20">俱乐部信息</div>
+        <div class="profilev2c mg2 blk2">
+            <div class="profilev2ch">
+                <img align="absmiddle" src="/static/images/detail/activity_intro.png" />
+                <span class="xi30">俱乐部简介</span>
+            </div>
+            <div class="profilev2cb">
+                <p class="profilev2cbx mg2">{{ club.introduction == '' ? '暂无' : club.introduction }}</p>
             </div>
         </div>
-        <div class="details3 mgz">
-            <div class="details3z2 mg2 xi30 zi">{{ club.name }}</div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="static/images/Details-club_22.png"/></div>
-                <div class="details3z3r f xi20"><span class="cu">俱乐部口号：</span>{{ club.motto }}</div>
+        <div class="profilev2c mg2 blk2">
+            <div class="profilev2cb">
+                <p class="profilev2cbx mg2 cen xi30">俱乐部成员（{{ club.scale }}）</p>
             </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="static/images/Details-club_25.png"/></div>
-                <div class="details3z3r f xi20"><span class="cu">俱乐部编码：</span>{{ club.id }}</div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="static/images/Details-club_27.png"/></div>
-                <div class="details3z3r f xi20"><span class="cu">俱乐部人数：</span>{{ club.scale }}人</div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="static/images/Details-club_29.png"/></div>
-                <div class="details3z3r f xi20"><span class="cu">俱乐部运动类别：</span>{{ club.type }}</div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="static/images/Details-club_31.png"/></div>
-                <div class="details3z3r f xi20"><span class="cu">俱乐部所属院系：</span>{{ club.major }}</div>
-            </div>
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="static/images/Details-club_33.png"/></div>
-                <div class="details3z3r2 f xi20"><span class="cu">备注：</span>{{ club.remark }}</div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z1 mgz">
-                <div class="details3z1l f"><img align="absmiddle" src="static/images/Details-club_37.png"/></div>
-                <div class="details3z1r f xi20">俱乐部简介</div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z3 mgz">
-                <div class="details3z3l f"><img align="absmiddle" src="static/images/Details-club_22.png"/></div>
-                <div class="details3z3r3 f xi20">
-                    {{ club.introduction }}
-                </div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z1 mgz">
-                <div class="details3z1l f"><img align="absmiddle" src="static/images/Details-club_40.png"/></div>
-                <div class="details3z1r f xi20">点击右上角分享给朋友或分享到朋友圈</div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z4 mg2">
-                <ul>
-                    <li v-if="canJoinOrLogin" v-on:click="joinClubOrLogin">
-                        <div class="details3z4s mg2">
-                            <a href="#">
-                                <img align="absmiddle" src="static/images/Details-club_43.png"/>
-                            </a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">加入俱乐部</div>
-                    </li>
-                    <li v-if="canQuit" v-on:click="quitClub">
-                        <div class="details3z4s mg2">
-                            <a href="#">
-                                <img align="absmiddle" src="static/images/Details-club2_43.png"/>
-                            </a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">退出俱乐部</div>
-                    </li>
-                    <li v-if="canDissolve" v-on:click="dissolveClub">
-                        <div class="details3z4s mg2">
-                            <a href="#">
-                                <img align="absmiddle" src="static/images/Details-club2_43.png"/>
-                            </a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">解散俱乐部</div>
-                    </li>
-                    <li>
-                        <div class="details3z4s mg2">
-                            <a href="#">
-                                <img align="absmiddle" src="static/images/Details-club_45.png"/>
-                            </a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">运动补给</div>
-                    </li>
-                    <li>
-                        <div class="details3z4s mg2">
-                            <a href="#">
-                                <img align="absmiddle" src="static/images/Details-club_47.png"/>
-                            </a>
-                        </div>
-                        <div class="details3z4x mg2 xi15 cen">运动分享</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z1 mgz">
-                <div class="details3z1l f"><img align="absmiddle" src="static/images/Details-club_52.png"/></div>
-                <div class="details3z1r f xi20">俱乐部成员<span class="r">{{ club.scale }}人</span></div>
-            </div>
-        </div>
-        <div class="details3 mgz">
-            <div class="details3z5">
-                <div class="details3z5_list mg2" @click="showPersonalInfo(club.leader.id)">
-                    <div class="details3z5_listl f">
-                        <img align="absmiddle" src="static/images/xiaoyan.jpeg" width="56" height="56"/>
+            <div class="profilev2list clearfix">
+                <div class="profilev2listi f" v-on:click="showPersonalInfo(club.leader.id)">
+                    <div class="profilev2listl cen">
+                        <img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56" height="56" />
                     </div>
-                    <div class="details3z5_listr f">
-                        <div class="details3z5_listrs mg2 xi17">
-                            <span class="xi20 zi">{{ club.leader.name }}</span>
-                            <img align="absmiddle" src="static/images/Details-club_56.png"/>俱乐部负责人
-                        </div>
-                        <div class="details3z5_listrx mg2 xi15">{{ club.leader.introduction }}</div>
+                    <div class="cen" style="margin-top:-31px">
+                        <img align="absmiddle" src="/static/images/detail/activity_leader.png"  />
+                    </div>
+                    <div class="profilev2listr cen">
+                        <span class="">{{ club.leader.name }}</span>
+                        <img v-if="club.leader.sex=='男'" align="absmiddle" src="/static/images/detail/sex_male2.png" />
+                        <img v-if="club.leader.sex=='女'" align="absmiddle" src="/static/images/detail/sex_female2.png" />
+                    </div>
+                    <div class="profilev2listr cen">
+                        <span>{{ club.leader.major }}</span>
                     </div>
                 </div>
-                <div v-for="manager in club.managers">
-                    <div class="details3z5_list mg2" @click="showPersonalInfo(manager.id)">
-                        <div class="details3z5_listl f">
-                            <img align="absmiddle" src="static/images/xiaoyan.jpeg" width="56" height="56"/>
-                        </div>
-                        <div class="details3z5_listr f">
-                            <div class="details3z5_listrs mg2 xi17">
-                                <span class="xi20 zi">{{ manager.name }}</span>
-                                <img align="absmiddle" src="static/images/Details-club_56.png"/>俱乐部管理员
-                            </div>
-                            <div class="details3z5_listrx mg2 xi15">{{ manager.introduction }}</div>
-                        </div>
+                <div class="profilev2listi f" v-for="manager in club.managers" v-on:click="showPersonalInfo(manager.id)">
+                    <div class="profilev2listl cen">
+                        <img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56" height="56" />
+                    </div>
+                    <div class="profilev2listr cen">
+                        <span class="">{{ manager.name }}</span>
+                        <img v-if="manager.sex=='男'" align="absmiddle" src="/static/images/detail/sex_male2.png" />
+                        <img v-if="manager.sex=='女'" align="absmiddle" src="/static/images/detail/sex_female2.png" />
+                    </div>
+                    <div class="profilev2listr cen">
+                        <span>{{ manager.major }}</span>
                     </div>
                 </div>
-                <div v-for="member in club.members">
-                    <div class="details3z5_list mg2" @click="showPersonalInfo(member.id)">
-                        <div class="details3z5_listl f">
-                            <img align="absmiddle" src="static/images/xiaoyan.jpeg" width="56" height="56"/>
-                        </div>
-                        <div class="details3z5_listr f">
-                            <div class="details3z5_listrs mg2 xi17"><span class="xi20 zi">{{ member.name }}</span></div>
-                            <div class="details3z5_listrx mg2 xi15">{{ member.introduction }}</div>
-                        </div>
+                <div class="profilev2listi f" v-for="member in club.members" v-on:click="showPersonalInfo(member.id)">
+                    <div class="profilev2listl cen">
+                        <img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="56" height="56" />
+                    </div>
+                    <div class="profilev2listr cen">
+                        <span class="">{{ member.name }}</span>
+                        <img v-if="member.sex=='男'" align="absmiddle" src="/static/images/detail/sex_male2.png" />
+                        <img v-if="member.sex=='女'" align="absmiddle" src="/static/images/detail/sex_female2.png" />
+                    </div>
+                    <div class="profilev2listr cen">
+                        <span>{{ member.major }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="details4 mgz"><img align="absmiddle" src="static/images/Details-club_59.jpg"/></div>
+    <script src="/static/js/Details-club_control.js"></script>
 </body>
 </html>

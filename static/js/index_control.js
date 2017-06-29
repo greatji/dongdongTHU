@@ -21,7 +21,7 @@ var app = new Vue({
             console.log('/Details-activity.html?id=' + id);
             location.href = '/Details-activity.html?id=' + id;
         },
-        dissolveActivity: function(id) {
+        deleteActivity: function(id) {
             if (confirm('确认删除吗？')) {
                 $.ajax({
                     type: 'POST',
@@ -82,15 +82,3 @@ function setTab(name, cursel, n) {
         if (menu) menu.className = ((i == cursel) ? "hover" : "");
     }
 }
-
-var swiper = new Swiper('.swiper-container', {
-    pagination: '.swiper-pagination',
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-    slidesPerView: 1,
-    paginationClickable: true,
-    spaceBetween: 30,
-    loop: true,
-    autoplay: 3000,
-    autoplayDisableOnInteraction: false
-});

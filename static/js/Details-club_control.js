@@ -46,7 +46,7 @@ $(document).ready(function () {
                                     dataType: 'json',
                                     success: function (data) {
                                         if (data['succeed']) {
-                                            alert('请等待管理员审核');
+                                            alert('申请成功！请等待管理员审核');
                                             location.reload();
                                         } else {
                                             alert(data['errmsg']);
@@ -78,25 +78,6 @@ $(document).ready(function () {
                                 }
                             });
                         },
-                        dissolveClub: function () {
-                            $.ajax({
-                                type: 'POST',
-                                url: base_url + 'api/deleteClub',
-                                contentType: 'application/json; charset=utf-8',
-                                data: JSON.stringify({
-                                    clubId: data['info']['id'],
-                                }),
-                                dataType: 'json',
-                                success: function (data) {
-                                    if (data['succeed']) {
-                                        alert('操作成功');
-                                    } else {
-                                        alert(data['errmsg']);
-                                    }
-                                    location.href = '/club-list.html'
-                                }
-                            });
-                        },
                         showPersonalInfo: function (id) {
                             if (data['info']['identity'] == 'nobody') {
                                 location.href = '/login.html';
@@ -114,7 +95,7 @@ $(document).ready(function () {
                         canQuit: function () {
                             return data['info']['identity'] == 'member';
                         },
-                        canDissolve: function () {
+                        canDelete: function () {
                             return data['info']['identity'] == 'leader';
                         }
                     }

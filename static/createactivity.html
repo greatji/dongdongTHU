@@ -8,224 +8,237 @@
     <link href="/static/css/css.css" rel="stylesheet" />
     <script src="/static/js/jquery-3.1.1.min.js"></script>
     <script src="/static/js/vue.js"></script>
+    <script src="/static/js/createactivity_control.js"></script>
 </head>
 
 <body>
-    <div class="menu"><img align="absmiddle" src="/static/images/activity-club-V2_02.png" /></div>
     <div id="nav"></div>
-    <div id="hidden_wrapper">
-        <div id="submit_info" v-cloak>
-            <div class="clubv2_title mg2 cen"><img align="absmiddle" src="/static/images/activity_03.png" /></div>
-            <div class="clubv2s mg2 xi20 bai">
-                运动名称 *
-                <span class="xi15 r" v-if="!try_submit || name_ok">（4-12字）</span>
-                <span class="xi15 r" style="color:red" v-if="try_submit && !name_ok">名称长度应为4-12</span>
+    <div class="head" style="color:#333"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />发起一场运动</div>
+    <div id="submit_info" class="top2" v-cloak>
+        <div class="lib_Sheet">
+            <div class="input_s mg2" :style="try_submit && !name_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 运动名称 </div>
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" placeholder="（限4至12字）" v-model="activity.name"></div>
+                <!--<span class="clubv2e xi24" v-if="!try_submit || name_ok">（4-12字）</span>-->
+                <span class="clubv2e xi24" v-if="try_submit && !name_ok">限4至12字</span>
             </div>
-            <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写运动名称" v-model="activity.name"></div>
-            <div class="clubv2s mg2 xi20 bai">
-                运动开始日期 *
-                <span class="xi15 r" style="color:red" v-if="try_submit && !date_ok">请选择开始日期</span>
+            <div class="input_s mg2" v-if="isAdmin">
+                <div class="clubv2s mg2 xi24">俱乐部活动</div>
+                <div class="clubv2x mg2 cen">
+                    <select name="" class="clubv2_bd1 xi24" v-model="activity.isForClub">
+                        <option :value="true">是</option>
+                        <option :value="false">否</option>
+                    </select>
+                </div>
             </div>
-            <div class="clubv2x mg2 cen"><input name="" type="date" :min="(new Date()).toISOString().split('T')[0]" class="clubv2_bd1 xi20" placeholder="请选择" v-model="activity.startDate"></div>
-            <div class="clubv2s mg2 xi20 bai">
-                运动开始时间 *
-                <span class="xi15 r" v-if="!try_submit || time_ok">（运动开始前半小时内不能发起）</span>
-                <span class="xi15 r" style="color:red" v-if="try_submit && !time_ok">时间有误，注意开始前半小时内不能发起</span>
+            <div class="input_s mg2" v-if="isAdmin && activity.isForClub" :style="try_submit && !major_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 开放院系 </div>
+                <div class="clubv2x mg2 cen">
+                    <select multiple="multiple" id="multiplemajor" class="clubv2_bd1 xi24" v-model="activity.filterMajors">
+                        <option value="建筑学院">建筑学院</option>
+                        <option value="土木系">土木系</option>
+                        <option value="水利系">水利系</option>
+                        <option value="环境学院">环境学院</option>
+                        <option value="机械系">机械系</option>
+                        <option value="精仪系">精仪系</option>
+                        <option value="热能系">热能系</option>
+                        <option value="汽车系">汽车系</option>
+                        <option value="工业工程系">工业工程系</option>
+                        <option value="电机系">电机系</option>
+                        <option value="电子系">电子系</option>
+                        <option value="计算机系">计算机系</option>
+                        <option value="自动化系">自动化系</option>
+                        <option value="微纳电子系">微纳电子系</option>
+                        <option value="航天航空学院">航天航空学院</option>
+                        <option value="工物系">工物系</option>
+                        <option value="化工系">化工系</option>
+                        <option value="材料学院">材料学院</option>
+                        <option value="数学系">数学系</option>
+                        <option value="物理系">物理系</option>
+                        <option value="化学系">化学系</option>
+                        <option value="生命学院">生命学院</option>
+                        <option value="地学中心">地学中心</option>
+                        <option value="交叉信息学院">交叉信息学院</option>
+                        <option value="经管学院">经管学院</option>
+                        <option value="公管学院">公管学院</option>
+                        <option value="金融学院">金融学院</option>
+                        <option value="法学院">法学院</option>
+                        <option value="新闻学院">新闻学院</option>
+                        <option value="马克思主义学院">马克思主义学院</option>
+                        <option value="人文学院">人文学院</option>
+                        <option value="社科学院">社科学院</option>
+                        <option value="美术学院">美术学院</option>
+                        <option value="核研院">核研院</option>
+                        <option value="教研院">教研院</option>
+                        <option value="医学院">医学院</option>
+                        <option value="软件学院">软件学院</option>
+                        <option value="苏世民书院">苏世民书院</option>
+                        <option value="新雅书院">新雅书院</option>
+                        <option value="深研院">深研院</option>
+                    </select>
+                </div>
+                <span class="clubv2e xi24" v-if="try_submit && !major_ok">请选择</span>
             </div>
-            <div class="clubv2x mg2 cen">
-                <select name="" class="bd1_2 xi20 bai" v-model="activity.starthour">
-                    <option value="00">00时</option>
-                    <option value="01">01时</option>
-                    <option value="02">02时</option>
-                    <option value="03">03时</option>
-                    <option value="04">04时</option>
-                    <option value="05">05时</option>
-                    <option value="06">06时</option>
-                    <option value="07">07时</option>
-                    <option value="08">08时</option>
-                    <option value="09">09时</option>
-                    <option value="10">10时</option>
-                    <option value="11">11时</option>
-                    <option value="12">12时</option>
-                    <option value="13">13时</option>
-                    <option value="14">14时</option>
-                    <option value="15">15时</option>
-                    <option value="16">16时</option>
-                    <option value="17">17时</option>
-                    <option value="18">18时</option>
-                    <option value="19">19时</option>
-                    <option value="20">20时</option>
-                    <option value="21">21时</option>
-                    <option value="22">22时</option>
-                    <option value="23">23时</option>
-                </select>
-                <span class="maohao bai cu">:</span>
-                <select name="" class="bd1_2 xi20 bai" v-model="activity.startMinute">
-                    <option value="00">00分</option>
-                    <option value="01">01分</option>
-                    <option value="02">02分</option>
-                    <option value="03">03分</option>
-                    <option value="04">04分</option>
-                    <option value="05">05分</option>
-                    <option value="06">06分</option>
-                    <option value="07">07分</option>
-                    <option value="08">08分</option>
-                    <option value="09">09分</option>
-                    <option value="10">10分</option>
-                    <option value="11">11分</option>
-                    <option value="12">12分</option>
-                    <option value="13">13分</option>
-                    <option value="14">14分</option>
-                    <option value="15">15分</option>
-                    <option value="16">16分</option>
-                    <option value="17">17分</option>
-                    <option value="18">18分</option>
-                    <option value="19">19分</option>
-                    <option value="20">20分</option>
-                    <option value="21">21分</option>
-                    <option value="22">22分</option>
-                    <option value="23">23分</option>
-                    <option value="24">24分</option>
-                    <option value="25">25分</option>
-                    <option value="26">26分</option>
-                    <option value="27">27分</option>
-                    <option value="28">28分</option>
-                    <option value="29">29分</option>
-                    <option value="30">30分</option>
-                    <option value="31">31分</option>
-                    <option value="32">32分</option>
-                    <option value="33">33分</option>
-                    <option value="34">34分</option>
-                    <option value="35">35分</option>
-                    <option value="36">36分</option>
-                    <option value="37">37分</option>
-                    <option value="38">38分</option>
-                    <option value="39">39分</option>
-                    <option value="40">40分</option>
-                    <option value="41">41分</option>
-                    <option value="42">42分</option>
-                    <option value="43">43分</option>
-                    <option value="44">44分</option>
-                    <option value="45">45分</option>
-                    <option value="46">46分</option>
-                    <option value="47">47分</option>
-                    <option value="48">48分</option>
-                    <option value="49">49分</option>
-                    <option value="50">50分</option>
-                    <option value="51">51分</option>
-                    <option value="52">52分</option>
-                    <option value="53">53分</option>
-                    <option value="54">54分</option>
-                    <option value="55">55分</option>
-                    <option value="56">56分</option>
-                    <option value="57">57分</option>
-                    <option value="58">58分</option>
-                    <option value="59">59分</option>
-                </select>
+            <div class="input_s mg2" :style="try_submit && !date_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 开始日期 </div>
+                <div class="clubv2x mg2 cen"><input name="" type="date" :min="(new Date()).toISOString().split('T')[0]" class="clubv2_bd1 xi24" placeholder="请选择" v-model="activity.startDate"></div>
+                <span class="clubv2e xi24" v-if="try_submit && !date_ok">请选择</span>
             </div>
-            <div class="clubv2s mg2 xi20 bai" v-if="isAdmin">俱乐部活动 *</div>
-            <div class="clubv2x mg2 cen" v-if="isAdmin">
-                <select name="" class="bd1_1 xi20 bai" v-model="activity.isForClub">
-                    <option :value="true">是</option>
-                    <option :value="false">否</option>
-                </select>
+            <div class="input_s mg2" :style="try_submit && !time_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 开始时间 </div>
+                <div class="clubv2x mg2 cen">
+                    <input name="" type="time" class="clubv2_bd1 xi24" placeholder="请选择" v-model="activity.startTime">
+                    <!--<select name="" class="bd1_2 xi24" v-model="activity.starthour">-->
+                        <!--<option value="00">00时</option>-->
+                        <!--<option value="01">01时</option>-->
+                        <!--<option value="02">02时</option>-->
+                        <!--<option value="03">03时</option>-->
+                        <!--<option value="04">04时</option>-->
+                        <!--<option value="05">05时</option>-->
+                        <!--<option value="06">06时</option>-->
+                        <!--<option value="07">07时</option>-->
+                        <!--<option value="08">08时</option>-->
+                        <!--<option value="09">09时</option>-->
+                        <!--<option value="10">10时</option>-->
+                        <!--<option value="11">11时</option>-->
+                        <!--<option value="12">12时</option>-->
+                        <!--<option value="13">13时</option>-->
+                        <!--<option value="14">14时</option>-->
+                        <!--<option value="15">15时</option>-->
+                        <!--<option value="16">16时</option>-->
+                        <!--<option value="17">17时</option>-->
+                        <!--<option value="18">18时</option>-->
+                        <!--<option value="19">19时</option>-->
+                        <!--<option value="20">20时</option>-->
+                        <!--<option value="21">21时</option>-->
+                        <!--<option value="22">22时</option>-->
+                        <!--<option value="23">23时</option>-->
+                    <!--</select>-->
+                    <!--<span class="maohao cu">:</span>-->
+                    <!--<select name="" class="bd1_2 xi24" v-model="activity.startMinute">-->
+                        <!--<option value="00">00分</option>-->
+                        <!--<option value="01">01分</option>-->
+                        <!--<option value="02">02分</option>-->
+                        <!--<option value="03">03分</option>-->
+                        <!--<option value="04">04分</option>-->
+                        <!--<option value="05">05分</option>-->
+                        <!--<option value="06">06分</option>-->
+                        <!--<option value="07">07分</option>-->
+                        <!--<option value="08">08分</option>-->
+                        <!--<option value="09">09分</option>-->
+                        <!--<option value="10">10分</option>-->
+                        <!--<option value="11">11分</option>-->
+                        <!--<option value="12">12分</option>-->
+                        <!--<option value="13">13分</option>-->
+                        <!--<option value="14">14分</option>-->
+                        <!--<option value="15">15分</option>-->
+                        <!--<option value="16">16分</option>-->
+                        <!--<option value="17">17分</option>-->
+                        <!--<option value="18">18分</option>-->
+                        <!--<option value="19">19分</option>-->
+                        <!--<option value="20">20分</option>-->
+                        <!--<option value="21">21分</option>-->
+                        <!--<option value="22">22分</option>-->
+                        <!--<option value="23">23分</option>-->
+                        <!--<option value="24">24分</option>-->
+                        <!--<option value="25">25分</option>-->
+                        <!--<option value="26">26分</option>-->
+                        <!--<option value="27">27分</option>-->
+                        <!--<option value="28">28分</option>-->
+                        <!--<option value="29">29分</option>-->
+                        <!--<option value="30">30分</option>-->
+                        <!--<option value="31">31分</option>-->
+                        <!--<option value="32">32分</option>-->
+                        <!--<option value="33">33分</option>-->
+                        <!--<option value="34">34分</option>-->
+                        <!--<option value="35">35分</option>-->
+                        <!--<option value="36">36分</option>-->
+                        <!--<option value="37">37分</option>-->
+                        <!--<option value="38">38分</option>-->
+                        <!--<option value="39">39分</option>-->
+                        <!--<option value="40">40分</option>-->
+                        <!--<option value="41">41分</option>-->
+                        <!--<option value="42">42分</option>-->
+                        <!--<option value="43">43分</option>-->
+                        <!--<option value="44">44分</option>-->
+                        <!--<option value="45">45分</option>-->
+                        <!--<option value="46">46分</option>-->
+                        <!--<option value="47">47分</option>-->
+                        <!--<option value="48">48分</option>-->
+                        <!--<option value="49">49分</option>-->
+                        <!--<option value="50">50分</option>-->
+                        <!--<option value="51">51分</option>-->
+                        <!--<option value="52">52分</option>-->
+                        <!--<option value="53">53分</option>-->
+                        <!--<option value="54">54分</option>-->
+                        <!--<option value="55">55分</option>-->
+                        <!--<option value="56">56分</option>-->
+                        <!--<option value="57">57分</option>-->
+                        <!--<option value="58">58分</option>-->
+                        <!--<option value="59">59分</option>-->
+                    <!--</select>-->
+                </div>
+                <span class="clubv2e xi24" v-if="try_submit && !time_ok">限30分外</span>
             </div>
-            <div class="clubv2s mg2 xi20 bai" v-if="isAdmin && activity.isForClub">
-                开放院系 *
-                <span class="xi15 r" style="color:red" v-if="try_submit && !major_ok">请选择开放院系</span>
+            <div class="input_s mg2" :style="try_submit && !duration_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 持续时间 </div>
+                <div class="clubv2x mg2 cen">
+                    <select name="" class="clubv2_bd1 xi24" v-model="activity.duration">
+                        <option value="30">30分钟</option>
+                        <option value="60">1小时</option>
+                        <option value="90">1.5小时</option>
+                        <option value="120">2小时</option>
+                        <option value="150">2.5小时</option>
+                        <option value="180">3小时</option>
+                        <option value="210">3.5小时</option>
+                        <option value="240">4小时</option>
+                        <option value="270">4.5小时</option>
+                        <option value="300">5小时</option>
+                        <option value="330">5.5小时</option>
+                        <option value="360">6小时</option>
+                    </select>
+                </div>
+                <span class="clubv2e xi24" v-if="try_submit && !duration_ok">请选择</span>
             </div>
-            <div class="clubv2x mg2 cen" v-if="isAdmin && activity.isForClub">
-                <select multiple="multiple" id="multiplemajor" class="bd1_1 xi20 bai" v-model="activity.filterMajors" style="height:100px;">
-					<option value="建筑学院">建筑学院</option>
-					<option value="土木系">土木系</option>
-					<option value="水利系">水利系</option>
-					<option value="环境学院">环境学院</option>
-					<option value="机械系">机械系</option>
-					<option value="精仪系">精仪系</option>
-					<option value="热能系">热能系</option>
-					<option value="汽车系">汽车系</option>
-					<option value="工业工程系">工业工程系</option>
-					<option value="电机系">电机系</option>
-					<option value="电子系">电子系</option>
-					<option value="计算机系">计算机系</option>
-					<option value="自动化系">自动化系</option>
-					<option value="微纳电子系">微纳电子系</option>
-					<option value="航天航空学院">航天航空学院</option>
-					<option value="工物系">工物系</option>
-					<option value="化工系">化工系</option>
-					<option value="材料学院">材料学院</option>
-					<option value="数学系">数学系</option>
-					<option value="物理系">物理系</option>
-					<option value="化学系">化学系</option>
-					<option value="生命学院">生命学院</option>
-					<option value="地学中心">地学中心</option>
-					<option value="交叉信息学院">交叉信息学院</option>
-					<option value="经管学院">经管学院</option>
-					<option value="公管学院">公管学院</option>
-					<option value="金融学院">金融学院</option>
-					<option value="法学院">法学院</option>
-					<option value="新闻学院">新闻学院</option>
-					<option value="马克思主义学院">马克思主义学院</option>
-					<option value="人文学院">人文学院</option>
-					<option value="社科学院">社科学院</option>
-					<option value="美术学院">美术学院</option>
-					<option value="核研院">核研院</option>
-					<option value="教研院">教研院</option>
-					<option value="医学院">医学院</option>
-					<option value="软件学院">软件学院</option>
-					<option value="苏世民书院">苏世民书院</option>
-					<option value="新雅书院">新雅书院</option>
-                </select>
+            <div class="input_s mg2" :style="try_submit && !type_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24"> 运动类别 </div>
+                <div class="clubv2x mg2 cen">
+                    <select name="" class="clubv2_bd1 xi24" v-model="activity.type">
+                        <option value="羽毛球">羽毛球</option>
+                        <option value="篮球">篮球</option>
+                        <option value="跑步">跑步</option>
+                        <option value="游泳">游泳</option>
+                        <option value="健身">健身</option>
+                        <option value="乒乓球">乒乓球</option>
+                        <option value="足球">足球</option>
+                        <option value="网球">网球</option>
+                        <option value="冰雪">冰雪</option>
+                        <option value="其它">其它</option>
+                    </select>
+                </div>
+                <span class="clubv2e xi24" v-if="try_submit && !type_ok">请选择</span>
             </div>
-            <div class="clubv2s mg2 xi20 bai">
-                运动持续时间 *
-                <span class="xi15 r" style="color:red" v-if="try_submit && !duration_ok">请选择持续时间</span>
+            <div class="input_s mg2" :style="try_submit && !address_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24">运动地点</div>
+                <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" placeholder="（限2至10字）" v-model="activity.address"></div>
+                <span class="clubv2e xi24" v-if="try_submit && !address_ok">限2至10字</span>
             </div>
-            <div class="clubv2x mg2 cen">
-                <select name="" class="bd1_1 xi20 bai" v-model="activity.duration">
-                <option value="30">30分钟</option>
-                <option value="60">1小时</option>
-                <option value="90">1.5小时</option>
-                <option value="120">2小时</option>
-                <option value="150">2.5小时</option>
-                <option value="180">3小时</option>
-                <option value="210">3.5小时</option>
-                <option value="240">4小时</option>
-                <option value="270">4.5小时</option>
-                <option value="300">5小时</option>
-                <option value="330">5.5小时</option>
-                <option value="360">6小时</option>
-            </select>
+            <div class="input_s mg2" :style="try_submit && !capacity_ok ? 'border-color:#ff6a00':''">
+                <div class="clubv2s mg2 xi24">参与人数</div>
+                <div class="clubv2x mg2 cen"><input name="" type="number" max="100" min="1" class="clubv2_bd1 xi24" placeholder="（不超过100人）" v-model="activity.capacity"></div>
+                <span class="clubv2e xi24" v-if="try_submit && !capacity_ok">限100人</span>
             </div>
-            <div class="clubv2s mg2 xi20 bai">
-                运动类别 *
-                <span class="xi15 r" style="color:red" v-if="try_submit && !type_ok">请选择运动类别</span>
+            <div class="clubv2s mg2 xi24" style="width:100%;padding:0px 15px 20px 15px;line-height:30px;">
+                运动简介（选填）
             </div>
-            <div class="clubv2x mg2 cen">
-                <select name="" class="bd1_1 xi20 bai" v-model="activity.type">
-                <option value="羽毛球">羽毛球</option>
-                <option value="篮球">篮球</option>
-                <option value="跑步">跑步</option>
-                <option value="游泳">游泳</option>
-                <option value="健身">健身</option>
-                <option value="乒乓球">乒乓球</option>
-                <option value="足球">足球</option>
-                <option value="网球">网球</option>
-                <option value="冰雪">冰雪</option>
-                <option value="其它">其它</option>
-            </select>
+            <div class="input_s mg2" style="height:200px">
+                <div class="clubv2x mg2 cen" style="width:calc(100% - 30px);height:calc(100% - 80px);"><textarea name="" maxlength="200" class="clubv2_bd2 xi24" v-model="activity.introduction"></textarea></div>
+                <span class="xi24 r hui">（0至200字）</span>
             </div>
-            <div class="clubv2s mg2 xi20 bai">运动地点 *<span class="xi15 r" :style="(try_submit && !address_ok) ? 'color:red' : ''">（2-10字）</span></div>
-            <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写运动地点" v-model="activity.address"></div>
-            <div class="clubv2s mg2 xi20 bai">参与人数 *<span class="xi15 r" :style="(try_submit && !capacity_ok) ? 'color:red' : ''">（不超过100人）</span></div>
-            <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi20" placeholder="请在此填写参与人数" v-model="activity.capacity"></div>
-            <div class="clubv2s mg2 xi20 bai">运动简介<span class="xi15 r" :style="(try_submit && !intro_ok) ? 'color:red' : ''">（0-200字）</span></div>
-            <div class="clubv2x mg2 cen"><textarea name="" cols="" rows="" placeholder="请在此填写运动简介" class="clubv2_bd2 xi20" v-model="activity.introduction"></textarea></div>
-            <div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an1 xi20 bai" value="上传运动海报"></div>
-            <div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an2 xi25 bai" value="发             起" v-on:click="submitActivityInfo"></div>
+            <!--<div class="clubv2x mg2 cen"><input name="" type="button" class="clubv2_an1 xi24" value="上传运动海报"></div>-->
+            <div class="clubv2b mg2 cen bai" v-on:click="submitActivityInfo">发起</div>
         </div>
     </div>
-    <script src="/static/js/createactivity_control.js"></script>
 </body>
 
 </html>

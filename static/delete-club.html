@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no"/>
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="head"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />删除俱乐部</div>
+    <div id="deleteClub">
+        <div class="lib_Sheet">
+            <div class="clubv2s mg2 xi24" style="width:100%;padding:0px 15px 20px 15px;line-height:30px;">
+                删除理由
+            </div>
+            <div class="input_s mg2" style="height:200px">
+                <div class="clubv2x mg2 cen" style="width:calc(100% - 30px);height:calc(100% - 80px);"><textarea name="" maxlength="200" class="clubv2_bd2 xi24" v-model="deleteReason"></textarea></div>
+                <span class="xi24 r hui">（0至200字）</span>
+            </div>
+            <div class="clubv2b mg2 cen bai" v-on:click="deleteClub">确认</div>
+        </div>
+    </div>
+    <script src="/static/js/delete-club_control.js"></script>
+</body>
+
+</html>
+

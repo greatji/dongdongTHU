@@ -2,42 +2,57 @@
 <html>
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
-	<title>咚咚体育平台</title>
-	<link href="/static/css/css.css" rel="stylesheet" />
-	<script src="/static/js/jquery-3.1.1.min.js"></script>
-	<script src="/static/js/vue.js"></script>
-	<script type="text/javascript" language="javascript" src="/static/js/userInfo_control.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet" />
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
 </head>
 
-<body>
-	<style>
-		body {
-			background: #f8f8f8;
-		}
-	</style>
-	<div class="menu"><img align="absmiddle" src="/static/images/profile-edit_02.png" /></div>
-	<div id="nav"></div>
-	<div id="userInfo" v-cloak>
-		<div class="profilev2_title mg2 xi20"><a href="#">个人主页</a></div>
-		<div class="profilev2s mg2 cen">
-			<div class="profilev2ss mg2 huang">{{ user.times | lspace }}</div>
-			<div class="profilev2sx mg2 zi" v-if="user.is_this_person"><a href="/setprofile.html">修改</a></div>
-		</div>
-		<div class="profilev2c mg">
-			<div class="profilev2cl f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="200" height="200" /></div>
-			<div class="profilev2cr f">
-				<div class="profilev2crs mg2 xi20"><span class="xi31 zi">{{ user.name }}</span>{{ user.sex }}</div>
-				<div class="profilev2crx mg2 xi17">学院：{{ user.major }}</div>
-				<div class="profilev2crx mg2 xi17">学号：{{ user.id }}</div>
-				<div class="profilev2crx mg2 xi17" v-if="is_full">电话：{{ user.phone }}</div>
-				<div class="profilev2crx mg2 xi17" v-if="is_full">邮箱：{{ user.email }}</div>
-				<div class="profilev2crx mg2 xi17" v-if="user.tag !== ''">兴趣：{{ user.tag }}</div>
-			</div>
-		</div>
-		<div class="profilev2x mg xi30 cen bai" v-if="user.introduction !== ''">{{ user.introduction }}</div>
-	</div>
+<body style="background-color:#f2f2f2;">
+    <div id="nav"></div>
+    <div class="mg2">
+        <img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu-white.png" />
+        <img class="head2bg" align="absmiddle" src="/static/images/detail/person_bg.png" />
+    </div>
+    <div id="userInfo" v-cloak>
+        <div class="profilev2title mg2 xi20">
+            <div class="cen" style="margin-bottom:100px;">
+                <img class="profilev2icon" align="absmiddle" src="/static/images/xiaoyan.jpeg" />
+                <img class="profilev2sex" align="absmiddle" src="/static/images/detail/sex_male.png" />
+            </div>
+            <div class="cen xi36 blk">{{ user.name }}</div>
+            <div class="cen xi26">{{ user.major }}</div>
+        </div>
+        <div class="profilev2c mg2">
+            <div class="profilev2ch">
+                <img style="padding:8px 0;" align="absmiddle" src="/static/images/detail/card.png" />
+                <span>个人信息</span>
+                <a href="/setprofile.html" class="r" v-if="user.is_this_person">
+                    <span>编辑</span>
+                    <img style="padding:16px 0;" align="absmiddle" src="/static/images/detail/edit.png" />
+                </a>
+            </div>
+            <div class="profilev2cb">
+                <div class="profilev2cbx mg2"><span class="l">学号：</span><span class="l blk">{{ user.id }}</span></div>
+                <div class="profilev2cbx mg2" v-if="is_full"><span class="l">电话：</span><span class="l blk">{{ user.phone }}</span></div>
+                <div class="profilev2cbx mg2" v-if="is_full"><span class="l">邮箱：</span><span class="l blk">{{ user.email }}</span></div>
+                <div class="profilev2cbx mg2" v-if="user.tag !== ''"><span class="l">兴趣：</span><span class="l blk">{{ user.tag }}</span></div>
+                <div class="profilev2cbx mg2" v-if="user.introduction !== ''"><span class="l">个人描述：</span><span class="l blk">{{ user.introduction }}</span></div>
+            </div>
+        </div>
+        <div class="profilev2c mg2" v-if="user.is_this_person">
+            <div class="profilev2ch">
+                <img style="padding:8px 0;" align="absmiddle" src="/static/images/detail/medal.png" />
+                <span>运动成就</span>
+                <a href="/showMedal.html" class="r">
+                    <img style="padding:16px 0;" align="absmiddle" src="/static/images/detail/edit.png" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/userInfo_control.js"></script>
 </body>
 
 </html>

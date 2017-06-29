@@ -81,8 +81,10 @@ function dealPendingInfoMethod() {
         success: function (data) {
             if (data['succeed']) {
                 vue_club_profile.pendingInfos = data['info'];
+                vue_club_profile.is_manager = true;
                 console.log(data['info']);
             } else {
+                vue_club_profile.is_manager = false;
                 if (data['errno'] === 2008) {
                     location.href = '/login.html';
                 } else {
@@ -139,7 +141,7 @@ $(document).ready(function () {
             pendingInfos: [],
             myClubs: [],
             managedClubs: [],
-            padding_len: 0
+            is_manager: false,
         },
         methods: {
             dealPendingInfo: dealPendingInfoMethod,
@@ -148,23 +150,22 @@ $(document).ready(function () {
             dealManagedClub: dealManagedClubMethod,
             showActivityInfo: function () {
                 location.href = '/Details-activity.html?id=' + $(event.currentTarget).attr('id');
-            }
-        },
-        filters: {
+            },
             toChinese: function (x) {
                 switch (x) {
-                    case 'deleteClub':
-                        return '删除';
-                    case 'joinClub':
-                        return '加入';
-                    case 'createClub':
-                        return '创建';
+                    case 'delete':
+                        return '被管理员删除';
+                    case 'refuse':
+                        return '申请失败';
+                    case 'admit':
+                        return '审核中';
                     default:
                         return '';
                 }
             }
-        }
+        },
     })
+    dealPendingInfoMethod();
     dealMyClubMethod();
     // $('body').css('background', 'radial-gradient(#8b4a75,#4b2a4f)');
 })

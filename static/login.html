@@ -11,21 +11,18 @@
 </head>
 
 <body>
-<style>
-body,html{ width:100%; height:100%;}
-</style>
-<div id="hidden_wrapper">
-	<div id="login" v-cloak>
-		<div class="logins cen"><input class="an1">
-			<div class="loginsx mgz cen xi20 bai" v-if="error">学号或密码错误</div>
-		</div>
-		<div class="loginx">
-			<div class="loginxs mgz cen"><input name="" type="text" class="bd1 bai" placeholder="学号" v-model="userid"></div>
-			<div class="loginxs mgz cen"><input name="" type="password" class="bd2 bai" placeholder="密码" v-model="passwd"></div>
-            <div class="loginxs mgz cen" style="background: #fcfbf7;" v-on:click="submit_info"><span style="height: 77px;line-height: 77px;" class="zi" >登录</span></div>
-			<div class="loginxx mgz cen xi20 bai">仅清华大学师生通过info账号密码认证使用</div>
-		</div>
-	</div>
-</div>
+    <div id="login" v-cloak>
+        <div class="head">登录</div>
+        <div class="logins cen top2">
+            <img class="an1" src="/static/images/login/logo2.png" />
+            <div class="loginsx mgz cen xi24 huang" v-if="error">学号或密码错误</div>
+        </div>
+        <div class="loginx">
+            <div class="loginxs mgz cen"><input name="" type="text" class="bd1 hui" placeholder="输入您的学号" v-model="userid"></div>
+            <div class="loginxs mgz cen"><input name="" type="password" class="bd2 hui" placeholder="输入您的info密码" v-model="passwd"></div>
+            <div class="loginxs mgz cen" style="background: #ff6a00;border-radius: 40px;margin-top:40px" v-on:click="submit_info"><span style="height: 77px;line-height: 77px;" class="bai" >登录</span></div>
+            <div class="loginxx mgz cen xi24 hui">仅清华大学师生通过info账号密码认证使用</div>
+        </div>
+    </div>
 </body>
 </html>

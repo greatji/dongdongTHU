@@ -4,61 +4,60 @@
 </div>
 <div class="dh_tc">
     <a href="/userInfo.html">
-        <div class="dh_tc_nav mg2">
-            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/xiaoyan.jpeg" width="45" height="45" /></div>
-            <div class="dh_tc_navr f xi25 bai">个人主页</div>
+        <div class="dh_tc_user mg2 cen">
+            <div class="cen"><img style="border-radius:80px;border:1px solid #e3e3e3" align="absmiddle" src="/static/images/xiaoyan.jpeg" width="160" height="160" /></div>
+            <div class="dh_tc_navr cen xi25 ">个人主页</div>
         </div>
     </a>
     <a href="/index.html">
         <div class="dh_tc_nav mg2">
-            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_07.png" /></div>
-            <div class="dh_tc_navr f xi25 bai">运动广场</div>
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/运动广场.png" /></div>
+            <div class="dh_tc_navr f xi25 ">运动广场</div>
         </div>
     </a>
     <a href="/createactivity.html">
         <div class="dh_tc_nav mg2">
-            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_10.png" /></div>
-            <div class="dh_tc_navr f xi25 bai">发起运动</div>
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/发起运动.png" /></div>
+            <div class="dh_tc_navr f xi25 ">发起运动</div>
         </div>
     </a>
     <a href="/activity-profile.html">
         <div class="dh_tc_nav mg2">
-            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_12.png" /></div>
-            <div class="dh_tc_navr f xi25 bai">我的运动</div>
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/我的运动.png" /></div>
+            <div class="dh_tc_navr f xi25 ">我的运动</div>
         </div>
     </a>
     <a href="club-list.html">
         <div class="dh_tc_nav mg2">
-            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_14.png" /></div>
-            <div class="dh_tc_navr f xi25 bai">体育俱乐部</div>
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/体育俱乐部.png" /></div>
+            <div class="dh_tc_navr f xi25 ">体育俱乐部</div>
         </div>
     </a>
     <a href="club-profile.html">
         <div class="dh_tc_nav mg2">
-            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_16.png" /></div>
-            <div class="dh_tc_navr f xi25 bai">我的体育俱乐部</div>
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/我的体育俱乐部.png" /></div>
+            <div class="dh_tc_navr f xi25 ">我的体育俱乐部</div>
         </div>
     </a>
     <a href="contact-us.html">
         <div class="dh_tc_nav mg2">
-            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_18.png" /></div>
-            <div class="dh_tc_navr f xi25 bai">联系我们</div>
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/联系我们.png" /></div>
+            <div class="dh_tc_navr f xi25 ">联系我们</div>
         </div>
     </a>
     <!--<a href="#">-->
         <!--<div class="dh_tc_nav mg2">-->
-            <!--<div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_20.png" /></div>-->
-            <!--<div class="dh_tc_navr f xi25 bai">设&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置</div>-->
+            <!--<div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/.png" /></div>-->
+            <!--<div class="dh_tc_navr f xi25 ">设&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置</div>-->
         <!--</div>-->
     <!--</a>-->
-    <div class="dh_tc_zw mg2"></div>
     <a href="/logout.html" id="login_href">
         <div class="dh_tc_nav mg2">
-            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/menu_22.png" /></div>
-            <div class="dh_tc_navr f xi25 bai" id="login_text">退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出</div>
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/登出.png" /></div>
+            <div class="dh_tc_navr f xi25 " id="login_text">退出</div>
         </div>
     </a>
-    <div class="dh_tc_logo mg2 cen"><img align="absmiddle" src="/static/images/menu_25.png" /></div>
+    <div class="dh_tc_logo mg2 cen"><img align="absmiddle" src="/static/images/login/logo.png" height="300px"/></div>
 </div>
 <script>
     $(".menu,#menu").click(function() {
@@ -69,7 +68,7 @@
     });
     $(".mengban").click(function() {
         $(".dh_tc").stop().animate({
-            "left": "-520px"
+            "left": "-550px"
         }, 400);
         $(".mengban").stop().fadeOut();
     });
@@ -90,7 +89,7 @@
             success: function(data) {
                 if (!data['succeed'] || !data['res']) {
                     $('#login_href').attr('href', '/login.html');
-                    $('#login_text').html('登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录');
+                    $('#login_text').html('登录');
                 }
             }
         })
