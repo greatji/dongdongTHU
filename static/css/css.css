@@ -174,11 +174,14 @@ background:url(../images/profile-edit_18.png) no-repeat scroll right center tran
 .lib_Menubox p{ border:1px solid #ff6a00;display:table-cell;cursor:pointer;line-height:70px;}
 .lib_Menubox .hover{background:#ff6a00;color:#fff}
 .lib_Contentbox{clear:both; background-color:#f2f2f2; padding:20px 15px 0 15px;}
-.list4{ width:544px; height:185px; border:1px solid #fff;border-radius:8px; margin-bottom:20px;}
-.list4:hover{ box-shadow:0px 0px 8px #fff;}
-.list4s{ line-height:58px; height:58px;}
-.list4c{ line-height:28px; height:72px;}
-.list4x ul li{ width:112px; height:34px; border:1px solid #fff;border-radius:5px; margin:0 9px 0 106px; float:left; line-height:32px;}
+.list4{ width:100%; background-color:#fff; margin-bottom:15px;}
+.list4c{ padding:30px; min-height:90px; }
+.list4cx{ line-height:50px; min-height:50px;}
+.list4cx span {float:left}
+.list4cx span:first-child{ width:100px; }
+.list4cx span:last-child{ width:calc(100% - 100px)}
+.list4t{ padding:0 40px }
+.list4tx{ background-color:#ff6a00; color:#fff; border-radius:1px; }
 .profilev2title{ line-height:50px; width:100%; margin-bottom:20px; background-color:#fff; padding-bottom:20px; }
 .profilev2icon{ border-radius:80px;border:1px solid #e3e3e3;width:160px; height:160px; position:absolute; top:190px; left:calc(50% - 80px);}
 .profilev2sex{ width:40px; height:40px; position:absolute; top:310px; left:calc(50% + 40px);}

@@ -82,7 +82,42 @@ function dealPendingInfoMethod() {
             if (data['succeed']) {
                 vue_club_profile.pendingInfos = data['info'];
                 vue_club_profile.is_manager = true;
-                console.log(data['info']);
+                data['info'].map(
+                    function(info, index) {
+                        console.log(info);
+                        $.ajax({
+                            type: 'POST',
+                            url: base_url + 'api/getClub',
+                            contentType: 'application/json; charset=utf-8',
+                            data: '{"clubId":"' + info.info.clubId + '"}',
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data['succeed']) {
+                                    info.detail = data['info'];
+                                    $.ajax({
+                                        type: 'POST',
+                                        url:  base_url + 'api/getPersonalInfo',
+                                        contentType: 'application/json; charset=utf-8',
+                                        data: JSON.stringify({studentId: info.applyId, full:true}),
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            if (data['succeed']) {
+                                                info.applyer = data['info'];
+                                                vue_club_profile.pendingInfos.splice(index, 1, info);
+                                            } else {
+                                                alert(data['errmsg']);
+                                                location.href = '/index.html';
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    alert(data['errmsg']);
+                                    location.href = '/index.html';
+                                }
+                            }
+                        });
+                    }
+                )
             } else {
                 vue_club_profile.is_manager = false;
                 if (data['errno'] === 2008) {
@@ -157,8 +192,22 @@ $(document).ready(function () {
                         return '被管理员删除';
                     case 'refuse':
                         return '申请失败';
-                    case 'admit':
+                    case 'pending':
                         return '审核中';
+                    case 'admit':
+                        return '申请成功';
+                    default:
+                        return '';
+                }
+            },
+            toChinese2: function (x) {
+                switch (x) {
+                    case 'deleteClub':
+                        return '删除';
+                    case 'joinClub':
+                        return '加入';
+                    case 'createClub':
+                        return '创建';
                     default:
                         return '';
                 }
