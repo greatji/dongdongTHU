@@ -213,8 +213,10 @@ $(document).ready(function () {
                 }
             }
         },
+        beforeCreate: function () {
+            dealPendingInfoMethod();
+            dealMyClubMethod();
+        }
     })
-    dealPendingInfoMethod();
-    dealMyClubMethod();
     // $('body').css('background', 'radial-gradient(#8b4a75,#4b2a4f)');
 })

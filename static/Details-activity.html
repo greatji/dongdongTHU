@@ -44,7 +44,7 @@
             <div class="profilev2ch">
                 <img style="padding:8px;" align="absmiddle" src="/static/images/detail/activity_time.png" />
                 <span>活动时间：</span>
-                <span class="blk2">{{ activity.duringTime.year }}-{{ activity.duringTime.month }}-{{ activity.duringTime.day }} {{ activity.duringTime.shour }}:{{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }}-{{ activity.duringTime.shour + activity.duringTime.hour + (activity.duringTime.sminute+activity.duringTime.minute)/60 }}:{{ ((10>(activity.duringTime.sminute+activity.duringTime.minute)%60)?'0':'') + (activity.duringTime.sminute+activity.duringTime.minute)%60 }} </span>
+                <span class="blk2">{{ activity.duringTime.year }}-{{ activity.duringTime.month }}-{{ activity.duringTime.day }} {{ activity.duringTime.shour }}:{{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }}-{{ activity.duringTime.shour + activity.duringTime.hour + Math.floor((activity.duringTime.sminute+activity.duringTime.minute)/60) }}:{{ ((10>(activity.duringTime.sminute+activity.duringTime.minute)%60)?'0':'') + (activity.duringTime.sminute+activity.duringTime.minute)%60 }} </span>
             </div>
             <div class="profilev2ch">
                 <img style="padding:8px;" align="absmiddle" src="/static/images/detail/activity_duration.png" />
