@@ -41,7 +41,8 @@ app.config.update(
             'schedule': timedelta(minutes=5)
             # 'schedule': timedelta(seconds=10)
         },
-    }
+    },
+    CELERY_INCLUDE = ['sms']
 )
 celery = make_celery(app)
 

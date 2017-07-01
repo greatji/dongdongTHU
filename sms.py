@@ -38,13 +38,17 @@ def send_batch(phones, content):
 @celery.task(name='delete_notify')
 def notify_delete_activity(activity, by_superuser, reason):
     name = activity['name']
-    event = "管理员删除" if by_superuser else "发起者取消"
-    content = "您参加的活动：%s已被%s。" % (name, event)
+    event = u"管理员删除" if by_superuser else u"发起者取消"
+    content = u"您参加的活动：%s已被%s。" % (name, event)
     if by_superuser and reason:
-        content += "删除原因：%s" % reason
+        if isinstance(reason, str):
+            reason = reason.decode('utf8')
+        content += u"删除原因：%s" % reason
     phone_list = [one['phone'] for one in activity['participants']]
     if by_superuser:
         phone_list.append(activity['leader']['phone'])
+    if not phone_list:
+        return True
     code, msg = send_batch(phone_list, content)
     if code == 0:
         return True

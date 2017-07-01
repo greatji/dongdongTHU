@@ -108,7 +108,7 @@ def createActivityService(name, duringTime, address, capacity, type, introductio
 
 
 def deleteActivityService(activityId, bySuperuser=False, reason=''):
-    res = Mongo.activity.find_one_and_delete({'id': activityId})
+    res = Mongo.activity.find_one_and_delete({'id': activityId}, {'_id': 0})
     if not res:
         return False
     else:
