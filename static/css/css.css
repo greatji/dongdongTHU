@@ -16,8 +16,8 @@ ul,li,tr,td{list-style-type: none;margin: 0px;padding: 0px;}
 li{ overflow:hidden;}
 a img{text-decoration: none;margin: 0px;padding: 0px;border:none;}
 span, p{vertical-align:middle; margin:0;}
-.f{ float:left; overflow:hidden;}
-.r{ float:right; overflow:hidden;}
+.f{ float:left; text-align:left; overflow:hidden;}
+.r{ float:right; text-align:right; overflow:hidden;}
 .bai,.bai a{ color:#FFFFFF;}
 .hong,.hong a{ color:#ff0000;}
 .zi,.zi a{ color:#89285a;}
@@ -32,7 +32,8 @@ span, p{vertical-align:middle; margin:0;}
 .mg{ margin-left:auto; margin-right:auto; overflow:hidden; width:590px;}
 .mg2{ margin-left:auto; margin-right:auto; overflow:hidden;}
 .cen{ text-align:center;}
-.clearfix::after { content: ""; clear: both; display: block; }
+.clearfix::after { content: " "; clear: both; display: block; }
+.clearfix::before { content: " "; clear: both; display: block; }
 
 .xi12{ font-size:12px;}
 .xi13{ font-size:13px;}
@@ -161,8 +162,6 @@ appearance:none;
 -webkit-appearance:none;
 background:url(../images/profile-edit_18.png) no-repeat scroll right center transparent;color: #2b2b2b;}
 .edit4{ padding:30px 0 25px 0;}
-.list3zw{ height:110px;}
-.list3{ position:fixed; bottom:0; left:0; width:100%; overflow:hidden;}
 .mengban{ display:none; height:100%; position:fixed; z-index:99; left:0; top:0; width:100%;}
 .zw60{ height:60px;}
 .profile1{ text-align:right;}
@@ -229,6 +228,16 @@ input::-webkit-datetime-edit-month-field:not([aria-valuenow]),
 input::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
     color: transparent;
 }
+/*聊天区*/
+.list3{ clear:both; position:relative; overflow:hidden; margin-bottom: 20px;}
+.list3icon{ width:15%; }
+.list3icon img{ width:75px; height:75px; border-radius:50%; }
+.list3content{ width: auto; max-width: 70%; }
+.list3n{ color:#777; width:100%; }
+.list3c { padding:15px; margin-top:10px; background-color: #fff; border: 1px solid #d5dfe7; border-radius: 10px; word-break: break-all; word-wrap: break-word; text-align: justify;}
+.chat_input { padding:20px; position:fixed; bottom:0px; width:calc(100% - 40px); background-color:#fff;}
+.chat_input input { border: 1px solid #e3e3e3; border-radius: 10px; height: 50px; width: calc(100% - 170px); padding:10px; font-size:28px; margin-right: 20px; float: left; }
+.chat_input span { width: 125px; color: #ff6a00; border: 1px solid #ff6a00; border-radius: 10px; height: 70px; line-height: 70px; display: inline-block; float: left; font-size: 30px; text-align: center; }
 
 /*static页面*/
 .static_m{ width: 100%; line-height: 40px; text-align: center; margin: auto; position: absolute; top: 40%; }

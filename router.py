@@ -314,7 +314,7 @@ def apiQuitActivity(activityId):
 
 
 ### comment operation
-@app.route('/api/activity/getComment', methods=['GET'])
+@app.route('/api/activity/getComment', methods=['POST'])
 @jsonApi(
     activityId=allChecked(lenIn(5, 5), isAllDigits),
 )
