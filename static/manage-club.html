@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet" />
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="head blk2"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />俱乐部管理</div>
+    <div id="manage_club" class="top2" v-cloak>
+        <div id="lib_Tab1" class="mgz">
+            <div class="xi24" style="background:#fff;padding:25px;">
+                <div class="input_s mg2">
+                    <div class="clubv2s mg2 xi24"> 所属院系 </div>
+                    <div class="clubv2x mg2 cen">
+                        <select class="clubv2_bd1 xi24" v-model="filter_major">
+                            <option :value="undefined">不筛选院系</option>
+                            <option value="建筑学院">建筑学院</option>
+                            <option value="土木系">土木系</option>
+                            <option value="水利系">水利系</option>
+                            <option value="环境学院">环境学院</option>
+                            <option value="机械系">机械系</option>
+                            <option value="精仪系">精仪系</option>
+                            <option value="热能系">热能系</option>
+                            <option value="汽车系">汽车系</option>
+                            <option value="工业工程系">工业工程系</option>
+                            <option value="电机系">电机系</option>
+                            <option value="电子系">电子系</option>
+                            <option value="计算机系">计算机系</option>
+                            <option value="自动化系">自动化系</option>
+                            <option value="微纳电子系">微纳电子系</option>
+                            <option value="航天航空学院">航天航空学院</option>
+                            <option value="工物系">工物系</option>
+                            <option value="化工系">化工系</option>
+                            <option value="材料学院">材料学院</option>
+                            <option value="数学系">数学系</option>
+                            <option value="物理系">物理系</option>
+                            <option value="化学系">化学系</option>
+                            <option value="生命学院">生命学院</option>
+                            <option value="地学中心">地学中心</option>
+                            <option value="交叉信息学院">交叉信息学院</option>
+                            <option value="经管学院">经管学院</option>
+                            <option value="公管学院">公管学院</option>
+                            <option value="金融学院">金融学院</option>
+                            <option value="法学院">法学院</option>
+                            <option value="新闻学院">新闻学院</option>
+                            <option value="马克思主义学院">马克思主义学院</option>
+                            <option value="人文学院">人文学院</option>
+                            <option value="社科学院">社科学院</option>
+                            <option value="美术学院">美术学院</option>
+                            <option value="核研院">核研院</option>
+                            <option value="教研院">教研院</option>
+                            <option value="医学院">医学院</option>
+                            <option value="软件学院">软件学院</option>
+                            <option value="苏世民书院">苏世民书院</option>
+                            <option value="新雅书院">新雅书院</option>
+                            <option value="深研院">深研院</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input_s mg2">
+                    <div class="clubv2s mg2 xi24"> 运动类别 </div>
+                    <div class="clubv2x mg2 cen">
+                        <select name="" class="clubv2_bd1 xi24" v-model="filter_type">
+                            <option :value="undefined">不筛选类别</option>
+                            <option value="羽毛球">羽毛球</option>
+                            <option value="篮球">篮球</option>
+                            <option value="跑步">跑步</option>
+                            <option value="游泳">游泳</option>
+                            <option value="健身">健身</option>
+                            <option value="乒乓球">乒乓球</option>
+                            <option value="足球">足球</option>
+                            <option value="网球">网球</option>
+                            <option value="冰雪">冰雪</option>
+                            <option value="其它">其它</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="newbtn3 mg2 xi30 cen" style="width:calc(100% - 24px);border-color:#ff6a00; color:#ff6a00;" v-on:click="searchClub">
+                    查询
+                </p>
+            </div>
+            <div class="lib_Contentbox" style="min-height:800px;">
+                <div class="list4 mg2" v-for="club in clubList">
+                    <div>
+                        <div class="list4c">
+                            <div class="list4cx mg2 xi32"><p class="f blk">{{ club.name }}</p></div>
+                            <div class="list4cx mg2 xi24"><span class="f">院系：</span><span class="f blk2">{{ club.major }}</span></div>
+                            <div class="list4cx mg2 xi24"><span class="f">类型：</span><span class="f blk2">{{ club.type }}</span></div>
+                            <div class="list4cx mg2 xi24"><span class="f">负责人：</span><span class="f blk2">{{ club.leader.name }}，学号{{ club.leader.id }}<br v-if="club.leader.email != undefined">{{ club.leader.email != undefined ? '邮箱' + club.leader.email : '' }}<br v-if="club.leader.phone != undefined">{{ club.leader.phone != undefined ? '电话' + club.leader.phone : '' }}</span></div>
+                        </div>
+                        <div class="list4t" style="border-top: 1px solid #ddd;padding:0 10px;">
+                            <a class="newbtn3 mg2 xi30 cen" style="border-color:#f54336; color:#f54336;" :href="'/delete-club.html?id=' + club.id">
+                                <p>删除俱乐部</p>
+                            </a>
+                            <!--TODO:更新负责人-->
+                            <a class="newbtn3 mg2 xi30 cen" style="border-color:#3fbf46; color:#3fbf46;" :href="'/response-club.html?id=' + club.id">
+                                <p>更新负责人</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/manage-club_control.js"></script>
+</body>
+
+</html>

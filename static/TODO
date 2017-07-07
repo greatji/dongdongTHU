@@ -1,5 +1,7 @@
-TODO:超级管理员-用户管理
-TODO:超级管理员-运动管理
-TODO:超级管理员-俱乐部管理
-TODO:超级管理员-关键词屏蔽管理
-TODO:院系管理员-更新负责人
+后端：
+TODO:删除运动（超级管理员）的理由参数
+TODO:删除运动（超级管理员）的direct参数
+TODO:俱乐部管理员getClub的leader字段没有邮箱和手机
+TODO:修改俱乐部管理员（超管）的direct参数
+TODO:没有获得指定用户所有JoinedActivity的接口
+TODO:changeUserLevelService有bug

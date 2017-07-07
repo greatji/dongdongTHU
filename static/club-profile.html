@@ -15,7 +15,7 @@
 
 <body>
     <div id="nav"></div>
-    <div class="head"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />我的体育俱乐部</div>
+    <div class="head huang"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />我的体育俱乐部</div>
     <div id="vue_info" class="top2" v-cloak>
         <div id="lib_Tab1" class="mgz">
             <div class="lib_Menubox xi24">
@@ -56,7 +56,7 @@
                                         <div class="list2xc f xi20 list2major">{{ club.major }}</div>
                                         <div class="list2xc f xi20 list2type">{{ club.type }}</div>
                                         <div class="list2xc f xi20"><img align="absmiddle" src="static/images/club/leader.png" />{{ club.leader.name }}发起 </div>
-                                        <div class="list2xc f xi24" style="color:red;line-height:50px;line-height:27px;margin-top:10px;width:100%;">
+                                        <div class="list2xc f xi24" style="color:red;line-height:50px;line-height:27px;margin-top:10px;clear:both;">
                                             <img align="absmiddle" :src="'static/images/club/' + toChinese(club.state) + '.png'" />{{ toChinese(club.state) }}
                                         </div>
                                     </div>
@@ -71,13 +71,13 @@
                     <div v-for="pendingInfo in pendingInfos" v-if="pendingInfo.detail != undefined && pendingInfo.applyer != undefined">
                         <div class="list4 mg2">
                             <div class="list4c">
-                                <div class="list4cx mg2 xi32"><p class="l blk">申请{{ toChinese2(pendingInfo.type) }}{{ pendingInfo.detail.name }}</p></div>
-                                <div class="list4cx mg2 xi24"><span class="l">院系：</span><span class="l blk2">{{ pendingInfo.detail.major }}</span></div>
-                                <div class="list4cx mg2 xi24"><span class="l">负责人：</span><span class="l blk2">{{ pendingInfo.applyer.name }}，学号{{ pendingInfo.applyer.id }}，<br>邮箱{{ pendingInfo.applyer.email }}，<br>电话{{ pendingInfo.applyer.phone }}</span></div>
-                                <div class="list4cx mg2 xi24"><span class="l">类别：</span><span class="l blk2">{{ pendingInfo.detail.type }}</span></div>
-                                <div class="list4cx mg2 xi24"><span class="l">人数：</span><span class="l blk2">{{ pendingInfo.detail.scale }}人</span></div>
-                                <div class="list4cx mg2 xi24"><span class="l">口号：</span><span class="l blk2">{{ pendingInfo.detail.motto }}</span></div>
-                                <div class="list4cx mg2 xi24"><span class="l">简介：</span><span class="l blk2">{{ pendingInfo.detail.introduction }}</span></div>
+                                <div class="list4cx mg2 xi32"><p class="f blk">申请{{ toChinese2(pendingInfo.type) }}{{ pendingInfo.detail.name }}</p></div>
+                                <div class="list4cx mg2 xi24"><span class="f">院系：</span><span class="f blk2">{{ pendingInfo.detail.major }}</span></div>
+                                <div class="list4cx mg2 xi24"><span class="f">负责人：</span><span class="f blk2">{{ pendingInfo.applyer.name }}，学号{{ pendingInfo.applyer.id }}，<br v-if="pendingInfo.applyer.email != undefined">{{ pendingInfo.applyer.email != undefined ? '邮箱' + pendingInfo.applyer.email + '，' : '' }}<br v-if="pendingInfo.applyer.phone != undefined">{{ pendingInfo.applyer.phone != undefined ? '电话' + pendingInfo.applyer.phone : '' }}</span></div>
+                                <div class="list4cx mg2 xi24"><span class="f">类别：</span><span class="flblk2">{{ pendingInfo.detail.type }}</span></div>
+                                <div class="list4cx mg2 xi24"><span class="f">人数：</span><span class="f blk2">{{ pendingInfo.detail.scale }}人</span></div>
+                                <div class="list4cx mg2 xi24"><span class="f">口号：</span><span class="f blk2">{{ pendingInfo.detail.motto }}</span></div>
+                                <div class="list4cx mg2 xi24"><span class="f">简介：</span><span class="f blk2">{{ pendingInfo.detail.introduction }}</span></div>
                             </div>
                             <div class="list4t">
                                 <p class="list4tx newbtn3 mg2 xi30 cen" v-on:click="sendDetermination(pendingInfo.id, false)">

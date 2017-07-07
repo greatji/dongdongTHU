@@ -16,7 +16,7 @@
 
 <body>
     <div id="nav"></div>
-    <div class="head"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />我的运动</div>
+    <div class="head huang"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />我的运动</div>
     <div id="activity_profile" class="top2" v-cloak>
         <div id="lib_Tab1" class="mgz">
             <div class="lib_Menubox xi24">
@@ -38,7 +38,7 @@
                                         <img src="/static/images/ground/time.png" />
                                         {{ activity.duringTime.year }}年{{ activity.duringTime.month }}月{{ activity.duringTime.day }}日 {{ activity.duringTime.shour }}:{{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }}-{{ ((activity.duringTime.hour + activity.duringTime.shour) >= 24)?"次日":"" }}{{ (activity.duringTime.hour + activity.duringTime.shour + (((activity.duringTime.minute + activity.duringTime.sminute)>=60)?1:0)) % 24 }}:{{ ((10>((activity.duringTime.minute + activity.duringTime.sminute)%60))?'0':'') + ((activity.duringTime.minute + activity.duringTime.sminute) % 60) }} 
                                     </div>
-                                    <div class="list2xc f xi20"><img align="absmiddle" src="/static/images/ground/leader.png" />{{ activity.leader.name }}发起 </div>
+                                    <div class="list2xc f xi20" style="clear:both;"><img align="absmiddle" src="/static/images/ground/leader.png" />{{ activity.leader.name }}发起 </div>
                                     <div class="list2xc f xi20"><span class="huang">{{ activity.participantsSum }}</span>人已报名（人数限制{{ activity.capacity }} ）</div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                         <img src="/static/images/ground/time.png" />
                                         {{ activity.duringTime.year }}年{{ activity.duringTime.month }}月{{ activity.duringTime.day }}日 {{ activity.duringTime.shour }}:{{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }}-{{ ((activity.duringTime.hour + activity.duringTime.shour) >= 24)?"次日":"" }}{{ (activity.duringTime.hour + activity.duringTime.shour + (((activity.duringTime.minute + activity.duringTime.sminute)>=60)?1:0)) % 24 }}:{{ ((10>((activity.duringTime.minute + activity.duringTime.sminute)%60))?'0':'') + ((activity.duringTime.minute + activity.duringTime.sminute) % 60) }} 
                                     </div>
-                                    <div class="list2xc f xi20"><img align="absmiddle" src="/static/images/ground/leader.png" />{{ activity.leader.name }}发起 </div>
+                                    <div class="list2xc f xi20" style="clear:both;"><img align="absmiddle" src="/static/images/ground/leader.png" />{{ activity.leader.name }}发起 </div>
                                     <div class="list2xc f xi20"><span class="huang">{{ activity.participantsSum }}</span>人已报名（人数限制{{ activity.capacity }} ）</div>
                                 </div>
                             </div>

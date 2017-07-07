@@ -153,6 +153,7 @@ $(document).ready(function() {
                     alert(data['errmsg']);
                     location.href = '/index.html';
                 }
+                if (data['info']['state'] == 3) showAdmin();
             }
         }
     });

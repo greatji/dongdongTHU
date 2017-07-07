@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet" />
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="head blk2"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />运动管理</div>
+    <div id="manage_activity" class="top2" v-cloak>
+        <div id="lib_Tab1" class="mgz">
+            <div class="lib_Contentbox" style="min-height:1000px;">
+                <div class="list4 mg2" v-for="activity in activitys">
+                    <div>
+                        <div class="list4c">
+                            <div class="list4cx mg2 xi32"><p class="f blk">{{ activity.name }}</p></div>
+                            <div class="list4cx mg2 xi24">
+                                <span class="f">时间：</span>
+                                <span class="f blk2">
+                                    {{ activity.duringTime.year }}年{{ activity.duringTime.month }}月{{ activity.duringTime.day }}日 {{ activity.duringTime.shour }}:{{ ((10>activity.duringTime.sminute)?'0':'') + activity.duringTime.sminute }}-{{ ((activity.duringTime.hour + activity.duringTime.shour) >= 24)?"次日":"" }}{{ (activity.duringTime.hour + activity.duringTime.shour + (((activity.duringTime.minute + activity.duringTime.sminute)>=60)?1:0)) % 24 }}:{{ ((10>((activity.duringTime.minute + activity.duringTime.sminute)%60))?'0':'') + ((activity.duringTime.minute + activity.duringTime.sminute) % 60) }}
+                                </span>
+                            </div>
+                            <div class="list4cx mg2 xi24"><span class="f">地点：</span><span class="f blk2">{{ activity.address }}</span></div>
+                            <div class="list4cx mg2 xi24"><span class="f">类型：</span><span class="f blk2">{{ activity.type[0] }}</span></div>
+                            <div class="list4cx mg2 xi24"><span class="f">发起人：</span><span class="f blk2">{{ activity.leader.name }}，学号{{ activity.leader.id }}，<br v-if="activity.leader.email != undefined">{{ activity.leader.email != undefined ? '邮箱' + activity.leader.email + '，' : '' }}<br v-if="activity.leader.phone != undefined">{{ activity.leader.phone != undefined ? '电话' + activity.leader.phone : '' }}</span></div>
+                        </div>
+                        <div class="list4t" style="border-top: 1px solid #ddd;padding:0 10px;">
+                            <p class="newbtn3 mg2 xi30 cen" style="width:calc(33.3333% - 24px);border-color:#f54336; color:#f54336;" v-on:click="deleteActivity(activity.id)">
+                                删除
+                            </p>
+                            <p class="newbtn3 mg2 xi30 cen" style="width:calc(33.3333% - 24px);border-color:#ff6a00; color:#ff6a00;" v-on:click="topActivity(activity.id, activity.top)">
+                                {{ activity.top ? '取消置顶' : '置顶' }}
+                            </p>
+                            <p class="newbtn3 mg2 xi30 cen" style="width:calc(33.3333% - 24px);border-color:#ff6a00; color:#ff6a00;" v-on:click="showActivityInfo(activity.id)">
+                                活动详情
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/manage-activity_control.js"></script>
+</body>
+
+</html>

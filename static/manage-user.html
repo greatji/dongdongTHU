@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet" />
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="head blk2"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />用户管理</div>
+    <div id="manage_user" class="top2" v-cloak>
+        <div id="lib_Tab1" class="mgz">
+            <div class="xi24" style="background:#fff;padding:25px;">
+                <div class="input_s mg2">
+                    <div class="clubv2s mg2 xi24">学号</div>
+                    <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" v-model="filter_id"></div>
+                </div>
+                <div class="input_s mg2">
+                    <div class="clubv2s mg2 xi24">姓名</div>
+                    <div class="clubv2x mg2 cen"><input name="" type="text" class="clubv2_bd1 xi24" v-model="filter_name"></div>
+                </div>
+                <p class="newbtn3 mg2 xi30 cen" style="width:calc(100% - 24px);border-color:#ff6a00; color:#ff6a00;" v-on:click="searchUser">
+                    查询
+                </p>
+            </div>
+            <div class="lib_Contentbox" style="min-height:800px;">
+                <div class="list4 mg2" v-for="user in userList">
+                    <div class="list4c">
+                        <div class="list4cx mg2 xi32"><p class="f blk">{{ user.name }}</p></div>
+                        <div class="list4cx mg2 xi24"><span class="f">学号：</span><span class="f blk2">{{ user.id }}</span></div>
+                        <div class="list4cx mg2 xi24"><span class="f">院系：</span><span class="f blk2">{{ user.major }}</span></div>
+                        <div class="list4cx mg2 xi24" v-if="user.email != undefined"><span class="f">邮箱：</span><span class="f blk2">{{ user.email }}</span></div>
+                        <div class="list4cx mg2 xi24" v-if="user.phone != undefined"><span class="f">电话：</span><span class="f blk2">{{ user.phone }}</span></div>
+                    </div>
+                    <div class="list4t" style="border-top: 1px solid #ddd;padding:0 10px;">
+                        <a class="newbtn3 mg2 xi30 cen" style="border-color:#ff6a00; color:#ff6a00;margin: 20px 25%;" :href="'/manage-user-detail.html?id=' + user.id">
+                            <p>管理</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/manage-user_control.js"></script>
+</body>
+
+</html>

@@ -32,6 +32,7 @@ $(document).ready(function () {
                 location.href = '/login.html';
                 return
             }
+            if (data['info']['state'] == 3) showAdmin();
             activityDetails = new Vue({
                 el: '#activity_chat',
                 data: {

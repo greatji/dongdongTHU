@@ -33,12 +33,12 @@ $(document).ready(function () {
         data: JSON.stringify(submitData),
         dataType: 'json',
         success: function (data) {
-            console.log(data)
             if (data['succeed'] === false) {
                 location.href = '/login.html';
                 return
             }
             data = data['info'];
+            if (data['state'] == 3) showAdmin();
             user_info = new Vue({
                 el: '#userInfo',
                 data: {
@@ -79,6 +79,7 @@ $(document).ready(function () {
                     }
                 }
             });
+            if (data.state == 3) showAdmin();
         }
     });
 });

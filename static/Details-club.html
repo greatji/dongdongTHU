@@ -33,12 +33,12 @@
                 <img align="absmiddle" src="/static/images/detail/club_quit.png" /> 
                 <span>退出俱乐部</span>
             </div>
-            <div style="padding:0 40px">
-                <a class="newbtn3 mg2 xi30 cen" style="border-color:#f54336; color:#f54336;" v-if="canDelete" :src="'/delete-club.html?id=' + club.id">
+            <div style="padding:0 40px" v-if="canDelete && club.state=='admit'">
+                <a class="newbtn3 mg2 xi30 cen" style="border-color:#f54336; color:#f54336;" v-if="canDelete" :href="'/delete-club.html?id=' + club.id">
                     <p>删除俱乐部</p>
                 </a>
                 <!--TODO:更新负责人-->
-                <a class="newbtn3 mg2 xi30 cen" style="border-color:#3fbf46; color:#3fbf46;" v-if="canDelete">
+                <a class="newbtn3 mg2 xi30 cen" style="border-color:#3fbf46; color:#3fbf46;" v-if="canDelete" :href="'/response-club.html?id=' + club.id">
                     <p>更新负责人</p>
                 </a>
             </div>

@@ -452,7 +452,7 @@ def apiGetClubList(flag, skip=0, limit=200):
         return error('NOT_LOGGED_IN')
 
 
-@app.route('/api/searchClub', methods=['GET'])
+@app.route('/api/searchClub', methods=['POST'])
 @jsonApi(
     skip=optional(isPositive),
     limit=optional(isPositive),
@@ -460,12 +460,14 @@ def apiGetClubList(flag, skip=0, limit=200):
     type=optional(lenIn(2, 8)),
 )
 def apiSearchClub(skip=0, limit=0, major=None, type=None):
+    # if True:
     if apiCheckSession(3):
         para = {}
         if major:
             para['major'] = major
         if type:
             para['type'] = type
+        print(para)
         if not para:
             error('ARGUMENTS')
         para['state'] = 'admit'
@@ -839,12 +841,13 @@ def apiGetPersonalInfo(studentId=None, full=False):
     else:
         return error('NOT_LOGGED_IN')
 
-@app.route('/api/searchUser', methods=['GET'])
+@app.route('/api/searchUser', methods=['POST'])
 @jsonApi(
     studentId=optional(allChecked(lenIn(10, 10), isAllDigits)),
-    studentName=isStr,
+    studentName=optional(isStr),
 )
 def apiSearchUser(studentId=None, studentName=None):
+    # if True:
     if apiCheckSession(3):
         para = {}
         if studentId:
@@ -862,21 +865,22 @@ def apiSearchUser(studentId=None, studentName=None):
 @app.route('/api/changeUserLevel', methods=['POST'])
 @jsonApi(
     studentId=allChecked(lenIn(10, 10), isAllDigits),
-    level=checkLevel,
+    level=isInt,
 )
 def apiChangeUserLevel(studentId, level):
     if apiCheckSession(3):
-        if level == 'common':
+    # if True:
+        if level == 0:
             if studentId == session['studentId']:
                 return error('USER_LEVEL_CHANGE_FAILED')
             res = changeUserLevelService(studentId, 0)
             addRefreshStateList(studentId) # set new state
-        elif level == 'president':
+        elif level == 1:
             res = changeUserLevelService(studentId, 1)
-        elif level == 'superuser':
+        elif level == 3:
             if studentId == session['studentId']:
-                res = True
-            else:
+                # res = True
+            # else:
                 res = changeUserLevelService(studentId, 3)
         else:
             res = False
@@ -889,7 +893,7 @@ def apiChangeUserLevel(studentId, level):
 
 
 # miscellaneous
-@app.route('/api/getBannedWords', methods=['GET'])
+@app.route('/api/getBannedWords', methods=['POST'])
 @jsonApi()
 def apiGetBannedWords():
     if apiCheckSession(3):

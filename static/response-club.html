@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+</head>
+
+<body style="background:#f2f2f2">
+    <div id="nav"></div>
+    <div class="head blk2"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />用户管理</div>
+    <div id="responseClub" class="top2" v-cloak>
+        <div class="lib_Contentbox">
+            <div class="list5 mg2">
+                <div class="list5c">
+                    <div class="list5cx mg2 xi32"><p class="l huang">当前负责人信息</p></div>
+                    <div class="list5cx mg2 xi24"><span class="l">姓名：</span><span class="l blk2">{{ leader.name }}</span></div>
+                    <div class="list5cx mg2 xi24"><span class="l">学号：</span><span class="l blk2">{{ leader.id }}</span></div>
+                    <div class="list5cx mg2 xi24"><span class="l">院系：</span><span class="l blk2">{{ leader.major }}</span></div>
+                    <div class="list5cx mg2 xi24"><span class="l">电话：</span><span class="l blk2">{{ leader.phone }}</span></div>
+                </div>
+            </div>
+            <div class="list5 mg2">
+                <div class="list5c">
+                    <div class="list5cx mg2 xi32"><p class="l huang">拟定负责人信息</p></div>
+                    <div class="list5cx mg2 xi24"><span class="l">姓名：</span><input class="l blk2" v-model="newName" /></div>
+                    <div class="list5cx mg2 xi24"><span class="l">学号：</span><input class="l blk2" v-model="newId" /></div>
+                </div>
+                <div class="list5t">
+                    <p class="list5tx newbtn3 mg2 xi30 cen" style="width:calc(100% - 104px);" v-on:click="changeClubLeader">
+                        确认
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/response-club_control.js"></script>
+</body>
+
+</html>
+

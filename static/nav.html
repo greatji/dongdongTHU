@@ -27,39 +27,42 @@
             <div class="dh_tc_navr f xi25 ">我的运动</div>
         </div>
     </a>
-    <a href="club-list.html">
+    <a href="/club-list.html">
         <div class="dh_tc_nav mg2">
             <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/体育俱乐部.png" /></div>
             <div class="dh_tc_navr f xi25 ">体育俱乐部</div>
         </div>
     </a>
-    <a href="club-profile.html">
+    <a href="/club-profile.html">
         <div class="dh_tc_nav mg2">
             <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/我的体育俱乐部.png" /></div>
             <div class="dh_tc_navr f xi25 ">我的体育俱乐部</div>
         </div>
     </a>
-    <a href="contact-us.html">
+    <a href="/contact-us.html">
         <div class="dh_tc_nav mg2">
             <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/联系我们.png" /></div>
             <div class="dh_tc_navr f xi25 ">联系我们</div>
         </div>
     </a>
-    <!--<a href="#">-->
-        <!--<div class="dh_tc_nav mg2">-->
-            <!--<div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/.png" /></div>-->
-            <!--<div class="dh_tc_navr f xi25 ">设&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置</div>-->
-        <!--</div>-->
-    <!--</a>-->
+    <a href="/admin.html" id="admin">
+        <div class="dh_tc_nav mg2">
+            <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/管理中心.png" /></div>
+            <div class="dh_tc_navr f xi25 ">管理中心</div>
+        </div>
+    </a>
     <a href="/logout.html" id="login_href">
         <div class="dh_tc_nav mg2">
             <div class="dh_tc_navl f"><img align="absmiddle" src="/static/images/nav/登出.png" /></div>
             <div class="dh_tc_navr f xi25 " id="login_text">退出</div>
         </div>
     </a>
-    <div class="dh_tc_logo mg2 cen"><img align="absmiddle" src="/static/images/login/logo.png" height="300px"/></div>
+    <!--<div class="dh_tc_logo mg2 cen"><img align="absmiddle" src="/static/images/login/logo.png" height="300px"/></div>-->
 </div>
 <script>
+    function showAdmin() {
+        $("#admin").show();
+    }
     $(".menu,#menu").click(function() {
         $(".dh_tc").stop().animate({
             "left": "0px"

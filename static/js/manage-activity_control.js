@@ -9,10 +9,9 @@ $.ajaxSetup({
 });
 
 var app = new Vue({
-    el: '#allActivities',
+    el: '#manage_activity',
     data: {
         activitys: [],
-        types: ['羽毛球', '篮球', '跑步', '游泳', '健身', '乒乓球', '足球', '网球', '冰雪', '其它'],
         cur_act: 1,
         is_su: false,
     },
@@ -21,26 +20,28 @@ var app = new Vue({
             console.log('/Details-activity.html?id=' + id);
             location.href = '/Details-activity.html?id=' + id;
         },
-        deleteActivity: function(id) {
-            if (confirm('确认删除吗？')) {
-                $.ajax({
-                    type: 'POST',
-                    url: base_url + 'api/deleteActivity',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        activityId: id,
-                    }),
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data['succeed']) {
-                            alert('操作成功');
-                        } else {
-                            alert(data['errmsg']);
-                        }
-                        location.href = '/index.html'
+        topActivity: function(id, istop) {
+            $.ajax({
+                type: 'POST',
+                url: base_url + 'api/activity/top',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    activityId: id,
+                    top: ! + istop,
+                }),
+                dataType: 'json',
+                success: function(data) {
+                    if (data['succeed']) {
+                        alert('操作成功');
+                    } else {
+                        alert(data['errmsg']);
                     }
-                });
-            }
+                    location.href = '/manage-activity.html'
+                }
+            });
+        },
+        deleteActivity: function(id) {
+            location.href = '/delete-activity.html?id=' + id;
         },
     }
 });
@@ -80,3 +81,4 @@ function setTab(name, cursel, n) {
         if (menu) menu.className = ((i == cursel) ? "hover" : "");
     }
 }
+
