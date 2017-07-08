@@ -11,6 +11,7 @@ errors = {
     'PASSWORD_WRONG': (2007, '密码错误'),
     'NOT_LOGGED_IN': (2008, '未登录'),
     'USER_INFORMATION_MODIFY_FAILED': (2009, '修改个人信息失败'),
+    'USER_LEVEL_CHANGE_FAILED': (2010, '修改用户级别失败'),
     'CHECK ERROR': (3001, '无查询结果'),
     'PAGE OVERFLOW': (3002, 'Page is not valid'),
     'LABEL ERROR': (3003, 'some label checked is not included'),

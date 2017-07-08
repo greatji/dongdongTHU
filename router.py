@@ -908,7 +908,7 @@ def apiGetBannedWords():
 )
 def apiSetBannedWords(bannedWords):
     if apiCheckSession(3):
-        res = setBannedWords(banned_words)
+        res = setBannedWords(bannedWords)
         if not res:
             return error('SET_BANNED_WORDS_FAILED')
         else:

@@ -87,7 +87,7 @@ def updatePersonalInfoService(id, name, email, phone, major, sex, tag, introduct
     }
     if nowState == 1:
         newInfo['state'] = 2
-    res = Mongo.user.find_amodify(
+    res = Mongo.user.find_and_modify(
         query={
             'id': id,
             'name': name
@@ -161,7 +161,7 @@ def changeUserLevelService(studentId, level):
     )
     if not res:
         return None
-    elif res.modified_count:
+    elif res.matched_count:
         return True
     else:
         return False
