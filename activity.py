@@ -321,7 +321,7 @@ def topActivityService(activityId, top):
     )
     if not res:
         return None
-    elif res['modified_count']:
+    elif res.modified_count:
         return True
     else:
         return False

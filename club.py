@@ -382,7 +382,7 @@ def changeClubLeaderService(clubId, leaderId, leaderName):
         )
         res = delManagerService(clubId, '', clubInfo['leader']['id']) and \
               addManagerService(clubId, clubInfo['name'], leaderId, 'admit') and \
-              updateRes and updateRes['modified_count']
+              updateRes and updateRes.modified_count
         if not res:
             return False
         else:
