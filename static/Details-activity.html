@@ -85,7 +85,7 @@
             <div class="profilev2cb">
                 <span class="profilev2cbx mg2 cen xi30" style="position:absolute;width:40%;left:30%;">参与者（{{ activity.participantsSum }}/{{ activity.capacity }}）</span>
                 <!--TODO:加入聊天-->
-                <a :href="'/join-chat.html?id=' + 'activity.id'" class="profilev2cbx r" style="position:absolute;right:30px;">
+                <a :href="'/join-chat.html?id=' + activity.id" class="profilev2cbx r" style="position:absolute;right:30px;">
                     <img align="absmiddle" src="/static/images/detail/activity_talk.png" />
                     <span>加入聊天</span>
                 </a>

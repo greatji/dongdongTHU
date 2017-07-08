@@ -104,6 +104,7 @@ function dealPendingInfoMethod() {
                                             if (data['succeed']) {
                                                 info.applyer = data['info'];
                                                 vue_club_profile.pendingInfos.splice(index, 1, info);
+                                                if (data['info']['state'] == 3) showAdmin();
                                             } else {
                                                 alert(data['errmsg']);
                                                 location.href = '/index.html';

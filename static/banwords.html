@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="head blk2"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />屏蔽关键词</div>
+    <div id="banwords" class="top2">
+        <div class="lib_Sheet">
+            <div class="clubv2s mg2 xi24" style="width:100%;padding:0px 15px 20px 15px;line-height:30px;">
+                屏蔽关键词（请使用英文加号分隔）
+            </div>
+            <div class="input_s mg2" style="height:200px">
+                <div class="clubv2x mg2 cen" style="width:calc(100% - 30px);height:100%;"><textarea name="" maxlength="200" class="clubv2_bd2 xi24" v-model="banwords"></textarea></div>
+            </div>
+            <div class="clubv2b mg2 cen bai" style="border-radius:3px;" v-on:click="setBannedWords">确认</div>
+        </div>
+    </div>
+    <script src="/static/js/banwords_control.js"></script>
+</body>
+
+</html>
+

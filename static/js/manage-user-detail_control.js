@@ -8,39 +8,44 @@ $.ajaxSetup({
     cache: false //close AJAX cache
 });
 
+function param(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
+var user_id = param('id');
+
 var app = new Vue({
-    el: '#allActivities',
+    el: '#manage_user_detail',
     data: {
         activitys: [],
-        types: ['羽毛球', '篮球', '跑步', '游泳', '健身', '乒乓球', '足球', '网球', '冰雪', '其它'],
-        cur_act: 1,
-        is_su: false,
+        user: {}
     },
     methods: {
         showActivityInfo: function(id) {
             console.log('/Details-activity.html?id=' + id);
             location.href = '/Details-activity.html?id=' + id;
         },
-        deleteActivity: function(id) {
-            if (confirm('确认删除吗？')) {
-                $.ajax({
-                    type: 'POST',
-                    url: base_url + 'api/deleteActivity',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        activityId: id,
-                    }),
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data['succeed']) {
-                            alert('操作成功');
-                        } else {
-                            alert(data['errmsg']);
-                        }
-                        location.href = '/index.html'
+        changeState: function() {
+            $.ajax({
+                type: 'POST',
+                url: base_url + 'api/changeUserLevel',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    studentId: this.user.id,
+                    level: this.user.state,
+                }),
+                dataType: 'json',
+                success: function(data) {
+                    if (data['succeed']) {
+                        alert('操作成功');
+                    } else {
+                        alert(data['errmsg']);
                     }
-                });
-            }
+                }
+            });
         },
     }
 });
@@ -49,8 +54,9 @@ $(document).ready(function() {
     $('#nav').load('/static/nav.html');
     $.ajax({
         type: 'POST',
+        // TODO: 获取指定用户的所有活动
         url: base_url + 'api/listActivities',
-        data: '{}',
+        data: JSON.stringify({userId:user_id}),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(data) {
@@ -62,12 +68,24 @@ $(document).ready(function() {
     $.ajax({
         type: 'POST',
         url: base_url + 'api/getPersonalInfo',
-        data: '{}',
+        data: JSON.stringify({}),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(data) {
             if (data['succeed']) {
                 if (data.info.state == 3) showAdmin();
+            }
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: base_url + 'api/getPersonalInfo',
+        data: JSON.stringify({userId:user_id}),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(data) {
+            if (data['succeed']) {
+                app.user = data['info'];
             }
         }
     });

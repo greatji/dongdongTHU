@@ -27,30 +27,41 @@ $(document).ready(function () {
             }
             data = data['info'];
             if (data.state == 3) showAdmin();
-            var clubDetails = new Vue({
-                el: '#deleteClub',
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: base_url + 'api/getClub',
+        contentType: 'application/json; charset=utf-8',
+        data: '{"clubId":"' + clubId + '"}',
+        dataType: 'json',
+        success: function (data) {
+            clubDetails = new Vue({
+                el: '#responseClub',
                 data: {
-                    deleteReason: ''
+                    leader: data['info']['leader'],
+                    newId: '',
+                    newName: '',
                 },
                 methods: {
-                    deleteClub: function () {
+                    changeClubLeader: function () {
                         $.ajax({
                             type: 'POST',
-                            url: base_url + 'api/deleteClub',
+                            url: base_url + 'api/changeClubLeader',
                             contentType: 'application/json; charset=utf-8',
                             data: JSON.stringify({
                                 clubId: clubId,
-                                reason: this.deleteReason,
-                                direct: data.state == 3
+                                leaderId: this.newId,
+                                leaderName: this.newName,
                             }),
                             dataType: 'json',
                             success: function (data) {
                                 if (data['succeed']) {
                                     alert('操作成功');
+                                    location.href = '/Details-club.html?id=' + clubId;
                                 } else {
                                     alert(data['errmsg']);
                                 }
-                                location.href = '/club-list.html'
                             }
                         });
                     },

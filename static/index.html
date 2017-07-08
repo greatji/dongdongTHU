@@ -15,7 +15,7 @@
 
 <body>
     <div id="nav"></div>
-    <div class="head"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />运动广场</div>
+    <div class="head huang"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />运动广场</div>
     <div class="newbtn"><a href="/createactivity.html"><img align="absmiddle" src="/static/images/ground/new.png" /><span>发起新运动</span></a></div>
     <div class="mgz top2"><img align="absmiddle" src="/static/images/ground/bg.png" width="100%" /> </div>
     <div id="allActivities" v-cloak>
@@ -48,10 +48,6 @@
             </div>
             <div class="lib_Contentbox" style="min-height:1000px">
                 <div class="list2 mg2" v-for="activity in activitys" v-show="cur_act == 1 || activity.type == types[cur_act-2]">
-                    <!--<div class="list2s mg2 xi18">-->
-                        <!--<a @click="deleteActivity(activity.id)" style="color:red" v-if="is_su">【删除】</a>-->
-                        <!--<span class="r">{{ activity.id }}</span>-->
-                    <!--</div>-->
                     <a href="#" v-bind:id="activity.id" v-on:click="showActivityInfo(activity.id)">
                         <div class="list2icon"><img :src="'/static/images/ground/'+activity.type[0]+'.png'" /></div>
                         <div class="list2content">

@@ -15,56 +15,54 @@
 
 <body>
     <div id="nav"></div>
-    <div class="head"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />俱乐部广场</div>
+    <div class="head huang"><img id="menu" class="head2nav" align="absmiddle" src="/static/images/menu.png" />俱乐部广场</div>
     <div class="newbtn"><a href="/createclub.html"><img align="absmiddle" src="/static/images/ground/new.png" /> <span>创建俱乐部</span></a></div>
 
-    <div id="clubList" v-cloak>
-        <div id="lib_Tab2" class="mg2 top2">
-            <div class="lib_Menubox2 clearfix">
-                <ul class="xi21 cen">
-                    <li id="two1" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/ground/kind_all.png" /><br/>全部
-                    </li>
-                    <li id="two2" onClick="setTab('two',2,11)"><img src="/static/images/ground/kind_01.png" />羽毛球
-                    </li>
-                    <li id="two3" onClick="setTab('two',3,11)"><img src="/static/images/ground/kind_02.png" />篮球
-                    </li>
-                    <li id="two4" onClick="setTab('two',4,11)"><img src="/static/images/ground/kind_03.png" />跑步
-                    </li>
-                    <li id="two5" onClick="setTab('two',5,11)"><img src="/static/images/ground/kind_04.png" />游泳
-                    </li>
-                    <li id="two6" onClick="setTab('two',6,11)"><img src="/static/images/ground/kind_05.png" />健身
-                    </li>
-                    <li id="two7" onClick="setTab('two',7,11)"><img src="/static/images/ground/kind_06.png" />乒乓球
-                    </li>
-                    <li id="two8" onClick="setTab('two',8,11)"><img src="/static/images/ground/kind_07.png" />足球
-                    </li>
-                    <li id="two9" onClick="setTab('two',9,11)"><img src="/static/images/ground/kind_08.png" />网球
-                    </li>
-                    <li id="two10" onClick="setTab('two',10,11)"><img src="/static/images/ground/kind_09.png" />冰雪
-                    </li>
-                    <li id="two11" onClick="setTab('two',11,11)"><img src="/static/images/ground/kind_other.png" />其它
-                    </li>
-                </ul>
-            </div>
-            <div class="lib_Contentbox" style="min-height:1000px">
-                <div v-for="club in clubList" v-show="cur_club == 1 || club.type == types[cur_club-2]">
-                    <a href="#" v-bind:id="club.id" v-on:click="showClubInfo($event)">
-                        <div class="list2 mg2">
-                            <!--<div class="list2poster"><img :src="'/static/images/club/'+club.type+'.png'" /></div>-->
-                            <div class="list2poster"><img src="/static/images/club/poster.png" /></div>
-                            <div class="list2content2">
-                                <div class="list2c mg2 xi26 blk">{{ club.name }}</div>
-                                <div class="list2x mg2">
-                                    <div class="list2xb f xi24" style="width:100%">{{ club.motto }}</div>
-                                    <div class="list2xc f xi20 list2major">{{ club.major }}</div>
-                                    <div class="list2xc f xi20 list2type">{{ club.type }}</div>
-                                    <div class="list2xc f xi20" style="margin-right:0"><img align="absmiddle" src="static/images/club/leader.png" />{{ club.leader.name }}发起 </div>
-                                </div>
-                                <div class="list2fix xi18">{{ club.scale }}人加入</div>
+    <div id="clubList" class="mg2 top2" v-cloak>
+        <div class="lib_Menubox2 clearfix">
+            <ul class="xi21 cen">
+                <li id="two1" onClick="setTab('two',1,11)" class="hover"><img src="/static/images/ground/kind_all.png" /><br/>全部
+                </li>
+                <li id="two2" onClick="setTab('two',2,11)"><img src="/static/images/ground/kind_01.png" />羽毛球
+                </li>
+                <li id="two3" onClick="setTab('two',3,11)"><img src="/static/images/ground/kind_02.png" />篮球
+                </li>
+                <li id="two4" onClick="setTab('two',4,11)"><img src="/static/images/ground/kind_03.png" />跑步
+                </li>
+                <li id="two5" onClick="setTab('two',5,11)"><img src="/static/images/ground/kind_04.png" />游泳
+                </li>
+                <li id="two6" onClick="setTab('two',6,11)"><img src="/static/images/ground/kind_05.png" />健身
+                </li>
+                <li id="two7" onClick="setTab('two',7,11)"><img src="/static/images/ground/kind_06.png" />乒乓球
+                </li>
+                <li id="two8" onClick="setTab('two',8,11)"><img src="/static/images/ground/kind_07.png" />足球
+                </li>
+                <li id="two9" onClick="setTab('two',9,11)"><img src="/static/images/ground/kind_08.png" />网球
+                </li>
+                <li id="two10" onClick="setTab('two',10,11)"><img src="/static/images/ground/kind_09.png" />冰雪
+                </li>
+                <li id="two11" onClick="setTab('two',11,11)"><img src="/static/images/ground/kind_other.png" />其它
+                </li>
+            </ul>
+        </div>
+        <div class="lib_Contentbox" style="min-height:1000px">
+            <div v-for="club in clubList" v-show="cur_club == 1 || club.type == types[cur_club-2]">
+                <a href="#" v-bind:id="club.id" v-on:click="showClubInfo($event)">
+                    <div class="list2 mg2">
+                        <!--<div class="list2poster"><img :src="'/static/images/club/'+club.type+'.png'" /></div>-->
+                        <div class="list2poster"><img src="/static/images/club/poster.png" /></div>
+                        <div class="list2content2">
+                            <div class="list2c mg2 xi26 blk">{{ club.name }}</div>
+                            <div class="list2x mg2">
+                                <div class="list2xb f xi24" style="width:100%">{{ club.motto }}</div>
+                                <div class="list2xc f xi20 list2major">{{ club.major }}</div>
+                                <div class="list2xc f xi20 list2type">{{ club.type }}</div>
+                                <div class="list2xc f xi20" style="margin-right:0"><img align="absmiddle" src="static/images/club/leader.png" />{{ club.leader.name }}发起 </div>
                             </div>
+                            <div class="list2fix xi18">{{ club.scale }}人加入</div>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

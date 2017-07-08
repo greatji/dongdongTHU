@@ -20,6 +20,21 @@ $(document).ready(function () {
     $('#nav').load('/static/nav.html');
     $.ajax({
         type: 'POST',
+        url:  base_url + 'api/getPersonalInfo',
+        contentType: 'application/json; charset=utf-8',
+        // data: '{"userId":"' + user_id + '"}',
+        data: JSON.stringify({}),
+        dataType: 'json',
+        success: function (data) {
+            if (data['succeed'] === false) {
+                return
+            }
+            data = data['info'];
+            if (data.state == 3) showAdmin();
+        }
+    });
+    $.ajax({
+        type: 'POST',
         url: base_url + 'api/getClub',
         contentType: 'application/json; charset=utf-8',
         data: '{"clubId":"' + clubId + '"}',

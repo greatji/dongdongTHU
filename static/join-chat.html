@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="target-densitydpi=286, width=640, user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>咚咚体育平台</title>
+    <link href="/static/css/css.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+</head>
+
+<body style="background-color:#f4f4f4;">
+    <div id="nav"></div>
+    <div id="activity_chat" v-cloak>
+        <div class="head blk2"><a :href="'/Details-activity.html?id=' + activityId"><img class="head2nav" align="absmiddle" src="/static/images/return.png" /></a>聊天区</div>
+        <div class="lib_Sheet" style="padding-top:130px; margin-bottom:110px;">
+            <div class="list3 mg2" v-for="comment in comments">
+                <!--<div class="list2poster"><img :src="'/static/images/club/'+club.type+'.png'" /></div>-->
+                <div class="list3icon" :class="comment.studentId == user.id ? 'r':'l'" v-on:click="showPersonalInfo(comment.studentId)"><img :class="comment.studentId == 2016210989 ? 'r':'l'" align="absmiddle" src="/static/images/xiaoyan.jpeg" /></div>
+                <div class="list3content" :class="comment.studentId == user.id ? 'r':'l'">
+                    <div class="list3n xi24" :class="comment.studentId == user.id ? 'r':'l'" v-if="comment.studentId != user.id"> <p>{{ comment.studentName }}</p> </div>
+                    <div class="list3c xi28 blk" :class="comment.studentId == user.id ? 'r':'l'" :style="comment.studentId == user.id ? 'border-color:#ff6a00':''"> <p>{{ comment.content }}</p> </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat_input">
+            <input type="text" v-model="content" />
+            <span v-on:click="addComment">发送</span>
+        </div>
+    </div>
+    <script src="/static/js/join-chat_control.js"></script>
+</body>
+
+</html>
+
+
