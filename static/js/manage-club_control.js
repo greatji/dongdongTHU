@@ -19,6 +19,7 @@ var app = new Vue({
         searchClub: function () {
             if (this.filter_major == '' && this.filter_type == '') {
                 alert('请至少提供一项筛选');
+                return;
             }
             $.ajax({
                 type: 'POST',
