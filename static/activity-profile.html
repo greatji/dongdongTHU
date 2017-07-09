@@ -27,7 +27,7 @@
                 <div id="con_one_1">
                     <div class="list2 mg2" v-for="activity in leadingActivities">
                         <a v-bind:href="'/Details-activity.html?id=' + activity.id">
-                            <div class="list2icon"><img :src="'/static/images/ground/'+activity.type[0]+'.png'" /></div>
+                            <div class="list2icon"><img :src="'static/images/ground/'+toImageName(activity.type[0])+'.png'" width="60px" height="60px"/></div>
                             <div class="list2content">
                                 <div class="list2c mg2 xi28 blk">
                                     {{ activity.name }}
@@ -49,7 +49,7 @@
                 <div id="con_one_2" style="display:none">
                     <div class="list2 mg2" v-for="activity in jAct">
                         <a v-bind:href="'/Details-activity.html?id=' + activity.id">
-                            <div class="list2icon"><img :src="'/static/images/ground/'+activity.type[0]+'.png'" /></div>
+                            <div class="list2icon"><img :src="'static/images/ground/'+toImageName(activity.type[0])+'.png'" width="60px" height="60px"/></div>
                             <div class="list2content">
                                 <div class="list2c mg2 xi28 blk">
                                     {{ activity.name }}

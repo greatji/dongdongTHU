@@ -42,6 +42,32 @@ var app = new Vue({
                 });
             }
         },
+        toImageName: function(type) {
+            switch (type) {
+                case "全部":
+                    return "kind_all";
+                case "羽毛球":
+                    return "kind_01";
+                case "篮球":
+                    return "kind_02";
+                case "跑步":
+                    return "kind_03";
+                case "游泳":
+                    return "kind_04";
+                case "健身":
+                    return "kind_05";
+                case "乒乓球":
+                    return "kind_06";
+                case "足球":
+                    return "kind_07";
+                case "网球":
+                    return "kind_08";
+                case "冰雪":
+                    return "kind_09";
+                case "其它":
+                    return "kind_other";
+            }
+        }
     }
 });
 
