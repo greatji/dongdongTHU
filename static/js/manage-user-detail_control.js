@@ -21,7 +21,8 @@ var app = new Vue({
     el: '#manage_user_detail',
     data: {
         activitys: [],
-        user: {}
+        user: {},
+        level: 0
     },
     methods: {
         showActivityInfo: function(id) {
@@ -31,7 +32,7 @@ var app = new Vue({
         changeState: function() {
             var submitInfo = {
                 studentId: this.user.id,
-                level: this.user.state,
+                level: this.level,
             };
             $.ajax({
                 type: 'POST',
@@ -48,7 +49,7 @@ var app = new Vue({
                 }
             });
         },
-    }
+    },
 });
 
 $(document).ready(function() {
@@ -75,6 +76,9 @@ $(document).ready(function() {
         success: function(data) {
             if (data['succeed']) {
                 app.user = data['info'];
+                if (app.user.state == 3) app.level = 3;
+                if (app.user.state == 2 && app.user.president.length == 0) app.level =  0;
+                else app.level = 1;
             }
         }
     });
