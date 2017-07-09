@@ -64,7 +64,7 @@ def getPersonalInfoService(studentId, full=True):
     else:
         info = traitAttr(res, {
             'id': '', 'name': '', 'sex': '', 'email': '', 'phone': '', 'major': '', 'introduction': '', 'times': 0,
-            'tag': '', 'state': 0, 'selfPhoto': '', 'manager': [],
+            'tag': '', 'state': 0, 'selfPhoto': '', 'manager': [], 'president': []
         })
         if full:
             return info
