@@ -61,6 +61,7 @@ $(document).ready(function () {
                             success: function (data) {
                                 if (data['succeed']) {
                                     activityDetails.getComment();
+                                    activityDetails.content = '';
                                 } else {
                                     alert(data['errmsg']);
                                     location.href = '/index.html'
@@ -81,6 +82,11 @@ $(document).ready(function () {
                                 if (data['succeed']) {
                                     console.log(data['info']);
                                     activityDetails.comments = data['info'];
+                                    activityDetails.$nextTick(function () {
+                                        var div = document.getElementById("chat");
+                                        console.log(div);
+                                        div.scrollTop = div.scrollHeight - div.clientHeight;
+                                    })
                                 }
                             }
                         });

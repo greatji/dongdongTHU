@@ -17,13 +17,13 @@
     <div id="nav"></div>
     <div id="activity_chat" v-cloak>
         <div class="head blk2"><a :href="'/Details-activity.html?id=' + activityId"><img class="head2nav" align="absmiddle" src="/static/images/return.png" /></a>聊天区</div>
-        <div class="lib_Sheet" style="padding-top:130px; margin-bottom:110px;">
+        <div id="chat" class="lib_Sheet" style="padding-top:130px; margin-bottom:110px; overflow: scroll; height: calc(100vh - 270px);">
             <div class="list3 mg2" v-for="comment in comments">
                 <!--<div class="list2poster"><img :src="'/static/images/club/'+club.type+'.png'" /></div>-->
-                <div class="list3icon" :class="comment.studentId == user.id ? 'r':'l'" v-on:click="showPersonalInfo(comment.studentId)"><img :class="comment.studentId == 2016210989 ? 'r':'l'" align="absmiddle" src="/static/images/xiaoyan.jpeg" /></div>
-                <div class="list3content" :class="comment.studentId == user.id ? 'r':'l'">
-                    <div class="list3n xi24" :class="comment.studentId == user.id ? 'r':'l'" v-if="comment.studentId != user.id"> <p>{{ comment.studentName }}</p> </div>
-                    <div class="list3c xi28 blk" :class="comment.studentId == user.id ? 'r':'l'" :style="comment.studentId == user.id ? 'border-color:#ff6a00':''"> <p>{{ comment.content }}</p> </div>
+                <div class="list3icon" :class="comment.studentId == user.id ? 'r':'f'" v-on:click="showPersonalInfo(comment.studentId)"><img :class="comment.studentId == 2016210989 ? 'r':'f'" align="absmiddle" src="/static/images/xiaoyan.jpeg" /></div>
+                <div class="list3content" :class="comment.studentId == user.id ? 'r':'f'">
+                    <div class="list3n xi24" :class="comment.studentId == user.id ? 'r':'f'" v-if="comment.studentId != user.id"> <p>{{ comment.studentName }}</p> </div>
+                    <div class="list3c xi28 blk" :class="comment.studentId == user.id ? 'r':'f'" :style="comment.studentId == user.id ? 'border-color:#ff6a00':''"> <p>{{ comment.content }}</p> </div>
                 </div>
             </div>
         </div>

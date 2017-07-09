@@ -84,7 +84,7 @@
         <div class="profilev2c mg2 blk2">
             <div class="profilev2cb">
                 <span class="profilev2cbx mg2 cen xi30" style="position:absolute;width:40%;left:30%;">参与者（{{ activity.participantsSum }}/{{ activity.capacity }}）</span>
-                <a :href="'/join-chat.html?id=' + activity.id" class="profilev2cbx r" style="position:absolute;right:30px;">
+                <a :href="'/join-chat.html?id=' + activity.id" class="profilev2cbx r" style="position:absolute;right:30px;" v-if="!canJoinOrLogin">
                     <img align="absmiddle" src="/static/images/detail/activity_talk.png" />
                     <span>加入聊天</span>
                 </a>
