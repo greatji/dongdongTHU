@@ -145,7 +145,7 @@ def updateSuperuser():
 
 def changeUserLevelService(studentId, level):
     if level == 0: # common:
-        modify = {'$set': {'state': 2, 'president': []}},
+        modify = {'$set': {'state': 2, 'president': []}}
     elif level == 1: # president:
         userInfo = getPersonalInfoService(studentId)
         if isinstance(userInfo, basestring):
