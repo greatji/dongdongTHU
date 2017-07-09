@@ -80,7 +80,7 @@ $(document).ready(function() {
     $.ajax({
         type: 'POST',
         url: base_url + 'api/getPersonalInfo',
-        data: JSON.stringify({userId:user_id}),
+        data: JSON.stringify({studentId:user_id, full:true}),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(data) {
