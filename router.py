@@ -711,7 +711,7 @@ def apichangeClubLeader(clubId, leaderId, leaderName):
             return error(userInfo)
         if userInfo['name'] != leaderName:
             return error('NO_SUCH_USER')
-        res = changeClubLeaderService(clubId, leaderId, leaderName)
+        res = changeClubLeaderService(clubId, userInfo)
         if not res:
             return error("CHECK_ERROR")
         else:

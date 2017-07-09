@@ -367,18 +367,45 @@ def getMajor(clubId):
         return res['major']
 
 
-def changeClubLeaderService(clubId, leaderId, leaderName):
+def changeClubLeaderService(clubId, userInfo):
+    leaderId = userInfo['id']
+    leaderName = userInfo['name']
     clubInfo = getClubService(clubId, ['joined'])
     if not clubInfo:
         return None
     else:
         newLeader = {'id': leaderId, 'name': leaderName}
-        updateRes = Mongo.club.update_one(
-            {'id': clubId},
-            {'$set': {
+        already_member = False
+        for m in clubInfo['members']:
+            if m['id'] == leaderId and m['name'] == leaderName:
+                already_member = True
+        if already_member:
+            query = {'id': clubId, 'members.id': leaderId}
+            modify = {'$set': {
                 'leader': newLeader,
-                'manager': [newLeader],
+                'managers': [newLeader],
+                'members.$.state': 'joined',
             }}
+        else:
+            member = traitAttr(userInfo, {
+                'id': leaderId, 'name': leaderName, 'phone': '', 'major': '', 'introduction': '',
+                'selfPhoto': ''
+            })
+            member['state'] = 'apply'
+            query = {'id': clubId}
+            modify = {
+                '$set':{
+                    'leader': newLeader,
+                    'managers': [newLeader],
+                },
+                '$addToSet': {
+                    'members': member
+                }
+            }
+
+        updateRes = Mongo.club.update_one(
+            query,
+            modify
         )
         res = delManagerService(clubId, '', clubInfo['leader']['id']) and \
               addManagerService(clubId, clubInfo['name'], leaderId, 'admit') and \
