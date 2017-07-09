@@ -38,7 +38,6 @@ $(document).ready(function () {
                 return
             }
             data = data['info'];
-            if (data['state'] == 3) showAdmin();
             user_info = new Vue({
                 el: '#userInfo',
                 data: {
@@ -46,40 +45,7 @@ $(document).ready(function () {
                     is_full: is_full|| data.is_this_person,
                     show_medal: false,
                 },
-                filters: {
-                    lspace: function (x) {
-                        var s = x.toString();
-                        return Array(3 - s.length + 1).join('0') + s;
-                        // return String.format('%03d', (x % 1000));
-                    }
-                },
-                methods: {
-                    modify_userInfo: function () {
-                        $.ajax({
-                            type: 'POST',
-                            url: base_url + 'api/setPersonalInfo',
-                            contentType: 'application/json; charset=utf-8',
-                            // data: '{"userId":"' + user_id + '"}',
-                            data: JSON.stringify({
-                                userId: user_id
-                            }),
-                            dataType: 'json',
-                            success: function (data) {
-                                if (data['succeed']) {
-                                    alert('操作成功');
-                                } else {
-                                    if (data['errno'] === 2008) {
-                                        location.href = '/login.html';
-                                    } else {
-                                        alert(data['errmsg']);
-                                    }
-                                }
-                            }
-                        })
-                    }
-                }
             });
-            if (data.state == 3) showAdmin();
         }
     });
 });

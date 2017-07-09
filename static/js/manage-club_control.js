@@ -21,14 +21,14 @@ var app = new Vue({
                 alert('请至少提供一项筛选');
                 return;
             }
+            var submitInfo = {
+                major: this.filter_major == '' ? undefined : this.filter_major,
+                type: this.filter_type == '' ? undefined : this.filter_type,
+            };
             $.ajax({
                 type: 'POST',
                 url: base_url + 'api/searchClub',
-                //data: '{' + (this.filter_major == '' ? ('"major":"'+this.filter_major+'",') : '') + (this.filter_type == '' ? ('"major":"'+this.filter_type+'",') : '') '}',
-                data: JSON.stringify({
-                    major: this.filter_major == '' ? undefined : this.filter_major,
-                    type: this.filter_type == '' ? undefined : this.filter_type,
-                }),
+                data: JSON.stringify(submitInfo),
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
@@ -46,20 +46,5 @@ var app = new Vue({
 
 $(document).ready(function () {
     $('#nav').load('/static/nav.html');
-    $.ajax({
-        type: 'POST',
-        url:  base_url + 'api/getPersonalInfo',
-        contentType: 'application/json; charset=utf-8',
-        // data: '{"userId":"' + user_id + '"}',
-        data: JSON.stringify({}),
-        dataType: 'json',
-        success: function (data) {
-            if (data['succeed'] === false) {
-                return
-            }
-            data = data['info'];
-            if (data.state == 3) showAdmin();
-        }
-    });
 });
 

@@ -93,6 +93,20 @@
                 if (!data['succeed'] || !data['res']) {
                     $('#login_href').attr('href', '/login.html');
                     $('#login_text').html('登录');
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url:  base_url + 'api/getPersonalInfo',
+                        contentType: 'application/json; charset=utf-8',
+                        data: '{}',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data['succeed'] === false) {
+                                return
+                            }
+                            if (data['info'].state == 3) showAdmin();
+                        }
+                    });
                 }
             }
         })

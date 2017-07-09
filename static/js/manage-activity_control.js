@@ -60,18 +60,6 @@ $(document).ready(function() {
             }
         }
     });
-    $.ajax({
-        type: 'POST',
-        url: base_url + 'api/getPersonalInfo',
-        data: '{}',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function(data) {
-            if (data['succeed']) {
-                if (data.info.state == 3) showAdmin();
-            }
-        }
-    });
 });
 
 function setTab(name, cursel, n) {

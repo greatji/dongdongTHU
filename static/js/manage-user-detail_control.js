@@ -29,14 +29,15 @@ var app = new Vue({
             location.href = '/Details-activity.html?id=' + id;
         },
         changeState: function() {
+            var submitInfo = {
+                studentId: this.user.id,
+                level: this.user.state,
+            };
             $.ajax({
                 type: 'POST',
                 url: base_url + 'api/changeUserLevel',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({
-                    studentId: this.user.id,
-                    level: this.user.state,
-                }),
+                data: JSON.stringify(submitInfo),
                 dataType: 'json',
                 success: function(data) {
                     if (data['succeed']) {
@@ -62,18 +63,6 @@ $(document).ready(function() {
         success: function(data) {
             if (data['succeed']) {
                 app.activitys = data['info'];
-            }
-        }
-    });
-    $.ajax({
-        type: 'POST',
-        url: base_url + 'api/getPersonalInfo',
-        data: JSON.stringify({}),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function(data) {
-            if (data['succeed']) {
-                if (data.info.state == 3) showAdmin();
             }
         }
     });
