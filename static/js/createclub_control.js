@@ -92,7 +92,6 @@ $(document).ready(function() {
                     location.href = '/index.html';
                 }
             }
-            if (data['info']['state'] == 3) showAdmin();
         }
     });
 })

@@ -26,7 +26,6 @@ $(document).ready(function () {
                 return
             }
             data = data['info'];
-            if (data.state == 3) showAdmin();
             var clubDetails = new Vue({
                 el: '#deleteClub',
                 data: {

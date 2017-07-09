@@ -17,14 +17,15 @@ $(document).ready(function () {
             submit_info: function () {
 //                console.log(this.userid + ' ' + this.passwd);
                 vue_login.error = false;
+                var submitInfo = {
+                    studentId: this.userid,
+                    password: this.passwd
+                };
                 $.ajax({
                     type: 'POST',
                     url: base_url + 'api/login',
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({
-                        studentId: this.userid,
-                        password: this.passwd
-                    }),
+                    data: JSON.stringify(submitInfo),
                     dataType: 'json',
                     success: function(data) {
                         console.log(data);

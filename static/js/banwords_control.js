@@ -14,21 +14,6 @@ var clubId = param('id');
 
 $(document).ready(function () {
     $('#nav').load('/static/nav.html');
-    $.ajax({
-        type: 'POST',
-        url:  base_url + 'api/getPersonalInfo',
-        contentType: 'application/json; charset=utf-8',
-        // data: '{"userId":"' + user_id + '"}',
-        data: JSON.stringify({}),
-        dataType: 'json',
-        success: function (data) {
-            if (data['succeed'] === false) {
-                return
-            }
-            data = data['info'];
-            if (data.state == 3) showAdmin();
-        }
-    });
     var clubDetails = new Vue({
         el: '#banwords',
         data: {
@@ -47,7 +32,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     success: function (data) {
                         if (data['succeed']) {
-                            this.banwords = data['info'].join('+');
+                            clubDetails.banwords = data['info'].join('+');
                         } else {
                             alert(data['errmsg']);
                             location.href = '/index.html';
@@ -61,7 +46,7 @@ $(document).ready(function () {
                     url: base_url + 'api/setBannedWords',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify({
-                        bannedWords: this.banwords.split('+')
+                        bannedWords: clubDetails.banwords.split('+')
                     }),
                     dataType: 'json',
                     success: function (data) {
