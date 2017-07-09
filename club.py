@@ -391,7 +391,7 @@ def changeClubLeaderService(clubId, userInfo):
                 'id': leaderId, 'name': leaderName, 'phone': '', 'major': '', 'introduction': '',
                 'selfPhoto': ''
             })
-            member['state'] = 'apply'
+            member['state'] = 'joined'
             query = {'id': clubId}
             modify = {
                 '$set':{
