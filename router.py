@@ -668,7 +668,7 @@ def apiJoinClub(clubId):
 
 @app.route('/api/admitJoinClub', methods=['POST'])
 @jsonApi(
-    cludId=allChecked(lenIn(9, 9), isAllDigits),
+    clubId=allChecked(lenIn(9, 9), isAllDigits),
     memberId=allChecked(lenIn(10, 10), isAllDigits)
 )
 def apiAdmitJoinClub(clubId, memberId):
@@ -690,7 +690,7 @@ def apiChangeMemberState(clubId, memberId, state):
 
 @app.route('/api/changeClubLeader', methods=['POST'])
 @jsonApi(
-    cludId=allChecked(lenIn(9, 9), isAllDigits),
+    clubId=allChecked(lenIn(9, 9), isAllDigits),
     leaderId=allChecked(lenIn(10, 10), isAllDigits),
     leaderName=isStr,
 )
