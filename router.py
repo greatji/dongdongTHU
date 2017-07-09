@@ -879,8 +879,8 @@ def apiChangeUserLevel(studentId, level):
             res = changeUserLevelService(studentId, 1)
         elif level == 3:
             if studentId == session['studentId']:
-                # res = True
-            # else:
+                res = True
+            else:
                 res = changeUserLevelService(studentId, 3)
         else:
             res = False

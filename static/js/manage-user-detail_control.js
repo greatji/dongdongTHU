@@ -77,7 +77,7 @@ $(document).ready(function() {
             if (data['succeed']) {
                 app.user = data['info'];
                 if (app.user.state == 3) app.level = 3;
-                if (app.user.state == 2 && app.user.president.length == 0) app.level =  0;
+                else if (app.user.state == 2 && app.user.president.length == 0) app.level =  0;
                 else app.level = 1;
             }
         }
