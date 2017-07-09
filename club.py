@@ -368,7 +368,7 @@ def getMajor(clubId):
 
 
 def changeClubLeaderService(clubId, leaderId, leaderName):
-    clubInfo = getClubService(clubId, [])
+    clubInfo = getClubService(clubId, ['joined'])
     if not clubInfo:
         return None
     else:
@@ -377,7 +377,7 @@ def changeClubLeaderService(clubId, leaderId, leaderName):
             {'id': clubId},
             {'$set': {
                 'leader': newLeader,
-                'manager': newLeader,
+                'manager': [newLeader],
             }}
         )
         res = delManagerService(clubId, '', clubInfo['leader']['id']) and \
