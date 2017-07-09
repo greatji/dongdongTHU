@@ -370,7 +370,7 @@ def getMajor(clubId):
 def changeClubLeaderService(clubId, userInfo):
     leaderId = userInfo['id']
     leaderName = userInfo['name']
-    clubInfo = getClubService(clubId, ['joined'])
+    clubInfo = getClubService(clubId, ['joined', 'apply', 'quit', 'refuse'])
     if not clubInfo:
         return None
     else:
