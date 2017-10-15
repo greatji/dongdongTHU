@@ -9,5 +9,5 @@ import redis
 # MySql = sessionmaker(bind=engine)
 
 Mongo = MongoClient('123.207.153.209', 27017)['test']
-Mongo.authenticate("ubuntu", "ubuntu@2016")
+Mongo.authenticate("ubuntu", "dongdong1.2.3.!")
 Redis = redis.Redis()
